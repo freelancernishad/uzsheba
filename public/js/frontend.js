@@ -13296,9 +13296,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     changeName: function changeName(value) {
       if (value == 'admin') {
-        return 'এডমিন';
+        return 'উপজেলা চেয়ারম্যান';
       } else if (value == 'sub_admin') {
-        return 'সাব-এডমিন';
+        return 'উপজেলা ইঞ্জিনিয়ার';
       }
     },
     getMonthFromString: function getMonthFromString(mon) {
