@@ -105,7 +105,7 @@
 
                             <td class="sonodTd">
 
-                                <a v-if="item.status=='pending' && $localStorage.getItem('position') == 'admin'" :href="'/dashboard/application/edit/'+item.id" class="btn btn-info">Edit</a>
+                                <!-- <a v-if="item.status=='pending' && $localStorage.getItem('position') == 'admin'" :href="'/dashboard/application/edit/'+item.id" class="btn btn-info">Edit</a> -->
 
                                 <span v-if="item.status=='pending' && $localStorage.getItem('position') == 'admin'" @click="approve('/api/application/status', item, 'processing','আবেদনটি তদন্তের জন্য প্রেরণ করতে চান!','আবেদনটি তদন্তের জন্য প্রেরণ করা হয়েছে!', $event.target)" class="btn btn-success">তদন্তের জন্য প্রেরণ করুন</span>
 
