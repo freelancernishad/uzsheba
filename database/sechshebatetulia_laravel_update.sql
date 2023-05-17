@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2023 at 11:57 AM
+-- Generation Time: May 17, 2023 at 04:52 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -30,7 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `aplications` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `licence_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sonod_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `applicant_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `building_construction` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `appicant_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `applicant_father_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `appicant_sumiti_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -47,6 +49,7 @@ CREATE TABLE `aplications` (
   `mobile_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nid_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dateOfBirth` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nolkup_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nolkup_size` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `area_description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -74,6 +77,7 @@ CREATE TABLE `aplications` (
   `map` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `wyarisan` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
+  `id_of_the_investigating_officer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Unpaid',
   `approved_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `reporter_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -84,14 +88,7 @@ CREATE TABLE `aplications` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `aplications`
---
 
-INSERT INTO `aplications` (`id`, `licence_no`, `applicant_type`, `appicant_name`, `applicant_father_name`, `appicant_sumiti_name`, `applicant_sumiti_registration_no`, `applicant_p_m_name`, `gostir_name`, `applicant_g_p_m_name`, `district`, `upozila`, `union`, `post`, `wordNo`, `village`, `mobile_number`, `email`, `nid_no`, `nolkup_type`, `nolkup_size`, `area_description`, `area_name`, `mouja_name`, `JL_No`, `khotiyan_no`, `dag_NO`, `land_amount`, `near_nolkup_type`, `near_nolkup_uttor`, `near_nolkup_dokkhin`, `near_nolkup_purbo`, `near_nolkup_poscim`, `electricity_distance`, `description`, `deposite_fee`, `deposite_date`, `owner_type`, `passport_size_mage`, `nid_copy`, `land_copy`, `khotiyan_copy`, `tax_copy`, `map`, `wyarisan`, `status`, `payment_status`, `approved_date`, `reporter_name`, `reporter_signature`, `reporter_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, '771908312300001', 'একক ব্যক্তি', 'নাম2', 'hgfgh', NULL, NULL, NULL, NULL, NULL, 'পঞ্চগড়', 'তেঁতুলিয়া', 'তেঁতুলিয়া', 'বাংলাবান্ধা', '1', 'গ্রাম/মহল্লা', '01909756552', 'freelancernishad123@gmail.com', '১২৫৪৭৮৯৩২', 'গভীর', '০.৫ কিউসেক মিটার (৬ হেক্টর)', 'fgh', 'বানেশর পাড়া', 'মৌজা', '১২৪৫', '৪৫২১', '৪৫৪৫', 'Bangladesh', 'গভীর', '১০', '০৪', '৬৫', '৪২', 'Dhaka', 'sfsfd', '0', '2023-03-14', 'আবেদনকারীর নিজ নামে', 'sonod/passport_size_mage/1678811900____78468.jpeg', 'sonod/nid_copy/1678811900____55990.png', '[\"sonod\\/land_copy\\/1678811900____21844.png\",\"sonod\\/land_copy\\/1678811900____93480.png\"]', 'sonod/khotiyan_copy/1678811900____23214.png', 'sonod/tax_copy/1678811900____74548.png', 'sonod/map/1678811900____17973.png', NULL, 'approved', 'Paid', '2023-03-21 03:58:25', 'Admin', 'sonod/signature/1678813474____81125.png', '1', '2023-03-14 16:38:20', '2023-03-20 05:33:40', NULL),
-(3, '771908312300002', 'একক ব্যক্তি', 'নাম2', 'hgfgh', NULL, NULL, NULL, NULL, NULL, 'পঞ্চগড়', 'দেবীগঞ্জ', 'টেপ্রীগঞ্জ', 'সিপাইপাড়া', '1', 'গ্রাম/মহল্লা', '01909756552', 'freelancernishad123@gmail.com', '১২৫৪৭৮৯৩২', 'গভীর', '০.৫ কিউসেক মিটার (৬ হেক্টর)', 'dfgdg', 'বানেশর পাড়া', 'মৌজা', 'জে.এল.নং', 'খতিয়ান নং', 'দাগ নং', 'Bangladesh', 'গভীর', '১০', '০৪', '৬৫', '৪২', 'Dhaka', 'gffg', '0', '2023-03-20', 'আবেদনকারীর নিজ নামে', NULL, NULL, '[\"sonod\\/land_copy\\/1679289940____27074.png\"]', NULL, NULL, NULL, NULL, 'Prepaid', 'Unpaid', '2023-03-20 05:25:40', NULL, NULL, NULL, '2023-03-20 05:25:40', '2023-03-20 05:25:40', NULL),
-(4, '771908312300003', 'একক ব্যক্তি', 'নাম2', 'hgfgh', NULL, NULL, NULL, NULL, NULL, 'পঞ্চগড়', 'দেবীগঞ্জ', 'টেপ্রীগঞ্জ', 'বাংলাবান্ধা', '1', 'গ্রাম/মহল্লা', '01909756552', 'freelancernishad123@gmail.com', '১২৫৪৭৮৯৩২', 'গভীর', '০.৫ কিউসেক মিটার (৬ হেক্টর)', 'rg', 'বানেশর পাড়া', 'মৌজা', 'জে.এল.নং', 'খতিয়ান নং', 'দাগ নং', 'Bangladesh', 'গভীর', '১০', '০৪', '৬৫', '৪২', 'Dhaka', 'fdgdfg', '0', '2023-03-20', 'আবেদনকারীর নিজ নামে', NULL, NULL, '[\"sonod\\/land_copy\\/1679290056____39277.png\"]', NULL, NULL, NULL, NULL, 'Prepaid', 'Unpaid', '2023-03-20 05:27:36', NULL, NULL, NULL, '2023-03-20 05:27:36', '2023-03-20 05:27:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -116,6 +113,13 @@ CREATE TABLE `application_repprts` (
   `right_area` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `distanceTo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `hand_map` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `land_length` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ayoton` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `paperTrueOrNot` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mapBNNCCode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Supervision_Engineer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `posibleFalse` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reporter_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reporter_signature` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reporter_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -127,9 +131,55 @@ CREATE TABLE `application_repprts` (
 -- Dumping data for table `application_repprts`
 --
 
-INSERT INTO `application_repprts` (`id`, `license_id`, `appicant_name`, `applicant_father_name`, `village`, `union`, `mouja_name`, `JL_No`, `khotiyan_no`, `dag_NO`, `save_water_Condition`, `helpfull_area`, `home_and_other_benefite`, `right_area`, `distanceTo`, `hand_map`, `reporter_name`, `reporter_signature`, `reporter_id`, `created_at`, `updated_at`) VALUES
-(1, '2', 'নাম2', 'hgfgh', 'গ্রাম/মহল্লা', 'তেঁতুলিয়া', 'মৌজা', '১২৪৫', '৪৫২১', '৪৫৪৫', 'যে স্থানে নলকূপ স্থাপন করা হবে সেই স্থানের পানিধারক স্তরের অবস্থা', 'নলকূপ দ্বারা উপকৃত হবে এইরূপ সম্ভাব্য এলাকা', 'গৃহস্থালীর উদ্দেশ্যে ব্যবহৃত নলকূপসহ অন্যান্য নলকূপের উপর সম্ভাব্য প্রভাব', 'নলকূপ স্থাপনের জন্য খনন স্থানের উপযুক্ততা', 'দুইটি নলকূপের পারস্পরিক দূরত্ব (সর্বনিম্ন ০.৫০ কিউসেক ক্যাপাসিটির ২৫০ মিটার)', NULL, 'Admin', 'sonod/signature/1678813474____81125.png', '1', '2023-03-14 16:52:08', '2023-03-14 16:52:08'),
-(2, '2', 'নাম2', 'hgfgh', 'গ্রাম/মহল্লা', 'তেঁতুলিয়া', 'মৌজা', '১২৪৫', '৪৫২১', '৪৫৪৫', 'যে স্থানে নলকূপ স্থাপন করা হবে সেই স্থানের পানিধারক স্তরের অবস্থা', 'srg', 'dfg', 'dffg', 'dfg', NULL, 'Admin', 'sonod/signature/1678813474____81125.png', '1', '2023-03-20 05:33:31', '2023-03-20 05:33:31');
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `citizen_information`
+--
+
+CREATE TABLE `citizen_information` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `fullNameEN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fathersNameEN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mothersNameEN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `spouseNameEN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentAddressEN` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permenantAddressEN` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fullNameBN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fathersNameBN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mothersNameBN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `spouseNameBN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentAddressBN` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentHolding` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentVillage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentUnion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentPost` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentPostCode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentThana` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presentDistrict` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentAddressBN` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentHolding` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentVillage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentUnion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentPost` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentPostCode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentThana` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentDistrict` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profession` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dateOfBirth` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birthPlaceBN` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mothersNationalityBN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mothersNationalityEN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fathersNationalityBN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fathersNationalityEN` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birthRegistrationNumber` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nationalIdNumber` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `oldNationalIdNumber` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photoUrl` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -302,7 +352,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2021_09_06_171499_create_thanas_table', 1),
 (8, '2021_09_06_171500_create_unions_table', 1),
 (9, '2022_02_01_090057_create_aplications_table', 1),
-(10, '2022_02_03_161045_create_application_repprts_table', 2);
+(10, '2022_02_03_161045_create_application_repprts_table', 2),
+(11, '2016_06_01_000001_create_oauth_auth_codes_table', 2),
+(12, '2016_06_01_000002_create_oauth_access_tokens_table', 2),
+(13, '2016_06_01_000003_create_oauth_refresh_tokens_table', 2),
+(14, '2016_06_01_000004_create_oauth_clients_table', 2),
+(15, '2016_06_01_000005_create_oauth_personal_access_clients_table', 2),
+(16, '2023_03_30_120527_create_citizen_information_table', 3);
 
 -- --------------------------------------------------------
 
@@ -338,6 +394,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('04e0b263feea451986eaf1405231ba125a68b6b0f828736472d71bc009eaaa847c2009730fd89b0f', 80, 1, 'accessToken', '[]', 0, '2022-09-18 06:59:39', '2022-09-18 06:59:39', '2023-09-18 12:59:39'),
 ('059d42d490059b1aabfb8329ee7889d31975953cb970739436598901781567ebdc981e857d790a6f', 1, 1, 'accessToken', '[]', 0, '2023-03-13 08:35:18', '2023-03-13 08:35:18', '2024-03-13 14:35:18'),
 ('060e6d73ab4e306a8bf61cee02fcfbed5843727d4ba101ce63eb1ee9a6eb33d8541ec3f549797a5a', 2, 1, 'accessToken', '[]', 0, '2022-09-13 01:09:42', '2022-09-13 01:09:42', '2023-09-12 21:09:42'),
+('067f4456082eef2ae646dffa2bc3385e42db979ada40da486b7e43e5506ee35edd708fbfb6adb599', 4, 1, 'accessToken', '[]', 0, '2023-05-15 07:35:34', '2023-05-15 07:35:34', '2024-05-15 13:35:34'),
 ('06887c161023dd338ff6ec472312d9fd42a941327321530b7cffa8aad5531215055f602604084c6f', 2, 1, 'accessToken', '[]', 0, '2022-07-25 18:23:06', '2022-07-25 18:23:06', '2023-07-26 00:23:06'),
 ('0773ffe46692c7d389ebd657c7014fcef796ebf3c88fcf13140479756e536f142661b382ce637c0a', 3, 1, 'accessToken', '[]', 0, '2022-07-27 02:32:05', '2022-07-27 02:32:05', '2023-07-27 02:32:05'),
 ('07f874e8131a13ff65c0f2934d21d23c0e556245ad894380c46a33135eb15ccea6afb89fb882ffec', 2, 1, 'accessToken', '[]', 0, '2022-08-08 20:16:27', '2022-08-08 20:16:27', '2023-08-08 20:16:27'),
@@ -367,6 +424,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('13d9b9030b9dce38c9485e9c036818de1147680a6faa46439e1f7f65ee792a4de7d9d40d43c0ef78', 2, 1, 'accessToken', '[]', 0, '2022-07-12 18:04:42', '2022-07-12 18:04:42', '2023-07-13 00:04:42'),
 ('14816ec0cd093828f49794b2c6e7963cf5c760e6d91fb5b2738480261659bdfdc2505ce06254457c', 5, 1, 'accessToken', '[]', 0, '2023-03-07 17:24:45', '2023-03-07 17:24:45', '2024-03-07 23:24:45'),
 ('14b42f546758065215941544505e6c5afd4bfd2b720fd9806065ec8d425b45f96fe855eadb64c5d2', 80, 1, 'accessToken', '[]', 0, '2022-10-16 17:54:56', '2022-10-16 17:54:56', '2023-10-16 23:54:56'),
+('151966d5f2c2774fd34b9aa9f71238263f24e8cbda6cc0b77fcb1711218e020c2ae2bb0334d624f6', 4, 1, 'accessToken', '[]', 0, '2023-05-14 11:01:35', '2023-05-14 11:01:35', '2024-05-14 17:01:35'),
 ('1725c4a3dd1e10801bca337403413cde1eacac4691382f97556296e1b703afd03355dfa71d12b000', 39, 1, 'accessToken', '[]', 0, '2022-10-16 18:12:35', '2022-10-16 18:12:35', '2023-10-17 00:12:35'),
 ('18cc39416cee125f191cb4c7a18b6124c915f9e76119c7a6da7487fd8e6caf7b605f9e9253a3ca7b', 80, 1, 'accessToken', '[]', 0, '2022-10-03 08:09:59', '2022-10-03 08:09:59', '2023-10-03 14:09:59'),
 ('18da3e0a29d9532fbbb0cd5bd43301cff78fcfc785bfb11bb59ef45bffa4b5cd41ebee2bf4b98081', 39, 1, 'accessToken', '[]', 0, '2022-09-26 20:38:13', '2022-09-26 20:38:13', '2023-09-27 02:38:13'),
@@ -399,6 +457,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('2797582154f2b939b9c2cc8bbe1ae4ceb8da769b6abea2917fc2b523ab02133f1ce419038f451c7e', 2, 1, 'accessToken', '[]', 0, '2022-08-06 22:57:56', '2022-08-06 22:57:56', '2023-08-06 22:57:56'),
 ('280be9d9919f03906d27b43fe8984b49391d355cdc6cc40796dda32c24d64b5a36de10590728ad7b', 5, 1, 'accessToken', '[]', 0, '2022-09-11 04:36:53', '2022-09-11 04:36:53', '2023-09-11 00:36:53'),
 ('2840990f144119f10230645f21dc6438c41dfd7b08eaa5cd3b9af941447eae0c3e35d2a98642df7a', 3, 1, 'accessToken', '[]', 0, '2022-08-06 22:06:04', '2022-08-06 22:06:04', '2023-08-06 22:06:04'),
+('28db2a7f08977414a1099306929552ebfc567e2dd1c778313b33d4f95b056cc441881366fe8a511a', 4, 1, 'accessToken', '[]', 0, '2023-05-08 16:05:39', '2023-05-08 16:05:39', '2024-05-08 22:05:39'),
 ('28dfaf2b918ee03867a1d2d43de9e19d0a03d2a0067b39a04acef020842e85aa108135ef80d1c2cd', 3, 1, 'accessToken', '[]', 0, '2022-07-16 08:14:18', '2022-07-16 08:14:18', '2023-07-16 14:14:18'),
 ('28ea192b4ac0ec68ced14c951e5335934da472b03214bfda173c6c2029b9dd3827411d3345098513', 2, 1, 'accessToken', '[]', 0, '2022-07-12 18:02:43', '2022-07-12 18:02:43', '2023-07-13 00:02:43'),
 ('293d57df16a09e9718d2833f703a0074bf2a3cc2998d6eb22f6151141465bdf7152f8472db475125', 2, 1, 'accessToken', '[]', 0, '2022-08-01 14:13:29', '2022-08-01 14:13:29', '2023-08-01 14:13:29'),
@@ -446,6 +505,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('3fd8127a2a63f24be6b93f5422f67615897c555f301aa130f13b235f71c48a7fad485dcfad582242', 39, 1, 'accessToken', '[]', 0, '2022-10-16 04:39:30', '2022-10-16 04:39:30', '2023-10-16 10:39:30'),
 ('407a440d32c9866967e673af988a054a5c993d3d942eca75dff148e17cc2bcd939528172dc79eede', 5, 1, 'accessToken', '[]', 0, '2022-12-26 06:59:12', '2022-12-26 06:59:12', '2023-12-26 12:59:12'),
 ('40a0686437150a2835eedfe5ce9d5e72d1cf0fc309445cf1a638171c8265a3f82eec80777e813522', 2, 1, 'accessToken', '[]', 0, '2022-08-03 16:29:29', '2022-08-03 16:29:29', '2023-08-03 16:29:29'),
+('43247546b5a4de0c15ba0784548cccf6e88974279e509c661204194f990909c850c117c3cccb1f00', 4, 1, 'accessToken', '[]', 0, '2023-05-10 04:25:50', '2023-05-10 04:25:50', '2024-05-10 10:25:50'),
 ('433b7da37aef345c642a49f78f2bbc1df0cafa3d3dd47fd85e62209383f75d2e7d111b608ec4d189', 80, 1, 'accessToken', '[]', 0, '2022-09-12 17:30:12', '2022-09-12 17:30:12', '2023-09-12 13:30:12'),
 ('43959df396b86d554be865209bc3a9b6e461d05f57b7516669667bbdb1131229deb90400533f9682', 2, 1, 'accessToken', '[]', 0, '2022-07-27 15:57:43', '2022-07-27 15:57:43', '2023-07-27 15:57:43'),
 ('4454734bb234346618f9cfd3afd78e6f7ef055c70ee05c69db0494b234e37f4bba8a38d537bfd07e', 2, 1, 'accessToken', '[]', 0, '2022-09-14 07:42:16', '2022-09-14 07:42:16', '2023-09-14 13:42:16'),
@@ -459,6 +519,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('47ab06086c4811b312bcddfffbb98ba27e0b1665f89a7de259dc0fce9b716b02ce3994c798c1cb93', 2, 1, 'accessToken', '[]', 0, '2022-08-01 14:12:15', '2022-08-01 14:12:15', '2023-08-01 14:12:15'),
 ('47efb4bdf4cb914aec699333765e0f846cb9cc9ab3e330ce67161ef938b98175967e466bdbedf6f2', 5, 1, 'accessToken', '[]', 0, '2023-03-10 15:41:35', '2023-03-10 15:41:35', '2024-03-10 21:41:35'),
 ('48535729eb99f2e6e25d4ba3351cfdb2a647fbb30d374ff5444047c5a7ead7590958159492fc2a81', 80, 1, 'accessToken', '[]', 0, '2022-09-27 06:20:04', '2022-09-27 06:20:04', '2023-09-27 12:20:04'),
+('485484c88085074891ebf373c8f2bf35a8ac470fe5b44c3e5adc7c9b6c80fff96af021b5ff6ef650', 1, 1, 'accessToken', '[]', 0, '2023-04-17 04:17:36', '2023-04-17 04:17:36', '2024-04-17 10:17:36'),
 ('4860e44825f42ff223ffe515ffdaa236c8dcd964d9f0c7dbac9fe312105e5aca796441adb01e6b0f', 2, 1, 'accessToken', '[]', 0, '2022-08-01 14:11:24', '2022-08-01 14:11:24', '2023-08-01 14:11:24'),
 ('4870646ce6ccccec3d2a784c26dfc7cf40427bf2dab12fa5909b3bd4a5d190ec97a33d3e7d40e880', 2, 1, 'accessToken', '[]', 0, '2022-08-02 19:21:37', '2022-08-02 19:21:37', '2023-08-02 19:21:37'),
 ('487473febc2113df20adf0a7664e84f617b131d46b852211fe119b7c39693ace29133801743c9faa', 2, 1, 'accessToken', '[]', 0, '2022-07-30 10:43:05', '2022-07-30 10:43:05', '2023-07-30 10:43:05'),
@@ -479,6 +540,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('4eea0d52e30678e3212738e1edffcb7ec04e04cee9305a1e901d2224b3b31e01e5f8339050c55b9d', 2, 1, 'accessToken', '[]', 0, '2022-07-31 11:38:43', '2022-07-31 11:38:43', '2023-07-31 11:38:43'),
 ('506f92df932107b6fe6c0322bf2df284dace00f37bf64d7474b5aef6027eb520f0aff48a5c063baa', 80, 1, 'accessToken', '[]', 0, '2022-10-16 04:31:23', '2022-10-16 04:31:23', '2023-10-16 10:31:23'),
 ('50b14bba7c621661aba9bd9a155974dcd5b3268319703c8c60abb6636cc701f29905ef86f232cd77', 5, 1, 'accessToken', '[]', 0, '2022-09-11 04:33:05', '2022-09-11 04:33:05', '2023-09-11 00:33:05'),
+('50c9d22852657c301ca473324e1233a35ea7df344dd2f06b7c403b3a81f8e6be9732e61b0d627a42', 2, 1, 'accessToken', '[]', 0, '2023-05-08 16:08:55', '2023-05-08 16:08:55', '2024-05-08 22:08:55'),
 ('5114c7a78e39624821f3884a54b2bafb1b8bc960c709a7f8635ccfbf0c1a6e5d400c1d5dbd372115', 2, 1, 'accessToken', '[]', 0, '2022-09-12 04:27:20', '2022-09-12 04:27:20', '2023-09-12 00:27:20'),
 ('51a6a330236bbfe08c679d13d99bd1a7fde54b33c4e90c14e7a5b8c967bda54b1706080e76644267', 5, 1, 'accessToken', '[]', 0, '2022-12-30 09:09:15', '2022-12-30 09:09:15', '2023-12-30 15:09:15'),
 ('526acd845e4e80cb90d365be3f8129df8be35e3531bb63094d747ea754aae41f60e24e20c525efb4', 2, 1, 'accessToken', '[]', 0, '2022-08-01 14:07:44', '2022-08-01 14:07:44', '2023-08-01 14:07:44'),
@@ -527,6 +589,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('69914e3e411089b52c775e74a6cafb7095de7932416b2ef3205141d2868e3079becb7e14163886d3', 2, 1, 'accessToken', '[]', 0, '2022-09-13 15:11:41', '2022-09-13 15:11:41', '2023-09-13 11:11:41'),
 ('69c33ba7a003b7552570daecd20829db8e747f612d7045e49fa2ba885e279def702379346403ac3e', 1, 1, 'accessToken', '[]', 0, '2023-03-03 18:37:50', '2023-03-03 18:37:50', '2024-03-04 00:37:50'),
 ('69ca25f928c5a39ece13f544eab1bd87564175976582654974463a3f744cc36bc090df2ae2178da4', 5, 1, 'accessToken', '[]', 0, '2022-08-02 22:37:17', '2022-08-02 22:37:17', '2023-08-02 22:37:17'),
+('6a20a1aeb4a2f402b1f79ea057c35580ccd0f7bb581675c2e8d25ba43cf43c04a79394f1aec70e45', 4, 1, 'accessToken', '[]', 0, '2023-05-08 08:42:20', '2023-05-08 08:42:20', '2024-05-08 14:42:20'),
 ('6a2209ff338f9eb23d8abb5c60fad28221c4113f9c071ff14702b65df7437ccfb183134c1836f304', 5, 1, 'accessToken', '[]', 0, '2022-07-31 12:08:56', '2022-07-31 12:08:56', '2023-07-31 12:08:56'),
 ('6b1d5f71284ea0f1ae8fc3299a9466d9cfb669ab0789a60e499e612bef2067f1a962bf4f8743a0fc', 5, 1, 'accessToken', '[]', 0, '2022-11-08 17:36:58', '2022-11-08 17:36:58', '2023-11-08 23:36:58'),
 ('6b89ea3809acfd6ef1590f8ee2040af6fd588c72430cefac934840a9777256706abf16b498911106', 3, 1, 'accessToken', '[]', 0, '2022-07-30 22:19:39', '2022-07-30 22:19:39', '2023-07-30 22:19:39'),
@@ -582,6 +645,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('8454a981765d5d865f9678a76ed9ff92b0b154989f81a2ebc3eda24e59aa028eac914d9db16a566e', 80, 1, 'accessToken', '[]', 0, '2022-10-12 10:01:23', '2022-10-12 10:01:23', '2023-10-12 16:01:23'),
 ('84dbfe9136cb26d19cf9023c0415060ff99c4fb36902511dfc481c96a3924edb82e17e8e57c946e3', 43, 1, 'accessToken', '[]', 0, '2022-09-13 16:38:40', '2022-09-13 16:38:40', '2023-09-13 12:38:40'),
 ('86c91273b07fd56063f99e4a0669ba2f65d16f64381cfcab32ed59682942fec57d16e0f864b3514f', 39, 1, 'accessToken', '[]', 0, '2022-10-16 18:39:18', '2022-10-16 18:39:18', '2023-10-17 00:39:18'),
+('86ec02d372d18abf20ee8e5fd849e9b9fc66bc92f99638cd1246b909a56a32870d3b8ceccec95f7c', 4, 1, 'accessToken', '[]', 0, '2023-05-15 05:18:31', '2023-05-15 05:18:31', '2024-05-15 11:18:31'),
 ('8704d54598bfc239b766137f7eda23142f7fdbded79d39c7917b3f6bd0a1940ba4d83be38b034722', 2, 1, 'accessToken', '[]', 0, '2022-08-01 14:06:16', '2022-08-01 14:06:16', '2023-08-01 14:06:16'),
 ('89d79a7da3418a7f724cac397b79f6e0c762262bd81bd8e5df51c797f656c9dce5852e24760b1daf', 3, 1, 'accessToken', '[]', 0, '2022-08-08 15:25:46', '2022-08-08 15:25:46', '2023-08-08 15:25:46'),
 ('8a91bc5ce95acd9cdececc5d0e89d7dbb2ce916525fe1ecc3936db0e414e90bd945773e7a2890c9b', 3, 1, 'accessToken', '[]', 0, '2022-08-09 11:45:08', '2022-08-09 11:45:08', '2023-08-09 11:45:08'),
@@ -590,7 +654,8 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('8c14c55b239a9b020ff061d5119729cdbf63f4c255d69df4988a904ebb0b270f12aa49bdad49bae0', 2, 1, 'accessToken', '[]', 0, '2022-07-15 05:47:51', '2022-07-15 05:47:51', '2023-07-15 11:47:51'),
 ('8d501f9aa949c3c5a6701847530d51cb97eb5711576ea5615be6b29e0bc3791b8e2d2a4eca5ad526', 80, 1, 'accessToken', '[]', 0, '2022-10-16 04:27:23', '2022-10-16 04:27:23', '2023-10-16 10:27:23'),
 ('8d958dc864e27eeb3a6e30448af7a94e870869841c2cb69e273a3d6b7db560647a3a0d0b8dc80d8e', 3, 1, 'accessToken', '[]', 0, '2022-11-09 06:04:41', '2022-11-09 06:04:41', '2023-11-09 12:04:41'),
-('8e35e8bb3f2923a063c12422b279ee0e043b6610e7128052cbb8b7d87b8f55103562f9408012bcd4', 2, 1, 'accessToken', '[]', 0, '2022-07-30 23:45:04', '2022-07-30 23:45:04', '2023-07-30 23:45:04'),
+('8e35e8bb3f2923a063c12422b279ee0e043b6610e7128052cbb8b7d87b8f55103562f9408012bcd4', 2, 1, 'accessToken', '[]', 0, '2022-07-30 23:45:04', '2022-07-30 23:45:04', '2023-07-30 23:45:04');
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 ('8e6909cfac6224059f135a18addd22157154e4f412c7490151199bd662743404e2aa62c0c1b6ec4f', 1, 1, 'accessToken', '[]', 0, '2023-03-03 15:43:28', '2023-03-03 15:43:28', '2024-03-03 21:43:28'),
 ('8ed4d3601d973b6ec9c65db3b46cbd7db7ca4badda8c1d231e5721b6a0432ebe8e47edd9fe55003d', 1, 1, 'accessToken', '[]', 0, '2023-03-03 16:51:09', '2023-03-03 16:51:09', '2024-03-03 22:51:09'),
 ('8f1001d3f3f3f200858a28beddd472175df537e057b032225eed3bd2b158ff2e8b864079def1c616', 80, 1, 'accessToken', '[]', 0, '2022-10-16 04:45:13', '2022-10-16 04:45:13', '2023-10-16 10:45:13'),
@@ -598,8 +663,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('8ff18b9530e6bacc62a9c3f5780ccda2b5bf8444c36b239a47f6f0da61c0a8723fdf0be08ac5e46d', 3, 1, 'accessToken', '[]', 0, '2022-07-26 19:08:44', '2022-07-26 19:08:44', '2023-07-27 01:08:44'),
 ('90273a8cae5f2f2dadec2660b5eb0437afd45867117edb068f1992ae7755d219d7dbb1e72907e44d', 2, 1, 'accessToken', '[]', 0, '2022-08-24 01:03:19', '2022-08-24 01:03:19', '2023-08-23 21:03:19'),
 ('9065eb08da82cf2ee553d07114786cc97fa98e61af0158ea0ab273aff1064993556704185210dfbe', 3, 1, 'accessToken', '[]', 0, '2022-07-12 18:38:34', '2022-07-12 18:38:34', '2023-07-13 00:38:34'),
-('90700a3583fd43d5b194f66f716c0bdc4c5e41023b4a3f4472520f44f467afdfa871eaa73c92f4d9', 2, 1, 'accessToken', '[]', 0, '2022-07-30 01:30:09', '2022-07-30 01:30:09', '2023-07-30 01:30:09');
-INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('90700a3583fd43d5b194f66f716c0bdc4c5e41023b4a3f4472520f44f467afdfa871eaa73c92f4d9', 2, 1, 'accessToken', '[]', 0, '2022-07-30 01:30:09', '2022-07-30 01:30:09', '2023-07-30 01:30:09'),
 ('90d8e9c029117ac2aa9e85dee0404a977ef0e6856b0261081c5575e097294c0f2c36d0afc181cbd5', 3, 1, 'accessToken', '[]', 0, '2022-07-31 12:33:34', '2022-07-31 12:33:34', '2023-07-31 12:33:34'),
 ('911c23c361b7e2344d71a2b2222bbfbe8e440762464d2a61f242d97912ce3055724314a959d305f2', 5, 1, 'accessToken', '[]', 0, '2022-11-20 04:51:21', '2022-11-20 04:51:21', '2023-11-20 10:51:21'),
 ('914df6a28af3e18626c5c83c762a037f9a6c19c39019c575f588be78fe8fdb75f17f8b5b53796bea', 3, 1, 'accessToken', '[]', 0, '2022-07-30 21:56:07', '2022-07-30 21:56:07', '2023-07-30 21:56:07'),
@@ -681,6 +745,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('b99266c04927acfd20de87f1cd0587cc917754028af8a142412dc44865367f1bf6b9cb91d7b72e99', 80, 1, 'accessToken', '[]', 0, '2022-10-16 17:19:04', '2022-10-16 17:19:04', '2023-10-16 23:19:04'),
 ('b9b6650385bf41b847ccf9ac047fab26989066b5e9c284b66e5fc7010fd223d0431bc47824d2bd52', 2, 1, 'accessToken', '[]', 0, '2022-08-14 17:14:10', '2022-08-14 17:14:10', '2023-08-14 17:14:10'),
 ('ba455986fb3f306a08e4b746734b4712076b58ff016f6a02a3fb7108b15b399e3e6cb19439730252', 1, 1, 'accessToken', '[]', 0, '2023-03-03 17:43:40', '2023-03-03 17:43:40', '2024-03-03 23:43:40'),
+('ba8c2ecfb66360f3dbe2da2c16f81eccdd6b319710a4b5969d0774201e429e0607808e7b7123724a', 4, 1, 'accessToken', '[]', 0, '2023-05-08 08:41:48', '2023-05-08 08:41:48', '2024-05-08 14:41:48'),
 ('badfd1d4bbca3d698457f51d4dca7c15caea9489cdd2658e8a1ed89c0fbd536f02314f39457ad7c1', 4, 1, 'accessToken', '[]', 0, '2022-11-15 05:49:10', '2022-11-15 05:49:10', '2023-11-15 11:49:10'),
 ('bb060f1adbd5847030c271a34dbe9ccfcccbf0065309151c3b0d619bb1fbf01ee72617254732407e', 80, 1, 'accessToken', '[]', 0, '2022-09-27 19:16:02', '2022-09-27 19:16:02', '2023-09-28 01:16:02'),
 ('bb9df754514dfe12660281e5f6f39ac1bf1b254463ab4b565aedd6b733c6c621e480376ac355b0cb', 2, 1, 'accessToken', '[]', 0, '2022-08-14 13:45:43', '2022-08-14 13:45:43', '2023-08-14 13:45:43'),
@@ -704,6 +769,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('c4e8f01592a7168ae3a77b265c532dc553b847356549e7e89289cb78bd209f540f9a2864e463173a', 2, 1, 'accessToken', '[]', 0, '2022-07-28 23:02:47', '2022-07-28 23:02:47', '2023-07-28 23:02:47'),
 ('c516367b7d56011867f5422c945c078c1dd3b8c311a7589bbcff2c685c5a39de2926973b9e8f6f4a', 2, 1, 'accessToken', '[]', 0, '2022-07-12 18:19:14', '2022-07-12 18:19:14', '2023-07-13 00:19:14'),
 ('c560313c7f0c5f98d3babe0704ca2469feffd03530f602fe503f0ab7c407db64041fcc566833fe22', 3, 1, 'accessToken', '[]', 0, '2022-08-17 05:53:35', '2022-08-17 05:53:35', '2023-08-17 01:53:35'),
+('c5df9819ded5a66f444ec5c927e6e4e22dc29e33223d53ae4eef942e14553579aa53c89c6977861c', 4, 1, 'accessToken', '[]', 0, '2023-05-08 15:13:53', '2023-05-08 15:13:53', '2024-05-08 21:13:53'),
 ('c5e3861662f21bff81d20fe76f7d3d73e535d6497528a363c3b90c4dfd72144d62800ccb912aaed5', 1, 1, 'accessToken', '[]', 0, '2022-10-27 07:14:11', '2022-10-27 07:14:11', '2023-10-27 13:14:11'),
 ('c62e1cdae998c57c3a06e7b36a6a07885336b4a7c25eb4db2e6a5932a83c07b9c7c77ff3c7e51e2d', 1, 1, 'accessToken', '[]', 0, '2023-03-03 16:58:30', '2023-03-03 16:58:30', '2024-03-03 22:58:30'),
 ('c658cd529962c561e79a57f375e13b70a4bfd1e37d2cde134f19555f4a49779cf801f60542381ff5', 2, 1, 'accessToken', '[]', 0, '2022-08-11 12:59:45', '2022-08-11 12:59:45', '2023-08-11 12:59:45'),
@@ -717,12 +783,14 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('c95b4c8c8837b384a9a70d29b540077d47f48993e3506e2e7a60ae4d7afc2f102a690a65e17a1897', 43, 1, 'accessToken', '[]', 0, '2022-09-13 15:12:08', '2022-09-13 15:12:08', '2023-09-13 11:12:08'),
 ('ca63293950594f4fc872ef14119e1ac7d9a7f4d0b7b588697cf73f1e678e965ebe0c40de2f11f6cd', 3, 1, 'accessToken', '[]', 0, '2022-07-29 23:56:04', '2022-07-29 23:56:04', '2023-07-29 23:56:04'),
 ('cb1907141edabad62047fc66242e2aa00fd0b0e90974543878ca36a0d59dcca7297b51117c2cb809', 2, 1, 'accessToken', '[]', 0, '2022-07-16 08:17:48', '2022-07-16 08:17:48', '2023-07-16 14:17:48'),
+('cba0ae7809caa3ac997f9e0af9eb0b562c3178b8798cfa9b19ae57e4bb6f38b9cdb3d760cf5c027f', 4, 1, 'accessToken', '[]', 0, '2023-05-14 15:20:54', '2023-05-14 15:20:54', '2024-05-14 21:20:54'),
 ('cc2328fb83ff32eb4dc9c63064e2d51c507a5f4f209c1e34df77d3434cf4aafcde4b4e3560ffe090', 2, 1, 'accessToken', '[]', 0, '2022-07-16 07:39:31', '2022-07-16 07:39:31', '2023-07-16 13:39:31'),
 ('ccdf0ffbc3971af991a568daf5d7b3cc48b026e8361c5d194eaee3bf21d65ad4a874dff4a1de3896', 2, 1, 'accessToken', '[]', 0, '2022-07-29 21:40:15', '2022-07-29 21:40:15', '2023-07-29 21:40:15'),
 ('cd828054df8339a5998c13272b31ced4ce0f8de6716cf93d6a4bda3fa9989d9cf91a22a55f8e618d', 3, 1, 'accessToken', '[]', 0, '2022-08-08 11:08:21', '2022-08-08 11:08:21', '2023-08-08 11:08:21'),
 ('cde7cecce913774a0e6786311c865704cefd45d9b2a87b66d71f23ad60e978dc03b9f42a577f7303', 2, 1, 'accessToken', '[]', 0, '2022-07-24 08:41:13', '2022-07-24 08:41:13', '2023-07-24 14:41:13'),
 ('cf69202378f24749f55674162779f2e139311097c157e955c8a655f3a79650c25bbb413ba57c69be', 39, 1, 'accessToken', '[]', 0, '2022-09-16 08:52:16', '2022-09-16 08:52:16', '2023-09-16 14:52:16'),
 ('cf7f5371d8a8e71333d0a7a9ac02a6571fd0b4646cbbd1d4b043bb5f48c380670d2a48a170256a73', 2, 1, 'accessToken', '[]', 0, '2022-08-06 16:36:02', '2022-08-06 16:36:02', '2023-08-06 16:36:02'),
+('cf92b7e858acae9545186233ef5fbee883b425b76ce0310c3172fe7e717ecef500f72a474c6e8a50', 1, 1, 'accessToken', '[]', 0, '2023-04-10 02:53:07', '2023-04-10 02:53:07', '2024-04-10 08:53:07'),
 ('d071e13b414c657bafb41c6f0fec095b67a5e784ad621424a5874cd9ba417d19e5b61f41ba0eb689', 80, 1, 'accessToken', '[]', 0, '2022-10-16 06:01:44', '2022-10-16 06:01:44', '2023-10-16 12:01:44'),
 ('d0e2e97a8e2fa607b2d6bbb60e943c342570ef827dbaef12d2376bc01d02537332a58b4bf76ed901', 80, 1, 'accessToken', '[]', 0, '2022-09-18 04:32:15', '2022-09-18 04:32:15', '2023-09-18 10:32:15'),
 ('d0f1355c6b594350405ecfdfdc9c40ff1ee064fbda88e132d1adcb44cefef745123b251da842f09f', 2, 1, 'accessToken', '[]', 0, '2022-07-30 21:45:18', '2022-07-30 21:45:18', '2023-07-30 21:45:18'),
@@ -730,6 +798,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('d1e4cc88d4fe2e39db22c8a4a19cf9f714f6c5ba133462794b959d60be871c6bdfc8562ce3eae62d', 2, 1, 'accessToken', '[]', 0, '2022-08-09 11:46:26', '2022-08-09 11:46:26', '2023-08-09 11:46:26'),
 ('d1efab4b1cc06e16d599372cb08db975912c83f29e32c1334f36eb1bef30b44cc23e1a812bf8a6ac', 39, 1, 'accessToken', '[]', 0, '2022-09-26 20:39:13', '2022-09-26 20:39:13', '2023-09-27 02:39:13'),
 ('d1fcd3d902a6a2e0d1469ba6818cfcb1cdcff4f932e650faf69fde04095e87eaca11d06bdf16d192', 80, 1, 'accessToken', '[]', 0, '2022-10-03 20:16:20', '2022-10-03 20:16:20', '2023-10-04 02:16:20'),
+('d2bf2e72479f6040176f32b819f164b06996b51f247984c87124eb7b8f1ac396f96f2ef59d8bbcbd', 4, 1, 'accessToken', '[]', 0, '2023-05-08 16:12:23', '2023-05-08 16:12:23', '2024-05-08 22:12:23'),
 ('d2dc33bd242dd721f54ae7cb4687c2e5645aec45b9fcf784b5e92f03af93a037a69a36312d4446c7', 39, 1, 'accessToken', '[]', 0, '2022-10-16 17:21:03', '2022-10-16 17:21:03', '2023-10-16 23:21:03'),
 ('d3262646f752721f84df066be1f8ca32f14136a6b24d48071b74e3f9332ae4e6c0bc45a2a84ce7db', 2, 1, 'accessToken', '[]', 0, '2022-08-07 12:55:15', '2022-08-07 12:55:15', '2023-08-07 12:55:15'),
 ('d364ac38aaf3eb4fc80b428fa59b61597fe24c14f1a450749363bc314ad86cd394f449e9f59f6e40', 1, 1, 'accessToken', '[]', 0, '2022-09-29 07:30:23', '2022-09-29 07:30:23', '2023-09-29 13:30:23'),
@@ -745,6 +814,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('dc3ebdf73b69adb1db88b6d49cdccd67d10fd5e29a6057014fb885621bb53d672ef8a395a0c915e9', 43, 1, 'accessToken', '[]', 0, '2022-09-13 05:22:03', '2022-09-13 05:22:03', '2023-09-13 01:22:03'),
 ('dc498650d31b5742bfe7a9bd8fd382f0d4f0bc3351f4671c88602d6616e2d563ef02a57927b7cc6c', 2, 1, 'accessToken', '[]', 0, '2022-07-27 02:32:27', '2022-07-27 02:32:27', '2023-07-27 02:32:27'),
 ('dc5edb2b19c337a68a87b1276f64309eac08aa11c1a00020e251ed6f4768c600f3d5c681696cd765', 3, 1, 'accessToken', '[]', 0, '2022-08-14 17:03:56', '2022-08-14 17:03:56', '2023-08-14 17:03:56'),
+('dc6f9539b8c485723e0435304d573d6bbfba858265b0a1bf889260a5a09ef511df5bd88e99c8f26c', 4, 1, 'accessToken', '[]', 0, '2023-05-08 08:42:33', '2023-05-08 08:42:33', '2024-05-08 14:42:33'),
 ('dc8cde670c69824ba04e31b0fd4395ef1998edaac66a4e8c0abba03f443bb2318a4d3cbada195f9a', 5, 1, 'accessToken', '[]', 0, '2022-11-09 06:07:02', '2022-11-09 06:07:02', '2023-11-09 12:07:02'),
 ('dcf2da98b1005edb203b866469a9198befc2b306d4eea1960db9c120365169ce22a1f9675409b283', 63, 1, 'accessToken', '[]', 0, '2022-09-19 03:59:54', '2022-09-19 03:59:54', '2023-09-19 09:59:54'),
 ('dd89e5e4a024a22dd8fb4957290d1b878af724a074f2c2e90bfab63c09e042772c5ebaad1c36ed6f', 2, 1, 'accessToken', '[]', 0, '2022-08-24 00:49:53', '2022-08-24 00:49:53', '2023-08-23 20:49:53'),
@@ -920,11 +990,18 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `union`, `trxId`, `sonodId`, `sonod_type`, `amount`, `applicant_mobile`, `status`, `date`, `month`, `year`, `paymentUrl`, `ipnResponse`, `method`, `payment_type`, `balance`, `created_at`, `updated_at`) VALUES
-(2, NULL, '1678817156', '2', 'application', '200', NULL, 'Paid', '2023-03-15', 'October', '2022', NULL, NULL, NULL, NULL, NULL, '2023-03-14 18:05:56', '2023-03-14 18:05:56'),
+(1, NULL, '1678817156', '2', 'application', '200', NULL, 'Paid', '2023-03-15', 'October', '2022', NULL, NULL, NULL, NULL, NULL, '2023-03-14 18:05:56', '2023-03-14 18:05:56'),
 (6, '', '1679290108', '4', 'application_fee', '200', NULL, 'Paid', '2023-03-20', 'October', '2022', 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXR1bGlhX3Rlc3QiLCJhdXRoIjoiUk9MRV9NRVJDSEFOVCIsImV4cCI6MTY3OTMyMDExMH0.wF76vFfp78XbUNDL5mma5J-YxA7KgMdkCK4bOB05-45tp_7K2bqWtzQQnCUYgI8PBOhc89M00p2qjZ1qsmbU5A&trnsID=1679290108', NULL, NULL, NULL, NULL, '2023-03-20 05:28:29', '2023-03-20 05:28:29'),
 (7, '', '1679290511', '2', 'license_fee', '1000', NULL, 'Paid', '2023-03-20', 'October', '2022', 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXR1bGlhX3Rlc3QiLCJhdXRoIjoiUk9MRV9NRVJDSEFOVCIsImV4cCI6MTY3OTMyMDUxM30.LDaJTd3XF7EioCJGilxrmV1QFdy7IgW5hecFQQQ_1GyRU6GYaEADsElhogBFMKEabhL1i0HsHO62sWzhJD2ZlA&trnsID=1679290511', NULL, NULL, NULL, NULL, '2023-03-20 05:35:12', '2023-03-20 05:35:12'),
-(8, '', '1679292310', '2', 'license_fee', '1000', NULL, 'Pending', '2023-03-20', 'October', '2022', 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXR1bGlhX3Rlc3QiLCJhdXRoIjoiUk9MRV9NRVJDSEFOVCIsImV4cCI6MTY3OTMyMjMxMn0.J8jF927RNxzlzxGE-qBjTkGClkEPVbIpLRob16b2DOeqU__HHXF_XPaTk9KXCeOyK6q0XNmbsRfKpiLy-C9_9w&trnsID=1679292310', NULL, NULL, NULL, NULL, '2023-03-20 06:05:11', '2023-03-20 06:05:11'),
-(9, '', '1679311155', '2', 'license_fee', '1000', NULL, 'Pending', '2023-03-20', 'October', '2022', 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXR1bGlhX3Rlc3QiLCJhdXRoIjoiUk9MRV9NRVJDSEFOVCIsImV4cCI6MTY3OTM0MTE1N30.jgPQA5_awQDbfLVWl0t1BHxSfMRdjyUyHbD2A_ptWf8gO-03uXcW_PVjsUMWpSmjKkYWZ8cE15-_L61DdtdHGA&trnsID=1679311155', NULL, NULL, NULL, NULL, '2023-03-20 11:19:16', '2023-03-20 11:19:16');
+(8, '', '1679292310', '2', 'license_fee', '1000', NULL, 'Paid', '2023-03-20', 'October', '2022', 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXR1bGlhX3Rlc3QiLCJhdXRoIjoiUk9MRV9NRVJDSEFOVCIsImV4cCI6MTY3OTMyMjMxMn0.J8jF927RNxzlzxGE-qBjTkGClkEPVbIpLRob16b2DOeqU__HHXF_XPaTk9KXCeOyK6q0XNmbsRfKpiLy-C9_9w&trnsID=1679292310', NULL, NULL, NULL, NULL, '2023-03-20 06:05:11', '2023-03-20 06:05:11'),
+(9, '', '1679311155', '2', 'license_fee', '1000', NULL, 'Paid', '2023-03-20', 'October', '2022', 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXR1bGlhX3Rlc3QiLCJhdXRoIjoiUk9MRV9NRVJDSEFOVCIsImV4cCI6MTY3OTM0MTE1N30.jgPQA5_awQDbfLVWl0t1BHxSfMRdjyUyHbD2A_ptWf8gO-03uXcW_PVjsUMWpSmjKkYWZ8cE15-_L61DdtdHGA&trnsID=1679311155', NULL, NULL, NULL, NULL, '2023-03-20 11:19:16', '2023-03-20 11:19:16'),
+(10, '', '1680325598', '1', 'application_fee', '200', NULL, 'Paid', '2023-04-01', 'October', '2022', 'https://pg.ekpay.gov.bd/ekpaypg/v1?sToken=&trnsID=1680325598', NULL, NULL, NULL, NULL, '2023-04-01 05:06:39', '2023-04-01 05:06:39'),
+(11, '', '1681096843', '1', 'license_fee', '1000', NULL, 'Pending', '2023-04-10', 'October', '2022', 'https://pg.ekpay.gov.bd/ekpaypg/v1?sToken=&trnsID=1681096843', NULL, NULL, NULL, NULL, '2023-04-10 03:20:43', '2023-04-10 03:20:43'),
+(12, '', '1681096869', '1', 'license_fee', '1000', NULL, 'Pending', '2023-04-10', 'October', '2022', 'https://pg.ekpay.gov.bd/ekpaypg/v1?sToken=&trnsID=1681096869', NULL, NULL, NULL, NULL, '2023-04-10 03:21:09', '2023-04-10 03:21:09'),
+(13, '', '1683534893', '2', 'application_fee', '200', NULL, 'Pending', '2023-05-08', 'October', '2022', 'https://pg.ekpay.gov.bd/ekpaypg/v1?sToken=&trnsID=1683534893', NULL, NULL, NULL, NULL, '2023-05-08 08:34:53', '2023-05-08 08:34:53'),
+(14, '', '1683535095', '3', 'application_fee', '200', NULL, 'Pending', '2023-05-08', 'October', '2022', 'https://pg.ekpay.gov.bd/ekpaypg/v1?sToken=&trnsID=1683535095', NULL, NULL, NULL, NULL, '2023-05-08 08:38:15', '2023-05-08 08:38:15'),
+(15, '', '1683535246', '4', 'application_fee', '200', NULL, 'Pending', '2023-05-08', 'October', '2022', 'https://pg.ekpay.gov.bd/ekpaypg/v1?sToken=&trnsID=1683535246', NULL, NULL, NULL, NULL, '2023-05-08 08:40:46', '2023-05-08 08:40:46'),
+(16, '', '1683695446', '5', 'application_fee', '300', NULL, 'Pending', '2023-05-10', 'October', '2022', 'https://pg.ekpay.gov.bd/ekpaypg/v1?sToken=&trnsID=1683695446', NULL, NULL, NULL, NULL, '2023-05-10 05:10:46', '2023-05-10 05:10:46');
 
 -- --------------------------------------------------------
 
@@ -6147,9 +6224,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `email_verified_at`, `password`, `union`, `position`, `signature`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Admin', 'tmscedu2019@gmail.com', '019097056552', NULL, '$2y$10$TI1oS6Y6avax9v.0yElY4eIxQhhP3JyL4WRr9LuRIQGYQGttDffvm', 'তেতুলিয়া', 'admin', 'sonod/signature/1678813474____81125.png', 'Aav08XqfGMmzGQ8eFSbWK7ED9RwQbQT347fgjFyHNhK9gapLGQYwmbXC7SYl', '2022-02-02 12:40:11', '2023-03-14 17:04:34', NULL),
-(2, 'Md Nishad', 'sub@gmail.com', NULL, NULL, '$2y$10$hStskny9U9jH85DjOCihtOuGdbD7LOHnviBRTa0kQiuAZrVbnw7LK', 'তেতুলিয়া', 'sub_admin', NULL, 'VSa3HO5i1RIdUDQZZo6C7ie12ER4EmDxB0ijuDRZG8SdFuPQ6xTic2UvLckg', '2022-02-02 12:41:03', '2022-02-02 12:41:03', NULL),
-(3, '1337salahdin@gmail.com', '1337salahdin@gmail.com', NULL, NULL, '$2y$10$Coum87tlINeVqf1zLZhwROZUkVwNvF/uSXJNsKPFf/oGX3LxAnJq6', '1337salahdin@gmail.com', '1337salahdin@gmail.com', NULL, NULL, '2022-09-17 21:51:09', '2022-09-17 21:51:09', NULL),
-(4, 'Sub Admin', 'subadmin@gmail.com', '01909756552', NULL, '$2y$10$H8hhpXcnRSXES611WU2dQekbLF5GFOoK68DKrGR6uGsnyj/MjsGIy', NULL, 'sub_admin', 'sonod/signature/1678740654____22970.png', NULL, '2023-03-13 20:28:19', '2023-03-13 20:50:54', NULL);
+(2, 'Md Nishad', 'sub@gmail.com', NULL, NULL, '$2y$10$H8hhpXcnRSXES611WU2dQekbLF5GFOoK68DKrGR6uGsnyj/MjsGIy', 'তেতুলিয়া', 'sub_admin', NULL, 'xh5ytDSAyamp1YnBI1xLa7EOvmVbPV7UrmtqP0zjETnkjCoDAIdTY5Leagxo', '2022-02-02 12:41:03', '2022-02-02 12:41:03', NULL),
+(4, 'Sub Admin', 'admin@gmail.com', '01909756552', NULL, '$2y$10$H8hhpXcnRSXES611WU2dQekbLF5GFOoK68DKrGR6uGsnyj/MjsGIy', NULL, 'admin', 'sonod/signature/1678740654____22970.png', NULL, '2023-03-13 20:28:19', '2023-03-13 20:50:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -28658,7 +28734,18 @@ INSERT INTO `visitors` (`id`, `ip`, `union`, `date`, `year`, `month`, `created_a
 (22431, '127.0.0.1', 'all', '13-03-2023', '2023', 'March', '2023-03-13 07:36:31', '2023-03-13 07:36:31'),
 (22432, '127.0.0.1', 'all', '14-03-2023', '2023', 'March', '2023-03-13 19:38:27', '2023-03-13 19:38:27'),
 (22433, '127.0.0.1', 'all', '20-03-2023', '2023', 'March', '2023-03-20 04:50:45', '2023-03-20 04:50:45'),
-(22434, '127.0.0.1', 'all', '21-03-2023', '2023', 'March', '2023-03-21 03:28:55', '2023-03-21 03:28:55');
+(22434, '127.0.0.1', 'all', '21-03-2023', '2023', 'March', '2023-03-21 03:28:55', '2023-03-21 03:28:55'),
+(22435, '127.0.0.1', 'all', '30-03-2023', '2023', 'March', '2023-03-30 06:03:36', '2023-03-30 06:03:36'),
+(22436, '127.0.0.1', 'all', '01-04-2023', '2023', 'April', '2023-04-01 04:22:56', '2023-04-01 04:22:56'),
+(22437, '127.0.0.1', 'all', '03-04-2023', '2023', 'April', '2023-04-03 09:03:37', '2023-04-03 09:03:37'),
+(22438, '127.0.0.1', 'all', '10-04-2023', '2023', 'April', '2023-04-10 02:49:53', '2023-04-10 02:49:53'),
+(22439, '127.0.0.1', 'all', '17-04-2023', '2023', 'April', '2023-04-17 04:17:23', '2023-04-17 04:17:23'),
+(22440, '127.0.0.1', 'all', '03-05-2023', '2023', 'May', '2023-05-03 07:22:55', '2023-05-03 07:22:55'),
+(22441, '127.0.0.1', 'all', '08-05-2023', '2023', 'May', '2023-05-08 08:06:32', '2023-05-08 08:06:32'),
+(22442, '127.0.0.1', 'all', '09-05-2023', '2023', 'May', '2023-05-09 11:24:55', '2023-05-09 11:24:55'),
+(22443, '127.0.0.1', 'all', '10-05-2023', '2023', 'May', '2023-05-10 04:19:11', '2023-05-10 04:19:11'),
+(22444, '127.0.0.1', 'all', '14-05-2023', '2023', 'May', '2023-05-14 10:59:18', '2023-05-14 10:59:18'),
+(22445, '127.0.0.1', 'all', '15-05-2023', '2023', 'May', '2023-05-15 03:44:28', '2023-05-15 03:44:28');
 
 --
 -- Indexes for dumped tables
@@ -28674,6 +28761,12 @@ ALTER TABLE `aplications`
 -- Indexes for table `application_repprts`
 --
 ALTER TABLE `application_repprts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `citizen_information`
+--
+ALTER TABLE `citizen_information`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -28798,13 +28891,19 @@ ALTER TABLE `visitors`
 -- AUTO_INCREMENT for table `aplications`
 --
 ALTER TABLE `aplications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `application_repprts`
 --
 ALTER TABLE `application_repprts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `citizen_information`
+--
+ALTER TABLE `citizen_information`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -28828,7 +28927,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -28846,7 +28945,7 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -28882,7 +28981,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `visitors`
 --
 ALTER TABLE `visitors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22435;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22446;
 
 --
 -- Constraints for dumped tables
