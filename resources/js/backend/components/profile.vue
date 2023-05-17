@@ -26,8 +26,8 @@
 
           <select v-model="form.position" class="form-control" disabled readonly>
             <option value="">নির্বাচন করুন</option>
-            <option value="admin">এডমিন</option>
-            <option value="sub_admin">সাব-এডমিন</option>
+            <option value="admin">উপজেলা চেয়ারম্যান</option>
+            <option value="sub_admin">উপজেলা ইঞ্জিনিয়ার</option>
           </select>
 
         </div>
