@@ -25,9 +25,9 @@
 
           <select v-model="form.position" class="form-control">
             <option value="">নির্বাচন করুন</option>
-            <option value="admin">এডমিন</option>
-            <option value="sub_admin">সাব-এডমিন</option>
-    
+            <option value="admin">উপজেলা চেয়ারম্যান</option>
+            <option value="sub_admin">উপজেলা ইঞ্জিনিয়ার</option>
+
           </select>
 
         </div>
@@ -99,15 +99,15 @@ export default {
             },
             form:{
                 id:null,
-            
-         
+
+
                 name:'Admin',
                 email:null,
                 phone:'01909756552',
                 password:'123456',
                 position:'admin',
                 signature:'',
-      
+
             },
             unions:{},
         }
@@ -115,7 +115,7 @@ export default {
     methods:{
 
 
-        
+
     FileSelected($event, parent_index) {
             let file = $event.target.files[0];
             if (file.size > 5048576) {

@@ -50,16 +50,16 @@
                             </div>
                         </router-link>
 
-                        <a class="col-lg-6 mt-3 mb-3 text-center" href="javascript:void(0)">
+                        <router-link class="col-lg-6 mt-3 mb-3 text-center" :to="{ name: 'childApplication2' }">
                             <div class="serviceBox">
                                 <div class="serviceLogo">
-                                    <img :src="$asseturl+'assets/img/Untitled-1-12.png'" width="150px" alt="" />
+                                    <img :src="$asseturl+'assets/img/5874269.png'" width="150px" alt="" />
                                 </div>
                                 <div class="serviceTitle defaltTextColor">
-                                    লাইসেন্স নবায়ন
+                                    ভবনের নকশা
                                 </div>
                             </div>
-                        </a>
+                        </router-link>
 
 
 

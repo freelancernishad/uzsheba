@@ -11,7 +11,7 @@
                     <form @submit.stop.prevent="finalSubmit">
 
                     <div class="col-md-12">
-                        <h6 class="serviceTitle position-relative text-center">গভীর/অগভীর নলকূপ স্থাপনের জন্য লাইসেন্স প্রাপ্তির আবেদন ফরম</h6>
+                        <h6 class="serviceTitle position-relative text-center">ভবনের নকশা প্রাপ্তির আবেদন ফরম</h6>
                     </div>
 
                     <div class="col-md-12">

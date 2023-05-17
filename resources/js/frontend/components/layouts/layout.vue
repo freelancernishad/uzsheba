@@ -48,10 +48,29 @@
                                         <li class="nav-item active">
                                             <router-link class="nav-link" :to="{ name: 'home' }">হোম</router-link>
                                         </li>
-
+<!--
                                         <li class="nav-item">
                                             <router-link class="nav-link" :to="{ name: 'childApplication' }">রেজিস্টেশন</router-link>
+                                        </li> -->
+
+
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">রেজিস্টেশন</a>
+
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <router-link class="dropdown-item" :to="{ name: 'childApplication'}">গভীর/অগভীর নলকূপ</router-link>
+                                                <router-link class="dropdown-item" :to="{ name: 'childApplication2'}">ভবনের নকশা </router-link>
+                                            </div>
+
                                         </li>
+
+
+
+
+
                                         <li class="nav-item">
                                             <router-link class="nav-link" :to="{ name: 'sonodsearch' }">সনদ
                                                 যাচাই
