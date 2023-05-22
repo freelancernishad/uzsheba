@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>:: Welcome to Sechsheba Tetulia ::</title>
+    <title>:: উপজেলা পরিষদ সেবা সিস্টেম ::</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/bangladesh-govt.png') }}" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,7 +77,7 @@ li.page-item.active button {
 
 
 
-<script src="{{ asset('js/backend.js?ver=1.0.3') }}"></script>
+<script src="{{ asset('js/backend.js?ver=1.0.4') }}"></script>
 
 
 

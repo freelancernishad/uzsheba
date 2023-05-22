@@ -20,7 +20,7 @@
                         <div class="middleHeaderItem col-md-6 mt-3 mb-3">
                             <router-link :to="{ name: 'home' }">
                                 <img width="50%" v-if="getType == 'main'"
-                                    :src="$asseturl + 'assets/img/shristi.png'" alt="">
+                                    :src="$asseturl + 'assets/img/upazila-01.png'" alt="">
                                 <img width="50%" v-else-if="getType == 'Union'" :src="getunionInfos.web_logo" alt="">
                             </router-link>
                         </div>

@@ -19,7 +19,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
-    <title>:: Welcome to Sechsheba Tetulia ::</title>
+    <title>:: উপজেলা পরিষদ সেবা সিস্টেম ::</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/bangladesh-govt.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
@@ -199,7 +199,7 @@ p.help.text-right {
 
 
 
-    <script src="{{ asset('js/frontend.js?ver=1.0.3') }}" async ></script>
+    <script src="{{ asset('js/frontend.js?ver=1.0.4') }}" async ></script>
 
 <script>
     // function linkrun(linkdata){
