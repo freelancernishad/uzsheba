@@ -122,8 +122,10 @@
 
                                     <a  v-if="item.status=='approved'" :href="'/license/'+item.id" target="_blank" class="btn btn-success">লাইসেন্সে ডাউনলোড করুন</a>
 
+                                    
                                     <span v-if="item.payment_status=='Unpaid'" class="btn btn-danger">Unpaid</span>
                                     <span v-else-if="item.payment_status=='Paid'"  class="btn btn-success">Paid</span>
+
                                     <!-- <a  v-if="item.status=='approved'" :href="'/l/f/'+item.id+'?f=l'" target="_blank" class="btn btn-success">Test pay</a> -->
 
 

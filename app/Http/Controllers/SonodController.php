@@ -114,20 +114,20 @@ class SonodController extends Controller
 
         if($sonod->sonod_name=='নলকূপ লাইসেন্স'){
             if($feeParams=='l'){
-                $total_amount = 1000;
+                $total_amount = 1;
                 $sonod_type = 'license_fee';
 
             }elseif($feeParams=='a'){
-                $total_amount = 200;
+                $total_amount = 1;
                 $sonod_type = 'application_fee';
             }
         }else{
             if($feeParams=='l'){
-                $total_amount = 1000;
+                $total_amount = 1;
                 $sonod_type = 'license_fee';
 
             }elseif($feeParams=='a'){
-                $total_amount = 300;
+                $total_amount = 1;
                 $sonod_type = 'application_fee';
             }
         }

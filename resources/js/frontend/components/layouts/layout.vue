@@ -62,7 +62,7 @@
 
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <router-link class="dropdown-item" :to="{ name: 'childApplication'}">গভীর/অগভীর নলকূপ</router-link>
-                                                <router-link class="dropdown-item" :to="{ name: 'childApplication2'}">ভবনের নকশা </router-link>
+                                                <router-link class="dropdown-item" :to="{ name: 'childApplication2'}">ভবনের নকশা অনুমোদন </router-link>
                                             </div>
 
                                         </li>

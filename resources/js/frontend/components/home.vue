@@ -56,7 +56,8 @@
                                     <img :src="$asseturl+'assets/img/5874269.png'" width="150px" alt="" />
                                 </div>
                                 <div class="serviceTitle defaltTextColor">
-                                    ভবনের নকশা
+                                    ভবনের নকশা অনুমোদন
+
                                 </div>
                             </div>
                         </router-link>
