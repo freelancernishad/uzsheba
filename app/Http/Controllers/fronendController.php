@@ -154,12 +154,13 @@ class fronendController extends Controller
 
 
         $row = aplication::where('id',$id)->first();
+        $licence_no = $row->licence_no;
 
         if($row->sonod_name=='নলকূপ লাইসেন্স'){
-            $pdf = PDF::loadView('apllication_Document',compact('row'));
+            $pdf = PDF::loadView('apllication_Document',compact('row','licence_no'));
         }else{
             $sonod = json_decode($row->building_construction);
-            $pdf = PDF::loadView('apllication_Document_bulding',compact('row','sonod'));
+            $pdf = PDF::loadView('apllication_Document_bulding',compact('row','sonod','licence_no'));
         }
 
 
