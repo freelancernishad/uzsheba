@@ -26,11 +26,16 @@
 
           <select v-model="form.position" class="form-control" disabled readonly>
             <option value="">নির্বাচন করুন</option>
-            <option value="admin">উপজেলা চেয়ারম্যান</option>
+            <option value="admin">এডমিন</option>
+            <option value="uno">উপজেলা নির্বাহী অফিসার</option>
+            <option value="chairman">উপজেলা চেয়ারম্যান</option>
             <option value="sub_admin">উপজেলা ইঞ্জিনিয়ার</option>
           </select>
 
         </div>
+
+
+
 
 
 
@@ -104,6 +109,7 @@ export default {
              newpassword:'',
               form:{
                 name:null,
+                upozila:'',
                 email:null,
                 phone:null,
                 password:null,

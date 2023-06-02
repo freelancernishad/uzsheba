@@ -14,6 +14,7 @@ use App\Models\Expenditure;
 use Illuminate\Http\Request;
 use App\Models\Notifications;
 use App\Models\Sonodnamelist;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -236,13 +237,13 @@ class SonodController extends Controller
         }
     }
 
-    public function sonod_id($sonod_name)
+    public function sonod_id($sonod_name,$upozila)
     {
         $sonodFinalId = '';
         $sortYear =  date('y');
-        $SonodCount =   aplication::where('sonod_name',$sonod_name)->latest()->count();
+        $SonodCount =   aplication::where(['sonod_name'=>$sonod_name,'upozila'=>$upozila])->latest()->count();
             if ($SonodCount > 0) {
-                $Sonod =  aplication::where('sonod_name',$sonod_name)->latest()->first();
+                $Sonod =  aplication::where(['sonod_name'=>$sonod_name,'upozila'=>$upozila])->latest()->first();
                 if ($Sonod->licence_no == '') {
                     $licence_no = str_pad(00001, 5, '0', STR_PAD_LEFT);
                     $sonodFinalId =  '77190831' . $sortYear . $licence_no;
@@ -261,7 +262,8 @@ class SonodController extends Controller
         $id = $r->id;
         $data = $r->except(['passport_size_mage','nid_copy','land_copy','khotiyan_copy','tax_copy','map','wyarisan','building_construction']);
 
-        $data['licence_no'] = (string)$this->sonod_id($r->sonod_name);
+        $upozila = $r->upozila;
+        $data['licence_no'] = (string)$this->sonod_id($r->sonod_name,$upozila);
 
 
         if($r->building_construction){
@@ -753,18 +755,14 @@ class SonodController extends Controller
         $unioun_name = $request->unioun_name;
         $sondId = $request->id_no;
         $userid = $request->userid;
+        $user = User::find($userid);
+        $upozila = $user->upozila;
 
         if ($sondId) {
-
-
-
-
-
-            $where = ['status'=>"$stutus",'sonod_name'=>"$sonod_name"];
+            $where = ['status'=>"$stutus",'sonod_name'=>"$sonod_name",'upozila'=>"$upozila"];
             if($stutus=='processing'){
                 $where['id_of_the_investigating_officer'] = $userid;
             }
-
         return aplication::where($where)
         ->where(function ($q)  use ($sondId) {
             $q->  orWhere('appicant_name', 'like', "%$sondId%")
@@ -772,19 +770,12 @@ class SonodController extends Controller
             ->orWhere('mobile_number', 'like', "%$sondId%");
         })
         ->paginate(20);
-
-
-
-
-            // return $sondId;
-            // return 'sss';
-            // return aplication::where(['status'=>$stutus])->where("id_no", "LIKE", "%$sondId%")->orderBy('id', 'DESC')->paginate(20);
         }
         if ($unioun_name) {
 
             if ($payment_status) {
 
-                $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name"];
+                $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'upozila'=>"$upozila"];
                 if($stutus=='processing'){
                     $where['id_of_the_investigating_officer'] = $userid;
                 }
@@ -801,7 +792,7 @@ class SonodController extends Controller
         $dataType = $request->dataType;
 
         if($dataType){
-            $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name"];
+            $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'upozila'=>"$upozila"];
             if($stutus=='processing'){
                 $where['id_of_the_investigating_officer'] = $userid;
             }
@@ -828,7 +819,7 @@ class SonodController extends Controller
         }
 
 
-        $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name"];
+        $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'upozila'=>"$upozila"];
         if($stutus=='processing'){
             $where['id_of_the_investigating_officer'] = $userid;
         }

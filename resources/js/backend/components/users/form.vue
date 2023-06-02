@@ -25,13 +25,36 @@
 
           <select v-model="form.position" class="form-control">
             <option value="">নির্বাচন করুন</option>
-            <option value="admin">উপজেলা চেয়ারম্যান</option>
+            <option value="admin">এডমিন</option>
+            <option value="uno">উপজেলা নির্বাহী অফিসার</option>
+            <option value="chairman">উপজেলা চেয়ারম্যান</option>
             <option value="sub_admin">উপজেলা ইঞ্জিনিয়ার</option>
 
           </select>
 
         </div>
 
+
+        <div class="form-group col-md-6">
+          <label for="">উপাধি</label>
+          <input type="text" v-model="form.designation" class="form-control" placeholder="" aria-describedby="helpId">
+        </div>
+
+
+
+
+        <div class="form-group col-md-6">
+          <label for="">উপজেলা</label>
+          <select v-model="form.upozila" class="form-control" >
+            <option value="">নির্বাচন করুন</option>
+            <option value="পঞ্চগড় সদর">পঞ্চগড় সদর</option>
+            <option value="দেবীগঞ্জ">দেবীগঞ্জ</option>
+            <option value="বোদা">বোদা</option>
+            <option value="আটোয়ারী">আটোয়ারী</option>
+            <option value="তেঁতুলিয়া">তেঁতুলিয়া</option>
+          </select>
+
+        </div>
 
 
         <div class="form-group col-md-6">
@@ -102,6 +125,7 @@ export default {
 
 
                 name:'Admin',
+                designation:'',
                 email:null,
                 phone:'01909756552',
                 password:'123456',

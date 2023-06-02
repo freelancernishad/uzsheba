@@ -20,11 +20,13 @@ class User extends Authenticatable
     protected $fillable = [
         'role',
         'unioun',
+        'upozila',
         'name',
         'email',
         'phone',
         'password',
         'position',
+        'designation',
         'signature',
         'full_unioun_name',
         'district',

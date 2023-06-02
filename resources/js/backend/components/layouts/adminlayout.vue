@@ -55,7 +55,11 @@
                             aria-expanded="false">
                             <div class="admin-title">
                                 <h5 class="item-title">{{ user.name }}</h5>
-                                <span>{{ changeName(user.position) }}</span>
+
+                                <span v-if="user.position=='sub_admin'">{{ user.designation }}</span>
+                                <span v-else>{{ changeName(user.position) }}</span>
+
+
                             </div>
                             <div class="admin-img">
                                 <img :src="$asseturl + 'dashboard_asset/img/figure/admin.jpg'" alt="Admin">
@@ -131,7 +135,7 @@
                             <transition name="slide">
                                 <ul class="nav sub-group-menu menu-open child" v-if="selected == 101"
                                     style="display:block">
-                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin'">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin' || this.$localStorage.getItem('position') == 'chairman'">
                                         <router-link :to="{ name: 'applicationlist', params:{type:'pending',name:'tube_well_license'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> নতুন আবেদন </router-link>
                                     </li>
@@ -139,15 +143,15 @@
                                         <router-link :to="{ name: 'applicationlist', params:{type:'processing',name:'tube_well_license'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> তদন্তাধীন আবেদন </router-link>
                                     </li>
-                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin'">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin' || this.$localStorage.getItem('position') == 'chairman'">
                                         <router-link :to="{ name: 'applicationlist', params:{type:'processied',name:'tube_well_license'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> তদন্তকৃত আবেদন </router-link>
                                     </li>
-                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin'">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin' || this.$localStorage.getItem('position') == 'chairman'">
                                         <router-link :to="{ name: 'applicationlist', params:{type:'approved',name:'tube_well_license'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> অনুমোদিত আবেদন </router-link>
                                     </li>
-                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin'">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin' || this.$localStorage.getItem('position') == 'chairman'">
                                         <router-link :to="{ name: 'applicationlist', params:{type:'canceled',name:'tube_well_license'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> বাতিলকৃত আবেদন </router-link>
                                     </li>
@@ -164,7 +168,7 @@
                             <transition name="slide">
                                 <ul class="nav sub-group-menu menu-open child" v-if="selected == 102"
                                     style="display:block">
-                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin'">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin' || this.$localStorage.getItem('position') == 'chairman'">
                                         <router-link :to="{ name: 'applicationlist', params:{type:'pending',name:'building_design'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> নতুন আবেদন </router-link>
                                     </li>
@@ -172,15 +176,15 @@
                                         <router-link :to="{ name: 'applicationlist', params:{type:'processing',name:'building_design'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> তদন্তাধীন আবেদন </router-link>
                                     </li>
-                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin'">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin' || this.$localStorage.getItem('position') == 'chairman'">
                                         <router-link :to="{ name: 'applicationlist', params:{type:'processied',name:'building_design'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> তদন্তকৃত আবেদন </router-link>
                                     </li>
-                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin'">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin' || this.$localStorage.getItem('position') == 'chairman'">
                                         <router-link :to="{ name: 'applicationlist', params:{type:'approved',name:'building_design'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> অনুমোদিত আবেদন </router-link>
                                     </li>
-                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin'">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') == 'admin' || this.$localStorage.getItem('position') == 'chairman'">
                                         <router-link :to="{ name: 'applicationlist', params:{type:'canceled',name:'building_design'} }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> বাতিলকৃত আবেদন </router-link>
                                     </li>

@@ -39,9 +39,11 @@ export default {
 
         changeName(value){
             if(value=='admin'){
+                return 'এডমিন';
+            }else if(value=='chairman'){
                 return 'উপজেলা চেয়ারম্যান';
             }else if(value=='sub_admin'){
-                return 'উপজেলা ইঞ্জিনিয়ার';
+                return 'দায়িত্ব প্রাপ্ত প্রকৌশলী';
             }
         },
 
