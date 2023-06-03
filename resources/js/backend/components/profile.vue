@@ -37,6 +37,12 @@
 
 
 
+        <div class="form-group col-md-6">
+          <label for="">উপাধি</label>
+          <input type="text" v-model="form.designation" class="form-control" placeholder="" aria-describedby="helpId">
+        </div>
+
+
 
 
         <div class="form-group col-md-6">
