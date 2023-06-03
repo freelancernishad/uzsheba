@@ -107,9 +107,9 @@ const store = new Vuex.Store({
 
 
             // if(data=='salbahan')window.location.href='https://uniontax.gov.bd/'
-            if(data!='main'){
+            if(data.subdomainget!='main'){
 
-                axios.post(`/api/union/info?union=${data}`)
+                axios.post(`/api/union/info?union=${data.subdomainget}`)
                 .then((res)=>{
                     // console.log(unionname);
                     // console.log(res);

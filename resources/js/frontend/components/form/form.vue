@@ -773,8 +773,9 @@ export default {
       preLooding: false,
       submitLoad: false,
       form: {
+        unioun_name:'',
         sonod_name:'নলকূপ লাইসেন্স',
-        applicant_type:'',
+        applicant_type:'একক ব্যক্তি',
         appicant_name:'',
         applicant_father_name:'',
         appicant_sumiti_name:'',
@@ -996,6 +997,7 @@ export default {
     },
   },
   mounted() {
+    this.form.unioun_name = localStorage.getItem('unioun');
     this.getdivisionFun();
     this.form.deposite_date = this.dateformatGlobal()[0];
   },
@@ -1037,3 +1039,5 @@ export default {
   font-weight: 600;
 }
 </style>
+
+

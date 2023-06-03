@@ -151,6 +151,15 @@ Route::get('visitorcount',[VisitorController::class, 'visitorCount']);
 
 
 
+Route::get('get/union/list',[UniouninfoController::class,'index']);
+Route::get('get/union/delete/{id}',[UniouninfoController::class,'deleteunion']);
+
+Route::get('update/union/{id}',[UniouninfoController::class,'getunion']);
+// Route::post('update/union',[UniouninfoController::class,'updateunion']);
+Route::post('union/info',[UniouninfoController::class, 'unionInfo']);
+Route::post('unionprofile/submit',[UniouninfoController::class, 'unionInfoUpdate']);
+Route::post('payment/update',[UniouninfoController::class, 'paymentUpdate']);
+
 
 
 

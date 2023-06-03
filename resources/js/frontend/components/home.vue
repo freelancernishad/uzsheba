@@ -31,7 +31,43 @@
                 <div class="services mt-3">
 
 
-                    <div class="row">
+                    <div class="row" v-if="getType=='main'">
+                        <div class="col-md-12">
+                            <h6 class="serviceTitle position-relative defaltColor">
+                                সেবাসমূহ
+                            </h6>
+                        </div>
+
+
+                        <div class="col-lg-6 mt-3 mb-3 text-center"  @click="sendInfo('/application')" >
+                            <div class="serviceBox">
+                                <div class="serviceLogo">
+                                    <img :src="$asseturl+'assets/img/Untitled-1-12.png'" width="150px" alt="" />
+                                </div>
+                                <div class="serviceTitle defaltTextColor">
+                                    গভীর/অগভীর নলকূপ স্থাপনের লাইসেন্স
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mt-3 mb-3 text-center"  @click="sendInfo('/application2')" >
+                            <div class="serviceBox">
+                                <div class="serviceLogo">
+                                    <img :src="$asseturl+'assets/img/5874269.png'" width="150px" alt="" />
+                                </div>
+                                <div class="serviceTitle defaltTextColor">
+                                    ভবনের নকশা অনুমোদন
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="row" v-else>
                         <div class="col-md-12">
                             <h6 class="serviceTitle position-relative defaltColor">
                                 সেবাসমূহ

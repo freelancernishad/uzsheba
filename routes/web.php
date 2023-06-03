@@ -228,6 +228,80 @@ Route::get('/report/download', [SonodController::class,'ReportDownload']);
 Route::get('/{vue_capture?}', function () {
 
 
+
+
+    $url = url()->current();
+ $domain =  explode('//',$url);
+
+  $subdomain =  explode('.', $domain[1]);
+
+    if($subdomain[0]=='www'){
+
+         $subdomainCount =  count($subdomain);
+         $subdomainget = $subdomain[1];
+        if($subdomainCount>env('WITH_WWW')){
+            $sub = true;
+        }else{
+            $sub = false;
+
+        }
+    }else{
+
+
+        $subdomainCount =  count($subdomain);
+        $subdomainget = $subdomain[0];
+
+        if($subdomainCount>env('WITHOUT_WWW')){
+            $sub = true;
+        }else{
+            $sub = false;
+
+        }
+    }
+
+
+
+
+ if($sub){
+
+    $uniounDetials = cache()->remember('uniounDetials-'.$subdomainget, 60*60*24, function () use($subdomainget) {
+        return Uniouninfo::where(['short_name_e'=>$subdomainget])->first();
+    });
+     return view('frontlayout',compact('uniounDetials'));
+    }else{
+
+
+
+
+        // return  Uniouninfo::find(1);
+
+    //   $uniounDetials = json_decode(json_encode($uniounDetials));
+    //   $uniounDetials =  Uniouninfo::where(['short_name_e'=>'uniontax'])->first();
+      $uniounDetials = cache()->remember('uniounDetials-uniontax', 60*60*24, function () {
+        return Uniouninfo::where(['short_name_e'=>'uniontax'])->first();
+    });
+    $uniounDetials['defaultColor']  = 'green';
+     return view('frontlayout',compact('uniounDetials'));
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // return  Uniouninfo::find(1);
  $uniounDetials['defaultColor']  = 'green';
       $uniounDetials = json_decode(json_encode($uniounDetials));

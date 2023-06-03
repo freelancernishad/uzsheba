@@ -24,10 +24,10 @@
                                 <img width="50%" v-else-if="getType == 'Union'" :src="getunionInfos.web_logo" alt="">
                             </router-link>
                         </div>
-                        <!-- <div class="middleHeaderItem col-md-6 mb-3">
-                            <h3 class="searchHeader defaltColor">ইউনিয়ন নির্বাচন করুন </h3>
+                        <div class="middleHeaderItem col-md-6 mb-3">
+                            <h3 class="searchHeader defaltColor">উপজেলা নির্বাচন করুন </h3>
                             <union-select />
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <nav class="">
@@ -60,7 +60,12 @@
                                                 role="button" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">রেজিস্টেশন</a>
 
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" v-if="getType=='main'">
+                                                <div class="dropdown-item" @click="sendInfo('/application')" >গভীর/অগভীর নলকূপ</div>
+                                                <div class="dropdown-item"  @click="sendInfo('/application2')" >ভবনের নকশা অনুমোদন </div>
+                                            </div>
+
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" v-else>
                                                 <router-link class="dropdown-item" :to="{ name: 'childApplication'}">গভীর/অগভীর নলকূপ</router-link>
                                                 <router-link class="dropdown-item" :to="{ name: 'childApplication2'}">ভবনের নকশা অনুমোদন </router-link>
                                             </div>
@@ -248,7 +253,7 @@ padding: 3px 11px;"> ইউনিয়ন পরিষদের ডিজিটা
 </template>
 <script>
 export default {
-    props: ['user'],
+    props: ['user','unioundetialsprops'],
     async created() {
 
 
@@ -292,11 +297,13 @@ export default {
 
             }
 
-console.log(sub,subdomainget)
 
+            localStorage.setItem('unioun',subdomainget)
         if (sub) {
 
-        this.$store.commit('setWebsiteStatus', subdomainget)
+        // this.$store.commit('setWebsiteStatus', subdomainget)
+        var  unionData = {'subdomainget':subdomainget,'uniounDetialsprops':this.unioundetialsprops};
+        this.$store.commit('setWebsiteStatus', unionData)
 
             var unioninfo = await this.callApi('post', `/api/union/info?union=${subdomainget}`, []);
             console.log(unioninfo)
@@ -305,7 +312,8 @@ console.log(sub,subdomainget)
             var charge = await this.callApi('post', `/api/vattax/get`, this.ff);
             this.$store.commit('setvatTax', charge.data)
         }else{
-        this.$store.commit('setWebsiteStatus', 'main')
+            var  unionData = {'subdomainget':'main','uniounDetialsprops':this.unioundetialsprops};
+        this.$store.commit('setWebsiteStatus', unionData)
 
         }
     },

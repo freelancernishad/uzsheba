@@ -166,7 +166,7 @@ p.help.text-right {
 
 
 
-        <component :is="$route.meta.layout || 'div'" >
+        <component :is="$route.meta.layout || 'div'" :unioundetialsprops="{{$uniounDetials}}" >
             <router-view />
           </component>
 

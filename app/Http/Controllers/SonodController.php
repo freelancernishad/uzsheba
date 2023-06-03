@@ -156,9 +156,9 @@ class SonodController extends Controller
                 "cust_name" => "Customer Name"
             ];
             $req_timestamp = date('Y-m-d H:i:s');
-            $redirectutl =  ekpayToken($trnx_id, $amount, $cust_info);
+            $redirectutl =  ekpayToken($trnx_id, $amount, $cust_info,'payment',$sonod->unioun_name);
             $customerData = [
-                'union' => '',
+                'union' => $sonod->unioun_name,
                 'trxId' => $trnx_id,
                 'sonodId' => $id,
                 'sonod_type' => $sonod_type,
@@ -237,13 +237,13 @@ class SonodController extends Controller
         }
     }
 
-    public function sonod_id($sonod_name,$upozila)
+    public function sonod_id($sonod_name,$unioun_name)
     {
         $sonodFinalId = '';
         $sortYear =  date('y');
-        $SonodCount =   aplication::where(['sonod_name'=>$sonod_name,'upozila'=>$upozila])->latest()->count();
+        $SonodCount =   aplication::where(['sonod_name'=>$sonod_name,'unioun_name'=>$unioun_name])->latest()->count();
             if ($SonodCount > 0) {
-                $Sonod =  aplication::where(['sonod_name'=>$sonod_name,'upozila'=>$upozila])->latest()->first();
+                $Sonod =  aplication::where(['sonod_name'=>$sonod_name,'unioun_name'=>$unioun_name])->latest()->first();
                 if ($Sonod->licence_no == '') {
                     $licence_no = str_pad(00001, 5, '0', STR_PAD_LEFT);
                     $sonodFinalId =  '77190831' . $sortYear . $licence_no;
@@ -262,8 +262,8 @@ class SonodController extends Controller
         $id = $r->id;
         $data = $r->except(['passport_size_mage','nid_copy','land_copy','khotiyan_copy','tax_copy','map','wyarisan','building_construction']);
 
-        $upozila = $r->upozila;
-        $data['licence_no'] = (string)$this->sonod_id($r->sonod_name,$upozila);
+        $unioun_name = $r->unioun_name;
+        $data['licence_no'] = (string)$this->sonod_id($r->sonod_name,$unioun_name);
 
 
         if($r->building_construction){
@@ -322,7 +322,7 @@ class SonodController extends Controller
 
         // return $data;
         try {
-            $sonod =   aplication::create($data);
+            $sonod =  aplication::create($data);
 
 
             if($r->sonod_name=='নলকূপ লাইসেন্স'){
@@ -749,17 +749,17 @@ class SonodController extends Controller
         $sonod_name = $request->sonod_name;
         $stutus = $request->stutus;
         $word_number = $request->word;
-        $unioun = $request->unioun;
+        $uniouns = $request->unioun;
 
         $payment_status = $request->payment_status;
         $unioun_name = $request->unioun_name;
         $sondId = $request->id_no;
         $userid = $request->userid;
         $user = User::find($userid);
-        $upozila = $user->upozila;
+        $unioun = $user->unioun;
 
         if ($sondId) {
-            $where = ['status'=>"$stutus",'sonod_name'=>"$sonod_name",'upozila'=>"$upozila"];
+            $where = ['status'=>"$stutus",'sonod_name'=>"$sonod_name",'unioun_name'=>"$unioun"];
             if($stutus=='processing'){
                 $where['id_of_the_investigating_officer'] = $userid;
             }
@@ -775,7 +775,7 @@ class SonodController extends Controller
 
             if ($payment_status) {
 
-                $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'upozila'=>"$upozila"];
+                $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'unioun_name'=>"$unioun"];
                 if($stutus=='processing'){
                     $where['id_of_the_investigating_officer'] = $userid;
                 }
@@ -792,7 +792,7 @@ class SonodController extends Controller
         $dataType = $request->dataType;
 
         if($dataType){
-            $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'upozila'=>"$upozila"];
+            $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'unioun_name'=>"$unioun"];
             if($stutus=='processing'){
                 $where['id_of_the_investigating_officer'] = $userid;
             }
@@ -819,7 +819,7 @@ class SonodController extends Controller
         }
 
 
-        $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'upozila'=>"$upozila"];
+        $where = ['status'=>$stutus,'sonod_name'=>"$sonod_name",'unioun_name'=>"$unioun"];
         if($stutus=='processing'){
             $where['id_of_the_investigating_officer'] = $userid;
         }

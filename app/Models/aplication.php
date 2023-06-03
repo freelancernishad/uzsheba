@@ -13,6 +13,7 @@ class aplication extends Model
 
         'id',
         'licence_no',
+        'unioun_name',
         'sonod_name',
         'applicant_type',
         'appicant_name',

@@ -89,7 +89,11 @@ curl_close($curl);
         return  str_replace(" ", "_", $sonodList->enname);
     }
 
-    function ekpayToken($trnx_id=123456789,$trnx_amt=0,$cust_info=[],$path='payment'){
+    function unionname($unionname){
+        return  $sonodList = Uniouninfo::where(['short_name_e'=>$unionname])->first();
+  
+      }
+    function ekpayToken($trnx_id=123456789,$trnx_amt=0,$cust_info=[],$path='payment',$unioun_name=''){
 
 
         $req_timestamp = date('Y-m-d H:i:s');
@@ -101,9 +105,20 @@ curl_close($curl);
         $whitelistip = '198.54.114.109';
        $req_timestamp = date('Y-m-d H:i:s');
 
-     $AKPAY_MER_REG_ID = 'tetulia_sechsheba_mer';
-    $AKPAY_MER_PASS_KEY = 'sI8^Q2##';
+    //  $AKPAY_MER_REG_ID = 'tetulia_sechsheba_mer';
+    // $AKPAY_MER_PASS_KEY = 'sI8^Q2##';
 
+    $uniounDetials =  unionname($unioun_name);
+    $AKPAY_MER_REG_ID = $uniounDetials->AKPAY_MER_REG_ID;
+   $AKPAY_MER_PASS_KEY = $uniounDetials->AKPAY_MER_PASS_KEY;
+
+       if($AKPAY_MER_REG_ID=='tetulia_test'){
+           $Apiurl = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1';
+           $whitelistip = '1.1.1.1';
+       }else{
+           $Apiurl = env('AKPAY_API_URL');
+           $whitelistip = env('WHITE_LIST_IP');
+       }
 
 
 

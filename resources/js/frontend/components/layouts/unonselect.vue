@@ -10,19 +10,10 @@
                         </select>
                         <select  class='searchFrom form-control' name="thana" id="thana" v-model="thana" @change="getuniounFun" >
                             <option value="">উপজেলা নির্বাচন করুন</option>
-                            <option v-for="thana in getthanas" :key="thana.id" :value="thana.id">{{ thana.bn_name }}</option>
+                            <option v-for="thana in getthanas" :key="thana.id" :value="thana.url">{{ thana.bn_name }}</option>
                         </select>
 
-                        <select  @change="changeunioun"  class='searchFrom form-control' v-model="unioun" id="unioun">
-                            <option value="">ইউনিয়ন নির্বাচন করুন</option>
-
-                           <!-- <option value="">ইউনিয়ন</option> -->
-                           <option v-for="union in getuniouns" :key="union.id" :value="union.url">{{ union.bn_name }}</option>
-                        </select>
-<!--
-                        <select  @change="changeunioun()"  class='searchFrom form-control' v-model="unioun" id="unioun">
-                           <option value="">ইউনিয়ন</option><option value="Chilahati">চিলাহাটি</option><option value="Shaldanga">শালডাঙ্গা</option><option value="Debiganj Sadar">দেবীগঞ্জ সদর</option><option value="Pamuli">পামুলী</option><option value="Sundardighi">সুন্দরদিঘী</option><option value="Sonahar Mollikadaha">সোনাহার মল্লিকাদহ</option><option value="Tepriganj">টেপ্রীগঞ্জ</option><option value="Dandopal">দন্ডপাল</option><option value="Debiduba">দেবীডুবা</option><option value="Chengthi Hazra Danga">চেংঠী হাজরা ডাঙ্গা</option>
-                        </select> -->
+         
 
 
 </div>
@@ -73,8 +64,10 @@ export default {
         },
 
        async getuniounFun(){
-         var res = await this.callApi('get',`/api/getunioun?id=${this.thana}`,[]);
-         this.getuniouns = res.data;
+        
+        window.location.href = this.thana+this.CustomUrl
+        //  var res = await this.callApi('get',`/api/getunioun?id=${this.thana}`,[]);
+        //  this.getuniouns = res.data;
         },
 
 

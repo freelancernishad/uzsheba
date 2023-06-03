@@ -100,6 +100,7 @@ $changepass =   $request->changepass;
     {
             $position = $request->position;
              $upozila = $request->upozila;
+             $unioun = $request->unioun;
 
             if($position=='Thana_admin'){
                 $positions = ['Secretary', 'Chairman'];
@@ -111,6 +112,10 @@ $changepass =   $request->changepass;
             if($upozila){
 
                 return User::where(['upozila'=>$upozila])->get();
+            }
+            if($unioun){
+
+                return User::where(['unioun'=>$unioun])->get();
             }
             return User::all();
 

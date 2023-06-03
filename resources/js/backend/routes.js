@@ -16,12 +16,14 @@ let report = require('./components/report.vue').default;
 
 
 
+let unionlist = require('./components/unionList/list.vue').default;
+let unionlistedit = require('./components/unionList/form.vue').default;
+
+
+
+
 let userlist = require('./components/users/list.vue').default;
 let userlistedit = require('./components/users/form.vue').default;
-
-
-
-
 
 let sonodWord = require('./components/sonod/word.vue').default;
 let sonod = require('./components/sonod/index.vue').default;
@@ -70,6 +72,10 @@ export const routes = [
 
 //   { path:  `${prefix}/application/list/:word/:type`, component: sonod, name:'applicationlist',meta: { layout: adminlayout } },
 
+
+{ path:  `${prefix}/union/list`, component: unionlist, name:'unionlist',meta: { layout: adminlayout } },
+{ path:  `${prefix}/union/list/add`, component: unionlistedit, name:'unionlistadd',meta: { layout: adminlayout } },
+{ path:  `${prefix}/union/list/edit/:id`, component: unionlistedit, name:'unionlistedit',meta: { layout: adminlayout } },
 
 
 

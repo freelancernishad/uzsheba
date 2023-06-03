@@ -36,7 +36,7 @@
                                     <h5>আবেদনকারীর নামঃ</h5>
                                 </div>
 
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label for=""  class="labelColor">আবেদনকারীর ধরণ</label>
                                         <select v-model="form.applicant_type" class="form-control" id="applicant_type" required>
@@ -45,7 +45,7 @@
                                             <option>একটি গোষ্ঠী</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
 
 
 
@@ -794,8 +794,9 @@ export default {
       preLooding: false,
       submitLoad: false,
       form: {
+        unioun_name:'',
         sonod_name:'ভবনের নকশা',
-        applicant_type:'',
+        applicant_type:'একক ব্যক্তি',
         appicant_name:'',
         applicant_father_name:'',
         appicant_sumiti_name:'',
@@ -1037,8 +1038,16 @@ export default {
     },
   },
   mounted() {
+
+    this.form.unioun_name = localStorage.getItem('unioun');
+
+
     this.getdivisionFun();
     this.form.deposite_date = this.dateformatGlobal()[0];
+
+
+
+
   },
 };
 </script>
