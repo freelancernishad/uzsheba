@@ -99,18 +99,21 @@ $changepass =   $request->changepass;
     public function index(Request $request)
     {
             $position = $request->position;
-             $thana = $request->thana;
-            if($position=='Thana_admin'){
+             $upozila = $request->upozila;
 
+            if($position=='Thana_admin'){
                 $positions = ['Secretary', 'Chairman'];
                 return User::whereIn('position',$positions)
-                ->where(['thana'=>$thana])
+                ->where(['upozila'=>$upozila])
                 ->get();
-
-
-
             }
-        return User::all();
+
+            if($upozila){
+
+                return User::where(['upozila'=>$upozila])->get();
+            }
+            return User::all();
+
     }
 
     /**

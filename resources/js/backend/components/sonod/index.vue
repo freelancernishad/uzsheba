@@ -873,8 +873,8 @@ export default {
 
 
             var position = this.Users.position
-            var thana = this.Users.thana
-            var users = await this.callApi('get', `/api/get/users/list?position=${position}&thana=${thana}`, []);
+            var thana = this.Users.upozila
+            var users = await this.callApi('get', `/api/get/users/list?position=${position}&upozila=${thana}`, []);
 
             var userlst = [];
 

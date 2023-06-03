@@ -40,6 +40,8 @@ export default {
         changeName(value){
             if(value=='admin'){
                 return 'এডমিন';
+            }else if(value=='uno'){
+                return 'উপজেলা নির্বাহী অফিসার';
             }else if(value=='chairman'){
                 return 'উপজেলা চেয়ারম্যান';
             }else if(value=='sub_admin'){
