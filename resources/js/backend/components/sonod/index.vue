@@ -255,7 +255,8 @@
                     </div>
 
                     <div class="col-md-4"><b>সিটি কর্পোরেশন/পৌরসভা/আম/মহল্লা/ উন্নয়নকৃত এলাকার নাম :</b> {{ infoModal.building_construction.areaName }}</div>
-                    <div class="col-md-4"><b>দাগ ও খতিয়ান নং (জরিপ মোতাবেক)/প্লট নং :</b> {{ infoModal.building_construction.dagKhotiyan }}</div>
+                    <div class="col-md-4"><b>খতিয়ান নং :</b> {{ infoModal.building_construction.dagKhotiyan }}</div>
+                    <div class="col-md-4" v-if="infoModal.building_construction.dag"><b>দাগ :</b> {{ infoModal.building_construction.dag }}</div>
                     <div class="col-md-4"><b>মৌজার নাম / ব্লক নং/সেক্টর নং :</b> {{ infoModal.building_construction.Mouja }}</div>
                     <div class="col-md-4"><b>ওয়ার্ড নং (প্রযোজ্য ক্ষেত্রে) :</b> {{ infoModal.building_construction.wordNo }}</div>
                     <div class="col-md-4"><b>রাস্তার নাম :</b> {{ infoModal.building_construction.rastarName }}</div>
@@ -564,7 +565,7 @@
 
 
                 <Prodibedondakhilimarot :approve-data="DakhilModal.status" :sonod-id="DakhilModal.content_id"
-                    :Details="DakhilModal.content" @event-name="sonodList" v-else>
+                    :Details="DakhilModal.content" :building_construction="DakhilModal.building_construction" @event-name="sonodList" v-else>
                 </Prodibedondakhilimarot>
 
 
@@ -669,6 +670,7 @@ export default {
                 title: '',
                 status: '',
                 content: {},
+                building_construction: {},
                 content_id: '',
             },
 
@@ -733,6 +735,7 @@ export default {
             if(modal=='modal'){
 
                     this.DakhilModal.title = `${item.name}`
+                    this.DakhilModal.building_construction = JSON.parse(item.building_construction);
                     this.DakhilModal.content = item
                     this.DakhilModal.status = status
 

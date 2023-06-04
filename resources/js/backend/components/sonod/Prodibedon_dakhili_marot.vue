@@ -198,10 +198,23 @@ export default {
             type: Object,
             default: {}
         },
+        'building_construction': {
+            type: Object,
+            default: {}
+        },
     },
 
     created() {
         this.form = this.Details;
+        this.form.mouja_name = this.building_construction.Mouja
+        // this.form.JL_No = this.building_construction.dag
+        this.form.khotiyan_no = this.building_construction.dagKhotiyan
+        if(this.building_construction.dag){
+
+            this.form.dag_NO = this.building_construction.dag
+        }
+        this.form.land_length = this.building_construction.dageApplicantOngso
+        this.form.ayoton = this.building_construction.siterAyoton
         this.form.license_id = this.Details.id;
     },
     data() {

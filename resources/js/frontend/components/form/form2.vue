@@ -234,7 +234,14 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">ডাকঘর</label>
+                        <input type="text" class="form-control" v-model="form.post" >
+                    </div>
+                </div>
+                <!-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="">ডাকঘর</label>
                         <select v-model="form.post" id="post" class="form-control" required >
@@ -251,7 +258,7 @@
                             <option value="দেবনগর">দেবনগর</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -353,8 +360,15 @@
                     <!-- col-md-4 -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="" class="labelColor">দাগ ও খতিয়ান নং (জরিপ মোতাবেক)/প্লট নং</label>
+                            <label for="" class="labelColor">খতিয়ান নং</label>
                             <input type="text"  v-model="form.building_construction['dagKhotiyan']"   class="form-control" >
+                        </div>
+                    </div>
+                                        <!-- col-md-4 -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class="labelColor">দাগ</label>
+                            <input type="text"  v-model="form.building_construction['dag']"   class="form-control" >
                         </div>
                     </div>
                     <!-- col-md-4 -->
@@ -838,6 +852,7 @@ export default {
         building_construction:{
                      "areaName":"",
                      "dagKhotiyan":"",
+                     "dag":"",
                      "Mouja":"",
                      "wordNo":"",
                      "rastarName":"",

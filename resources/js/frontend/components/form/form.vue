@@ -237,6 +237,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">ডাকঘর</label>
+                        <input type="text" class="form-control" v-model="form.post"  >
+                    </div>
+                </div>
+                <!-- <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">ডাকঘর</label>
                         <select v-model="form.post" id="post" class="form-control" required >
                             <option value="">ডাকঘর নির্বাচন করুন</option>
                             <option value="বাংলাবান্ধা">বাংলাবান্ধা</option>
@@ -251,7 +257,7 @@
                             <option value="দেবনগর">দেবনগর</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
