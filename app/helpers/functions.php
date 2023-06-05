@@ -91,7 +91,7 @@ curl_close($curl);
 
     function unionname($unionname){
         return  $sonodList = Uniouninfo::where(['short_name_e'=>$unionname])->first();
-  
+
       }
     function ekpayToken($trnx_id=123456789,$trnx_amt=0,$cust_info=[],$path='payment',$unioun_name=''){
 
@@ -99,8 +99,7 @@ curl_close($curl);
         $req_timestamp = date('Y-m-d H:i:s');
 
 
-        $Apiurl = 'https://pg.ekpay.gov.bd/ekpaypg/v1';
-        $url = 'https://www.esspmtetulia.gov.bd';
+        $url = env('AKPAY_IPN_URL');
 
         $whitelistip = '198.54.114.109';
        $req_timestamp = date('Y-m-d H:i:s');
@@ -163,8 +162,8 @@ curl_close($curl);
         $response = curl_exec($ch);
         curl_close($ch);
 
-   /*      echo '<pre>';
-        print_r($response); */
+        //  echo '<pre>';
+        // print_r($response);
 
          $response = json_decode($response);
 
