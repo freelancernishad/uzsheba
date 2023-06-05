@@ -139,7 +139,7 @@
                 <div class="col-md-6">
                 <div class="form-group">
                    <label for=""> প্রস্তাবিত জায়গায় ভবন/স্থাপনা নির্মাণ করা হলে  পরিবেশগত কোন ক্ষতির সম্ভাবনা রয়েছে কি না?</label>
-                   <select v-model="form.paperTrueOrNot" class="form-control" >
+                   <select v-model="form.posibleFalse" class="form-control" >
                         <option value="">নির্বাচন করুন</option>
                         <option>সম্ভাবনা আছে</option>
                         <option>সম্ভাবনা নাই</option>
