@@ -40,14 +40,30 @@ class fronendController extends Controller
 
 
         if($row->status!='approved'){
-            echo "
-            <div style='width:80%;margin:0 auto;text-align: center;'>
+
+            if($row->sonod_name=='নলকূপ লাইসেন্স'){
+
+                echo "
+                <div style='width:80%;margin:0 auto;text-align: center;'>
                 <h1 style='color:red;text-align:center'>গভীর/অগভীর নলকূপ স্থাপনের এই লাইসেন্সের আবেদনটি এখনো অনুমোদিত হয়নি</h1>
-            <div>
-            ";
+                <div>
+                ";
+            }else{
+
+                echo "
+                <div style='width:80%;margin:0 auto;text-align: center;'>
+                <h1 style='color:red;text-align:center'>ভবনের নকশার এই লাইসেন্সের আবেদনটি এখনো অনুমোদিত হয়নি</h1>
+                <div>
+                ";
+            }
+
+
             return;
         }
         if($row->payment_status=='Unpaid'){
+
+
+            if($row->sonod_name=='নলকূপ লাইসেন্স'){
             echo "
             <div style='width:80%;margin:0 auto;text-align: center;'>
                 <h1 style='color:red;text-align:center'>গভীর/অগভীর নলকূপ স্থাপনের এই লাইসেন্সের আবেদনটি অনুমোদিত হয়েছে। কিন্তু ফি প্রদান করা হয়নি। দয়া করে লাইসেন্সটির ফি প্রদান করুন</h1>
@@ -58,6 +74,20 @@ class fronendController extends Controller
                 text-decoration: none;'>ফি প্রদান করুন</a>
             </div>
             ";
+        }else{
+
+            echo "
+            <div style='width:80%;margin:0 auto;text-align: center;'>
+                <h1 style='color:red;text-align:center'>ভবনের নকশার এই লাইসেন্সের আবেদনটি অনুমোদিত হয়েছে। কিন্তু ফি প্রদান করা হয়নি। দয়া করে লাইসেন্সটির ফি প্রদান করুন</h1>
+                <a href='/l/f/$row->id?f=l' style='background: #002bff;
+                color: white;
+                padding: 12px 12px;
+                font-size: 30px;
+                text-decoration: none;'>ফি প্রদান করুন</a>
+            </div>
+            ";
+        }
+
             return;
         }
 

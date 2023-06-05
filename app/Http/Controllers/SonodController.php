@@ -54,6 +54,18 @@ class SonodController extends Controller
 
                 if($payment->sonod_type=='application_fee'){
 
+
+
+                    if($sonod->sonod_name=='নলকূপ লাইসেন্স'){
+                        $des = "অভিনন্দন! অনলাইন সেচ সেবায় আপনার আবেদন গ্রহণ করা হয়েছে। বিধি মোতাবেক আগামী ২০ (বিশ) কার্যদিবসের মধ্যে তদন্ত সম্পন্ন করা হবে। ধন্যবাদ";
+                    }else{
+                        $des = "অভিনন্দন! অনলাইন ভবনের নকশা সেবায় আপনার আবেদন গ্রহণ করা হয়েছে। বিধি মোতাবেক আগামী ২০ (বিশ) কার্যদিবসের মধ্যে তদন্ত সম্পন্ন করা হবে। ধন্যবাদ";
+                    }
+                    $mobile = int_bn_to_en($sonod->mobile_number);
+                    SmsNocSmsSend($des,"$mobile");
+
+
+
                     return view('applicationSuccess', compact('payment', 'sonod'));
 
                 }else if($payment->sonod_type=='license_fee'){
@@ -325,15 +337,15 @@ class SonodController extends Controller
             $sonod =  aplication::create($data);
 
 
-            if($r->sonod_name=='নলকূপ লাইসেন্স'){
-                $des = "অভিনন্দন! অনলাইন সেচ সেবায় আপনার আবেদন গ্রহণ করা হয়েছে। বিধি মোতাবেক আগামী ২০ (বিশ) কার্যদিবসের মধ্যে তদন্ত সম্পন্ন করা হবে। ধন্যবাদ";
-            }else{
+            // if($r->sonod_name=='নলকূপ লাইসেন্স'){
+            //     $des = "অভিনন্দন! অনলাইন সেচ সেবায় আপনার আবেদন গ্রহণ করা হয়েছে। বিধি মোতাবেক আগামী ২০ (বিশ) কার্যদিবসের মধ্যে তদন্ত সম্পন্ন করা হবে। ধন্যবাদ";
+            // }else{
 
-                $des = "অভিনন্দন! অনলাইন ভবনের নকশা সেবায় আপনার আবেদন গ্রহণ করা হয়েছে। বিধি মোতাবেক আগামী ২০ (বিশ) কার্যদিবসের মধ্যে তদন্ত সম্পন্ন করা হবে। ধন্যবাদ";
-            }
+            //     $des = "অভিনন্দন! অনলাইন ভবনের নকশা সেবায় আপনার আবেদন গ্রহণ করা হয়েছে। বিধি মোতাবেক আগামী ২০ (বিশ) কার্যদিবসের মধ্যে তদন্ত সম্পন্ন করা হবে। ধন্যবাদ";
+            // }
 
-             $mobile = int_bn_to_en($r->mobile_number);
-            SmsNocSmsSend($des,"$mobile");
+            //  $mobile = int_bn_to_en($r->mobile_number);
+            // SmsNocSmsSend($des,"$mobile");
 
 
 
