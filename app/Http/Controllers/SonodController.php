@@ -72,7 +72,7 @@ class SonodController extends Controller
 
 
 
-                    $patmenturl = "/license/$id";
+                    $patmenturl = url("/license/$id");
 
                     if($sonod->sonod_name=='নলকূপ লাইসেন্স'){
                         $des = "অনলাইন সেচ সেবায় আপনার আবেদনটি অনুমোদিত হয়েছে। লাইসেন্স প্রাপ্তির জন্য লিংকঃ $patmenturl";
@@ -1476,7 +1476,7 @@ if ($sonod_name == 'ওয়ারিশান সনদ') {
 
         if($status=='approved'){
 
-            $patmenturl = asset("/l/f/$id?f=l");
+            $patmenturl = url("/l/f/$id?f=l");
 
             if($aplication->sonod_name=='নলকূপ লাইসেন্স'){
                 $des = "অনলাইন সেচ সেবায় আপনার আবেদনটি অনুমোদিত হয়েছে। লাইসেন্স প্রাপ্তির জন্য লিংকে গিয়ে নির্ধারিত ফি পরিশোধ করুন $patmenturl";
