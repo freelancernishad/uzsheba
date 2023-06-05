@@ -105,9 +105,9 @@
 
                             <td class="sonodTd">
 
-                                <!-- <a v-if="item.status=='pending' && $localStorage.getItem('position') == 'admin'" :href="'/dashboard/application/edit/'+item.id" class="btn btn-info">Edit</a> -->
+                                <!-- <a v-if="item.status=='pending' && $localStorage.getItem('position') == 'chairman'" :href="'/dashboard/application/edit/'+item.id" class="btn btn-info">Edit</a> -->
 
-                                <span v-if="item.status=='pending' && $localStorage.getItem('position') == 'admin'" @click="approve('/api/application/status', item, 'processing','আবেদনটি তদন্তের জন্য প্রেরণ করতে চান!','আবেদনটি তদন্তের জন্য প্রেরণ করা হয়েছে!', $event.target)" class="btn btn-success">তদন্তের জন্য প্রেরণ করুন</span>
+                                <span v-if="item.status=='pending' && $localStorage.getItem('position') == 'chairman'" @click="approve('/api/application/status', item, 'processing','আবেদনটি তদন্তের জন্য প্রেরণ করতে চান!','আবেদনটি তদন্তের জন্য প্রেরণ করা হয়েছে!', $event.target)" class="btn btn-success">তদন্তের জন্য প্রেরণ করুন</span>
 
 
                                  <span  v-if="item.status=='processing'" @click="approve('/api/application/status', item, 'processied','আবেদনটির প্রতিবেদন দাখিল করতে চান!','আবেদনটির প্রতিবেদন দাখিল করা হয়েছে!', $event.target,'modal')" class="btn btn-success">প্রতিবেদন দাখিল করুন</span>
@@ -115,8 +115,8 @@
 
 
 
-                                <span v-if="item.status=='processied' && $localStorage.getItem('position') == 'admin'"  @click="approve('/api/application/status', item, 'approved','আবেদনটি অনুমোদন করতে চান!','আবেদনটি অনুমদিত হয়েছে!', $event.target)"  class="btn  btn-success">অনুমোদন</span>
-                                <span v-if="item.status=='processied' && $localStorage.getItem('position') == 'admin'"  @click="approve('/api/application/status', item, 'canceled','আবেদনটি বাতিল করতে চান!','আবেদনটি বাতিল হয়েছে!', $event.target)"  class="btn btn-warning">বাতিল</span>
+                                <span v-if="item.status=='processied' && $localStorage.getItem('position') == 'chairman'"  @click="approve('/api/application/status', item, 'approved','আবেদনটি অনুমোদন করতে চান!','আবেদনটি অনুমদিত হয়েছে!', $event.target)"  class="btn  btn-success">অনুমোদন</span>
+                                <span v-if="item.status=='processied' && $localStorage.getItem('position') == 'chairman'"  @click="approve('/api/application/status', item, 'canceled','আবেদনটি বাতিল করতে চান!','আবেদনটি বাতিল হয়েছে!', $event.target)"  class="btn btn-warning">বাতিল</span>
 
 
 
