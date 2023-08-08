@@ -766,7 +766,7 @@ $style = '';
         // return $sonod->unioun_name;
 
 
-            $redirectutl = ekpayToken($trnx_id, $trns_info, $cust_info,'payment',$unioun_name);
+             $redirectutl = ekpayToken2($trnx_id, $trns_info, $cust_info,'payment',$unioun_name);
 
 
 

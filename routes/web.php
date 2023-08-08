@@ -21,6 +21,7 @@ use App\Http\Controllers\TenderListController;
 use App\Http\Controllers\UniouninfoController;
 use App\Http\Controllers\ExpenditureController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\TenderFormBuyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -230,7 +231,7 @@ td{
 
 
 
-
+Route::get('/tenderformpay/success', [TenderFormBuyController::class,'tenderFormPaymentSuccess']);
 
 
 
@@ -267,8 +268,16 @@ Route::get('/payment/success', function (Request $request) {
 
     $payment = Payment::where(['trxId' => $transId])->first();
 
-    $redirect = "/payment/success/confirm?transId=$transId";
 
+    if($payment->sonod_type=='Tenders_form'){
+        $redirect = "/tenderformpay/success?transId=$transId";
+    }else{
+        $redirect = "/payment/success/confirm?transId=$transId";
+    }
+
+
+
+    // $redirect = "/payment/success/confirm?transId=$transId";
     echo "
     <h3 style='text-align:center'>Please wait 10 seconds.This page will auto redirect you</h3>
     <script>
@@ -277,6 +286,10 @@ Route::get('/payment/success', function (Request $request) {
     }, 10000);
     </script>
     ";
+
+
+
+
     // return redirect("/payment/success/confirm?transId=$transId");
 });
 Route::get('/payment/success/confirm', [SonodController::class,'sonodpaymentSuccess']);

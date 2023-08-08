@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tender;
 use App\Models\Payment;
 use App\Models\aplication;
+use App\Models\TenderList;
 use App\Models\Uniouninfo;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
@@ -36,13 +38,31 @@ class PaymentController extends Controller
 
             if($sonod_type=='application_fee'){
                 $updateData = ['status' => 'pending'];
+                $sonod->update($updateData);
             }elseif($sonod_type=='license_fee'){
                 $updateData = ['payment_status' => 'Paid'];
+                $sonod->update($updateData);
+            }elseif($payment->sonod_type=='Tenders_form'){
+
+
+
+                $TenderFormBuy = Tender::find($payment->sonodId);
+                $TenderFormBuy->update(['payment_status'=>'Paid']);
+
+
+                $tenderList = TenderList::find($TenderFormBuy->tender_id);
+                $unioun_name = $tenderList->union_name;
+                $deccription = "Your Tender Successfuly submited";
+                SmsNocSmsSend($deccription, $TenderFormBuy->mobile);
+
+
+
             }else{
                 $updateData = ['status' => 'unknown'];
+                $sonod->update($updateData);
             }
 
-            $sonod->update($updateData);
+
         } else {
             if($sonod_type=='application_fee'){
                 $updateData = ['status' => 'Failed'];
