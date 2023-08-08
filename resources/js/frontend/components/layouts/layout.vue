@@ -81,6 +81,12 @@
                                                 যাচাই
                                             </router-link>
                                         </li>
+
+
+                                        <li class="nav-item">
+                                            <router-link class="nav-link" :to="{ name: 'tenders' }">ইজারা</router-link>
+                                        </li>
+
                                         <li class="nav-item">
                                             <router-link class="nav-link" :to="{ name: 'contact' }">যোগাযোগ
                                             </router-link>

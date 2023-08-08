@@ -119,10 +119,56 @@
 
 
 
+
                         <li class="nav-item" @click="submenu(0)">
                             <router-link :to="{ name: 'report' }" class="nav-link"><i
                                     class="flaticon-dashboard"></i><span>সকল প্রতিবেদন</span></router-link>
                         </li>
+
+
+
+                        
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="javascript:void(0)" class="nav-link" @click="submenu(100)"><i class="flaticon-technological"></i><span>ইজারা</span></a>
+                            <transition name="slide">
+                                <ul class="nav sub-group-menu menu-open child" v-if="selected == 100"
+                                    style="display:block">
+
+                                    <li class="nav-item">
+                                        <router-link
+                                            :to="{ name: 'tenderlist', params: { name: 'pending' } }"
+                                            class="nav-link"><i class="fas fa-angle-right"></i> নতুন ইজারা
+                                        </router-link>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <router-link
+                                            :to="{ name: 'tenderlist', params: { name: 'active' } }"
+                                            class="nav-link"><i class="fas fa-angle-right"></i> চলমান ইজারা
+                                        </router-link>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <router-link
+                                            :to="{ name: 'tenderlist', params: { name: 'proccesing' } }"
+                                            class="nav-link"><i class="fas fa-angle-right"></i> নির্বাচন প্রক্রিয়াধীন
+                                        </router-link>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <router-link
+                                            :to="{ name: 'tenderlist', params: { name: 'Completed' } }"
+                                            class="nav-link"><i class="fas fa-angle-right"></i> কমপ্লিট ইজারা
+                                        </router-link>
+                                    </li>
+
+
+                                </ul>
+                            </transition>
+                        </li>
+
+
+
 
 
 

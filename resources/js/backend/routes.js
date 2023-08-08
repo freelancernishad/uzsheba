@@ -40,6 +40,15 @@ let sonodview = require('./components/sonod/view.vue').default;
 let qr = require('./components/sonod/qr2.vue').default;
 
 
+
+let tenderlist = require('./components/tenders/list.vue').default;
+let tenderlistedit = require('./components/tenders/form.vue').default;
+let tendersubmitlist = require('./components/tenders/tenderSubmit.vue').default;
+
+
+
+
+
 let PageNotFound = require('./components/404.vue').default;
 
 
@@ -59,6 +68,12 @@ export const routes = [
   { path:  `${prefix}/report`, component: report, name:'report',meta: { layout: adminlayout } },
 
 
+
+
+  { path:  `${prefix}/tenders/list/:name`, component: tenderlist, name:'tenderlist',meta: { layout: adminlayout } },
+  { path:  `${prefix}/tender/list/add`, component: tenderlistedit, name:'tenderlistadd',meta: { layout: adminlayout } },
+  { path:  `${prefix}/tender/list/edit/:id`, component: tenderlistedit, name:'tenderlistedit',meta: { layout: adminlayout } },
+  { path:  `${prefix}/tender/submit/list/:tender_id`, component: tendersubmitlist, name:'tendersubmitlist',meta: { layout: adminlayout } },
 
 
   { path:  `${prefix}/user/list`, component: userlist, name:'userlist',meta: { layout: adminlayout } },

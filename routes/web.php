@@ -1,6 +1,7 @@
 <?php
 use App\Models\Role;
 use App\Models\Sonod;
+use App\Models\Tender;
 use App\Models\Payment;
 use App\Models\TikaLog;
 use App\Models\Visitor;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AplicationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HoldingtaxController;
+use App\Http\Controllers\TenderListController;
 use App\Http\Controllers\UniouninfoController;
 use App\Http\Controllers\ExpenditureController;
 use App\Http\Controllers\NotificationsController;
@@ -109,6 +111,135 @@ $AKPAY_MER_PASS_KEY = 'sI8^Q2##';
 
 
 });
+
+Route::get('/tenders/payment/{id}', [TenderListController::class,'PaymentCreate']);
+
+Route::get('/tenders/{tender_id}', [TenderListController::class,'TenderForm']);
+Route::post('/tenders/{tender_id}', [TenderListController::class,'TenderForm']);
+
+
+Route::get('/pdf/tenders/{tender_id}', [TenderListController::class,'viewpdf']);
+
+
+
+Route::post('/form/submit', function (Request $request) {
+
+    $data = $request->except(['_token','bank_draft_image','deposit_details']);
+    $bank_draft_image = $request->file('bank_draft_image');
+    $extension = $bank_draft_image->getClientOriginalExtension();
+    $path = public_path('files/bank_draft_image/');
+    $fileName = $request->dorId.'-'.uniqid().'.'.$extension;
+    $bank_draft_image->move($path, $fileName);
+    $bank_draft_image = asset('files/bank_draft_image/'.$fileName);
+
+
+
+
+
+    // $deposit_details = $request->file('deposit_details');
+    // $extension = $deposit_details->getClientOriginalExtension();
+    // $path = public_path('files/deposit_details/');
+    // $fileName = $request->dorId.'-'.uniqid().'.'.$extension;
+    // $deposit_details->move($path, $fileName);
+    // $deposit_details = asset('files/deposit_details/'.$fileName);
+    // $data['deposit_details'] = $deposit_details;
+
+
+
+    $data['bank_draft_image'] = $bank_draft_image;
+    $data['payment_status'] = 'Unpaid';
+
+
+
+
+
+  $tender =  Tender::create($data);
+  Session::flash('Smessage', 'আপনার দরপত্রটি দাখিল হয়েছে');
+
+  return redirect("/tenders/payment/$tender->id");
+
+//   return redirect()->back();
+
+
+});
+
+
+Route::get('/pdf/sder/download/{tender_id}', function (Request $request,$tender_id) {
+
+$html = '
+<style>
+td{
+    border: 1px solid black;
+    padding:4px 10px;
+    font-size: 14px;
+}    th{
+    border: 1px solid black;
+    padding:4px 10px;
+    font-size: 14px;
+}
+</style>
+    <p style="text-align:center;font-size:25px">দরপত্র দাখিল কারীর তালিকা</p>
+
+
+<table class="table" border="1" style="border-collapse: collapse;width:100%">
+<thead>
+    <tr>
+    <td>দরপত্র নম্বর</td>
+    <td>নাম</td>
+    <td>পিতার নাম</td>
+    <td>ঠিকানা</td>
+    <td>মোবাইল</td>
+    <td>দরের পরিমাণ</td>
+    <td>কথায়</td>
+    <td>জামানতের পরিমাণ</td>
+    </tr>
+</thead>
+<tbody>';
+        $tenders =  Tender::where('tender_id',$tender_id)->get();
+    foreach ($tenders as $application) {
+
+
+    $html .= " <tr>
+        <td>$application->dorId</td>
+        <td>$application->applicant_orgName</td>
+        <td>$application->applicant_org_fatherName</td>
+        <td>গ্রাম- $application->vill, ডাকঘর- $application->postoffice, উপজেলা- $application->thana, জেলা- $application->distric</td>
+        <td>$application->mobile</td>
+        <td>$application->DorAmount</td>
+        <td>$application->DorAmountText</td>
+        <td>$application->depositAmount</td>
+    </tr>";
+}
+
+
+    $html .= '
+
+</tbody>
+</table>
+
+
+
+';
+   return PdfMaker('A4',$html,'list',false);
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -308,3 +439,6 @@ Route::get('/{vue_capture?}', function () {
      return view('frontlayout',compact('uniounDetials'));
 
 })->where('vue_capture', '[\/\w\.-]*')->name('frontend');
+
+
+
