@@ -142,7 +142,7 @@ class TenderListController extends Controller
         $filename = time().".pdf";
         // return $this->pdfHTMLut($row,$uniouninfo);
             $mpdf = new \Mpdf\Mpdf([
-                'default_font_size' => 13,
+                'default_font_size' => 11,
                 'default_font' => 'bangla',
                 'mode' => 'utf-8',
                 'format' => 'A4',
@@ -286,7 +286,7 @@ class TenderListController extends Controller
 
 
 
-             <p class='mb-0' style='text-align:left;text-weight:900;font-size:20px'><u>$row->tender_product_title:</u></p>
+             <p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>$row->tender_product_title:</u></p>
 
              <div class='roles'>
              $row->tender_product_Number_Quantity
