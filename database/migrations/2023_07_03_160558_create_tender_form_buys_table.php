@@ -17,6 +17,11 @@ class CreateTenderFormBuysTable extends Migration
             $table->id();
             $table->string('tender_id');
             $table->string('name')->nullable();
+            $table->string('applicant_org_fatherName')->nullable();
+            $table->string('vill')->nullable();
+            $table->string('postoffice')->nullable();
+            $table->string('thana')->nullable();
+            $table->string('distric')->nullable();
             $table->string('PhoneNumber')->nullable();
             $table->string('form_code');
             $table->string('status');

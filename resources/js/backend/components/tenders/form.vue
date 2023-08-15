@@ -35,7 +35,11 @@
         </div>
 
 
-        <div class="form-group col-md-6">
+
+
+
+
+        <!-- <div class="form-group col-md-6">
           <label for="">ওয়ার্ড নং</label>
 
             <select v-model="form.tender_word_no" class="form-control" >
@@ -50,7 +54,11 @@
                 <option value="8">৮</option>
                 <option value="9">৯</option>
             </select>
-        </div>
+        </div> -->
+
+
+
+
 
 
         <div class="form-group col-md-6">
@@ -63,12 +71,24 @@
           <input type="Number" v-model="form.form_price" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
 
+
+
+
         <div class="col-md-12"></div>
 
+
+
         <div class="form-group col-md-6">
-          <label for="">অনলাইনে সিডিউল ক্রয়ের শেষ তারিখ</label>
+          <label for="">সিডিউল ক্রয়ের শেষ তারিখ</label>
           <input type="datetime-local" v-model="form.form_buy_last_date" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
+
+        <div class="form-group col-md-6">
+          <label for="">সিডিউল ক্রয়ের স্থান</label>
+          <input type="text" v-model="form.form_buy_address" class="form-control" placeholder="" aria-describedby="helpId">
+        </div>
+
+
 
         <div class="form-group col-md-6">
           <label for="">বিজ্ঞপ্তির তারিখ</label>
@@ -87,10 +107,46 @@
           <input type="datetime-local" v-model="form.tender_end" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
 
+
+        <div class="form-group col-md-6">
+          <label for="">দরপত্র দাখিলের পদ্ধতি ও স্থান</label>
+          <input type="text" v-model="form.tender_submit_role_address" class="form-control" placeholder="" aria-describedby="helpId">
+        </div>
+
+
+
+
         <div class="form-group col-md-6">
           <label for="">দরপত্র খোলার তারিখ</label>
           <input type="datetime-local" v-model="form.tender_open" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
+
+
+        <div class="form-group col-md-6">
+          <label for="">দরপত্র খোলার স্থান</label>
+          <input type="text" v-model="form.tender_open_address" class="form-control" placeholder="" aria-describedby="helpId">
+        </div>
+
+
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <label for="">Title</label>
+                <input type="text" v-model="form.tender_open_address" class="form-control" placeholder="" aria-describedby="helpId">
+            </div>
+
+
+            <div class="form-group">
+                <label for="">সংখ্যা/পরিমাণ</label>
+                <vue-editor v-model="form.tender_roles" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
+            </div>
+
+        </div>
+
+
+
+
+
 
 
         <div class="form-group col-md-12">

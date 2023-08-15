@@ -240,7 +240,7 @@ curl_close($curl);
        print_r($response); */
 
        Log::info($response);
-         $response = json_decode($response);
+       $response = json_decode($response);
        $sToken =  $response->secure_token;
 
 

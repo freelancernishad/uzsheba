@@ -150,8 +150,8 @@ class TenderListController extends Controller
                 'setAutoBottomMargin' => 'stretch'
             ]);
             $mpdf->SetDisplayMode('fullpage');
-            $mpdf->SetHTMLHeader($this->pdfHeader($row,$uniouninfo, $filename));
-            $mpdf->SetHTMLFooter($this->pdfFooter($row,$uniouninfo, $filename));
+            // $mpdf->SetHTMLHeader($this->pdfHeader($row,$uniouninfo, $filename));
+            // $mpdf->SetHTMLFooter($this->pdfFooter($row,$uniouninfo, $filename));
             // $mpdf->SetHTMLHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->defaultheaderfontsize = 10;
             $mpdf->defaultheaderfontstyle = 'B';
@@ -193,51 +193,104 @@ class TenderListController extends Controller
         $numto = new NumberToBangla();
         $the_amount_of_money_in_words = $numto->bnMoney($form_price) . ' মাত্র';
 
+
+    //     <tr>
+    //     <td style='text-align:center'>১</td>
+    //     <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->form_buy_last_date)))."</td>
+    //     <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_start)))."</td>
+    //     <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_end)))."</td>
+    //     <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_open)))."</td>
+    // </tr>
+
+
+
+
+
+
+
         $nagoriinfo = "
+        <style>
+            .m-0{
+                margin:0 !important;
+            }
+            .mb-0{
+                margin-bottom:0 !important;
+            }
+            .mt-0{
+                margin-top:0 !important;
+            }
+            .roles p {
+                margin:0 !important;
+            }
+        </style>
+
+        <div style='text-align:center'>
+            <p class='m-0'>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
+            <p class='m-0'>উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
+            <p class='m-0'>তেঁতুলিয়া, পঞ্চগড়।</p>
+            <p class='m-0'>www.tetulia.panchagarh.gov.bd</p>
+
+        </div>
+
+
+
+
             <table width='100%'>
                 <tr>
                     <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($row->memorial_no)."</td>
                     <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime($noticeDate)))."</td>
                 </tr>
             </table>
-            <p style='text-align:center;text-weight:700'><u>$row->tender_name</u></p>
+            <p class='mb-0' style='text-align:center;text-weight:900;font-size:30px'><u>নিলাম বিজ্ঞপ্তি</u></p>
 
 
-            <p>
+            <p class='mb-0' style='text-align:justify'>
              &nbsp;&nbsp;&nbsp;&nbsp;
 
-             এতদ্বারা সর্বসাধারণের সদয় অবগতির জন্য জানানো যাচ্ছে যে, ইউনিয়ন পরিষদের মালিকানাধীন $row->tender_type $orthoBotsor সনের জন্য অর্থাৎ $meyad খ্রি: হতে এক বৎসর মেয়াদে ইজারার নিমিত্তে সিলগালা খামে দরপত্র আহবান করা যাচ্ছে। দরপত্র সিডিউলে উল্লেখিত শর্তাবলী পালন সাপেক্ষে দরপত্রসমূহ নিম্নলিখিত তারিখ ও সময়ে কেবল মাত্র $uniouninfo->full_name কার্যালয়ে রক্ষিত দরপত্র বাক্সে ".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_end)))." ঘটিকা পর্যন্ত গ্রহণ করা হবে। ঐদিনই ".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_open)))." ঘটিকার সময় উপস্থিত দরপত্র দাতা কিংবা তাদের প্রতিনিধিদের সম্মুখে (যদি কেহ উপস্থিত থাকেন) খোলা হবে। দরপত্র সংক্রান্ত যাবতীয় তথ্যাদি, দরপত্র সিডিউল/দলিলাদি দরপত্র গ্রহণের পূর্বদিন পর্যন্ত অফিস চলাকালীন সময়ে ".int_en_to_bn($form_price)."/- ($the_amount_of_money_in_words) মূল্যে (অফেরত যোগ্য) $uniouninfo->full_name অফিসে ও সংশ্লিষ্ট উপজেলা নিবাহী অফিসারের কার্যালয় হইতে ক্রয় করা যাবে। দরপত্র দাখিলের দিন কোন দরপত্র সিডিউল বিক্রি করা হবে না। বিগত বছরের ইজারা মূল্য ও অন্যান্য তথ্যাদি $uniouninfo->full_name এর ওয়েবসাইট (www.uniontax.gov.bd) থেকে এবং অফিস চলাকালীন সময়ে অফিস হতে জানা যাবে
+             এতদ্বারা সর্বসাধারণের অবগতির জন্য জানানো যাচ্ছে যে, $row->description নিলামে বিক্রয়ের নিমিত্ত নিম্নোক্ত শর্তসাপেক্ষে প্রকৃত কাঠ ব্যবসায়ী/বৈধ করাতকল মালিক/ফার্নিচার ব্যবসায়ী/আগ্রহী ব্যক্তি/প্রতিষ্ঠানের নিকট হতে দরপত্র  আহবান করা যাচ্ছে।
 
 
 
 
 </p>
 
-             <p style='text-align:center;text-weight:700'><u>দরপত্র গ্রহণের তারিখ</u></p>
+
+
+
+
+
 
              <table width='100%' border='1' style='border-collapse:collapse;'>
 
                 <tr>
-                    <td style='text-align:center' width='8%'>ক্রমিক</td>
-                    <td style='text-align:center' width='25%'>দরপত্র সিডিউল বিক্রির শেষ তারিখ</td>
-                    <td style='text-align:center' width='25%'>দরপত্র গ্রহণের তারিখ</td>
-                    <td style='text-align:center' width='25%'>দরপত্র খোলার তারিখ</td>
-                    <td style='text-align:center' width='25%'>সিদ্ধান্তের সম্ভাবা তারিখ</td>
+                    <td style='text-align:center' width='25%'>দরপত্র সিডিউল ক্রয়ের তারিখ, শেষ সময় ও স্থান</td>
+                    <td style='text-align:center' width='75%'>".int_en_to_bn(date('d/m/Y', strtotime($noticeDate)))." তারিখ হতে ".int_en_to_bn(date('d/m/Y h:i', strtotime($row->form_buy_last_date)))." টা পর্যন্ত <br/> $row->form_buy_address</td>
                 </tr>
 
+
                 <tr>
-                    <td style='text-align:center'>১</td>
-                    <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->form_buy_last_date)))."</td>
-                    <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_start)))."</td>
-                    <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_end)))."</td>
-                    <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_open)))."</td>
+                    <td style='text-align:center' >দরপত্র দাখিলের নির্ধারিত তারিখ, পদ্ধতি ও স্থান এবং শেষ সময়</td>
+                    <td style='text-align:center' >".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_start)))." টা হতে ".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_end)))." টা পর্যন্ত <br/> $row->tender_submit_role_address</td>
                 </tr>
+
+
+                <tr>
+                    <td style='text-align:center' >দরপত্র খোলার তারিখ, সময় ও স্থান</td>
+                    <td style='text-align:center'>".int_en_to_bn(date('d/m/Y h:i', strtotime($row->tender_open)))." টা পর্যন্ত<br/> $row->tender_open_address</td>
+                </tr>
+
+
 
              </table>
 
-             <p style='text-align:center;text-weight:700'><u>শর্তাবলি</u></p>
 
+
+
+             <p class='mb-0' style='text-align:left;text-weight:900;font-size:20px'><u>শর্তাবলী:</u></p>
+
+             <div class='roles'>
              $row->tender_roles
+             </div>
 
 
 
@@ -726,9 +779,10 @@ $style = '';
     function PaymentCreate($id) {
 
 
-        $tenderform = Tender::find($id);
+        $tenderformBuy  = TenderFormBuy::find($id);
 
-        $sonodFees =  TenderList::find($tenderform->tender_id);
+    //   return  $tenderform = Tender::find($tenderformBuy->tender_id);
+        $sonodFees =  TenderList::find($tenderformBuy->tender_id);
         $sonod_fee =  $sonodFees->form_price;
         $unioun_name =  $sonodFees->union_name;
         $unioninfos = Uniouninfo::where(['short_name_e' => $unioun_name])->first();
@@ -740,7 +794,7 @@ $style = '';
 
 
         $totalamount = $sonod_fee;
-        $applicant_mobile = $tenderform->mobile;
+        $applicant_mobile = $tenderformBuy->PhoneNumber;
         $total_amount = $totalamount;
         $amount = 0;
         if ($total_amount == null || $total_amount == '' || $total_amount < 1) {
@@ -766,7 +820,7 @@ $style = '';
         // return $sonod->unioun_name;
 
 
-             $redirectutl = ekpayToken2($trnx_id, $trns_info, $cust_info,'payment',$unioun_name);
+        $redirectutl = ekpayToken2($trnx_id, $trns_info, $cust_info,'payment',$unioun_name);
 
 
 

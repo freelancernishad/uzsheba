@@ -10,6 +10,7 @@ use App\Models\Uniouninfo;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use App\Exports\ReportExport;
+use App\Models\TenderFormBuy;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Meneses\LaravelMpdf\Facades\LaravelMpdf;
@@ -46,13 +47,18 @@ class PaymentController extends Controller
 
 
 
-                $TenderFormBuy = Tender::find($payment->sonodId);
-                $TenderFormBuy->update(['payment_status'=>'Paid']);
+                // $TenderFormBuy = Tender::find($payment->sonodId);
+
+                // $TenderFormBuy->update(['payment_status'=>'Paid']);
+
+                $TenderFormBuy = TenderFormBuy::find($payment->sonodId);
+
+                $TenderFormBuy->update(['status'=>'Paid']);
 
 
                 $tenderList = TenderList::find($TenderFormBuy->tender_id);
                 $unioun_name = $tenderList->union_name;
-                $deccription = "Your Tender Successfuly submited";
+                $deccription = "Your Tender Form No. $TenderFormBuy->form_code";
                 SmsNocSmsSend($deccription, $TenderFormBuy->mobile);
 
 

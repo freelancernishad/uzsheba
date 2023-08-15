@@ -84,7 +84,7 @@
 
 
                                         <li class="nav-item">
-                                            <a class="nav-link" target="_blank" href="https://tender.uzpseba.gov.bd/">নিলাম</a>
+                                            <router-link class="nav-link" :to="{name:'tenders'}">নিলাম</router-link>
                                         </li>
 
                                         <li class="nav-item">

@@ -175,12 +175,112 @@ text-align: center;
 
             </div>
 
+
+
+
+    <div class="col-md-12 mt-3 row">
+
+
+        <div class="col-md-5" >
+            <div class="form-group">
+                <label for="" class="labelColor">জাতীয় পরিচয়পত্র নং</label>
+                <input type="text" id="nidNo" name="nidNo" class="form-control" >
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="" class="labelColor">জন্ম তারিখ</label>
+                <input type="date" id="nidDate" name="nidDate" class="form-control" >
+            </div>
+        </div>
+        <div class="col-md-2" style="display: flex;justify-content: space-around;align-items: center;margin-top: 14px;" v-if="attactType=='nid'">
+            <div class="form-group mb-0">
+               <button class="btn btn-info" type="button" onclick="checknid()">Check Nid</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="col-md-12 mt-3">
+        <div class="form-group">
+          <label class="mb-1" for="name">দরপত্র দাখিলকারীর নাম</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-3">
+        <div class="form-group">
+          <label class="mb-1" for="applicant_org_fatherName">পিতার নাম</label>
+          <input type="text" class="form-control" id="applicant_org_fatherName" name="applicant_org_fatherName" required>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12 mt-3 ">
+        <div class="form-group">
+          <label class="mb-1" for="address">ঠিকানা</label>
+        </div>
+
+
+
+<div class="row">
+    <div class="col-md-3 mt-3">
+        <div class="form-group">
+          <label class="mb-1" for="vill">গ্রাম</label>
+          <input type="text" class="form-control" id="addvilless" name="vill" required>
+        </div>
+    </div>
+
+
+    <div class="col-md-3 mt-3">
+        <div class="form-group">
+          <label class="mb-1" for="postoffice">ডাকঘর</label>
+          <input type="text" class="form-control" id="postoffice" name="postoffice" required>
+        </div>
+    </div>
+
+
+    <div class="col-md-3 mt-3">
+        <div class="form-group">
+          <label class="mb-1" for="thana">উপজেলা</label>
+          <input type="text" class="form-control" id="thana" name="thana" required>
+        </div>
+    </div>
+
+    <div class="col-md-3 mt-3">
+        <div class="form-group">
+          <label class="mb-1" for="distric">জেলা</label>
+          <input type="text" class="form-control" id="distric" name="distric" required>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{--
     <div class="col-md-12 mt-3">
         <div class="form-group">
           <label class="mb-1" for="name">নাম</label>
           <input type="text" class="form-control" id="name" name="name" required>
         </div>
-    </div>
+    </div> --}}
 
 
     <div class="col-md-12 mt-3">

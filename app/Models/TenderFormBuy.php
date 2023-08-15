@@ -13,6 +13,11 @@ class TenderFormBuy extends Model
     protected $fillable=[
         'tender_id',
         'name',
+        'applicant_org_fatherName',
+        'vill',
+        'postoffice',
+        'thana',
+        'distric',
         'PhoneNumber',
         'form_code',
         'status',

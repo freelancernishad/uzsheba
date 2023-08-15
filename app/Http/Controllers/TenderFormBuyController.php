@@ -46,6 +46,11 @@ class TenderFormBuyController extends Controller
        $datas = [
             'tender_id'=>$tender_id,
             'name'=>$name,
+            'applicant_org_fatherName'=>$request->applicant_org_fatherName,
+            'vill'=>$request->vill,
+            'postoffice'=>$request->postoffice,
+            'thana'=>$request->thana,
+            'distric'=>$request->distric,
             'PhoneNumber'=>$PhoneNumber,
             'form_code'=>$form_code,
             'status'=>'Unpaid',
@@ -108,7 +113,7 @@ class TenderFormBuyController extends Controller
         $transId =  $request->transId;
         $payment = Payment::where(['trxId' => $transId])->first();
         $id = $payment->sonodId;
-        $sonod = Tender::find($id);
+        $sonod = TenderFormBuy::find($id);
 
 
 
@@ -116,7 +121,7 @@ class TenderFormBuyController extends Controller
 
 
                     if($payment->status=='Paid'){
-                        $deccription = "Congratulation! Your application $sonod->dorId has been Paid.Wait for Approval.";
+                        $deccription = "Congratulation! Your Tender form no is $sonod->form_code has been Paid.";
                         return view('tenderSuccess', compact('payment', 'sonod'));
                     }else{
                     echo "

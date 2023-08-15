@@ -31,9 +31,12 @@ class CreateTenderListsTable extends Migration
             $table->string('deposit_percent')->nullable();
             $table->string('noticeDate')->nullable();
             $table->string('form_buy_last_date')->nullable();
+            $table->string('form_buy_address')->nullable();
             $table->string('tender_start')->nullable();
             $table->string('tender_end')->nullable();
+            $table->string('tender_submit_role_address')->nullable();
             $table->string('tender_open')->nullable();
+            $table->string('tender_open_address')->nullable();
             $table->longText('tender_roles')->nullable();
             $table->string('status')->nullable();
 
