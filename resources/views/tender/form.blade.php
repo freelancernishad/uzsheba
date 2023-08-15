@@ -307,6 +307,29 @@ text-align: center;
         </div>
     </div> --}}
 
+
+    <div class="col-md-12 mt-3 row">
+
+
+        <div class="col-md-10" >
+            <div class="form-group">
+                <label for="" class="labelColor">সিডিউল ফর্ম নং</label>
+                <input type="text" id="form_code" name="form_code"  class="form-control" >
+            </div>
+        </div>
+
+        <div class="col-md-2" style="display: flex;justify-content: space-around;align-items: center;margin-top: 14px;" v-if="attactType=='nid'">
+            <div class="form-group mb-0">
+               <button class="btn btn-info" type="button" onclick="check_form_code()">Check Nid</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
     <div class="col-md-12 mt-3">
         <div class="form-group">
           <label class="mb-1" for="DorAmount">দাখিলকৃত দরের পরিমাণ (সর্ব নিম্ন দরপত্র দাখিল {{ $tender_list->govt_price+1 }} টাকা)</label>
@@ -350,7 +373,7 @@ text-align: center;
 
     </div>
 
-        <button type="submit" class="btn btn-info mt-5">দরপত্র দাখিল করুন</button>
+        <button type="submit" disabled id="submitButton" class="btn btn-info mt-5">দরপত্র দাখিল করুন</button>
       </form>
 
       {{-- @endif --}}
@@ -433,6 +456,46 @@ text-align: center;
 
 
 <script>
+
+
+
+function check_form_code(){
+
+    var submitButton = document.getElementById('submitButton');
+
+
+    var form_code = document.getElementById('form_code').value;
+    var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({
+  "form_code": form_code
+});
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+    fetch("/api/check/form_code", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          console.log(result)
+          if(result){
+            submitButton.disabled = false;
+          }else{
+            submitButton.disabled = true;
+            Swal.fire({
+                        title: 'দুঃখিত',
+                        text: `দয়া করে সঠিক সিডিউল ফর্ম নং প্রদান করুন`,
+                        icon: 'error',
+                    })
+          }
+        })
+        .catch(error => console.log('error', error));
+}
+
+
+
 
 var sToken ='';
 

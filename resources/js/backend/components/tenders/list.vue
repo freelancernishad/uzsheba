@@ -48,14 +48,19 @@
                     <td>
                         <a size="sm" target="_blank" :href="'/tenders/'+ item.tender_id" class="btn btn-danger mr-1 mt-1" v-if="item.status!='Completed'">সিডিউল ফর্ম</a>
 
-                        <span size="sm" @click="tenderComitti(item.id)" class="btn btn-success mr-1 mt-1" v-if="!item.commette1phone && !item.commette2phone && !item.commette3phone">মূল্যায়ন কমিটি তৈরি করুন</span>
+                        <!-- <span size="sm" @click="tenderComitti(item.id)" class="btn btn-success mr-1 mt-1" v-if="!item.commette1phone && !item.commette2phone && !item.commette3phone">মূল্যায়ন কমিটি তৈরি করুন</span> -->
 
-                        <span size="sm" @click="tenderComittiVeiw(item)" class="btn btn-success mr-1 mt-1" v-else>মূল্যায়ন কমিটি দেখুন</span>
+                        <!-- <span size="sm" @click="tenderComittiVeiw(item)" class="btn btn-success mr-1 mt-1" v-else>মূল্যায়ন কমিটি দেখুন</span> -->
+
+
+                        <a size="sm" :href="'/pdf/sder/download/'+item.id" target="_blank" class="btn btn-success mr-1 mt-1" v-if="item.isOpen && item.status=='proccesing'">ওপেনিং সীট</a>
 
 
                         <span size="sm" @click="tendeSelection(item)" class="btn btn-success mr-1 mt-1" v-if="item.isOpen && item.status=='proccesing'"   >মূল্যায়ন করার জন্য ক্লিক দিন</span>
 
                         <span size="sm" class="btn btn-danger mr-1 mt-1" v-if="!item.isOpen && item.status=='proccesing'"   >মূল্যায়ন করার জন্য অপেক্ষা করুন</span>
+
+
 
 
                         <router-link size="sm" :to="{name:'tendersubmitlist',params:{tender_id:item.id}}" class="btn btn-success mr-1 mt-1" v-if="item.status=='Completed'"   >নির্বাচিত তালিকা</router-link>
@@ -322,76 +327,85 @@ export default {
 
 
         tendeSelection(item){
-            Swal.fire({
-            title: 'Result Committe',
-            html:
-                `
-                <div class="form-group">
-                    <lable>Comitte one phone number</lable>
-                    <input type='text' name="phone1" id="commette1phone" class="swal2-input" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <lable>Comitte one password</lable>
-                    <input type='password' name="pass1" id="commette1pass" class="swal2-input" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <lable>Comitte one phone number</lable>
-                    <input type='text' id="commette2phone" name="phone2" class="swal2-input" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <lable>Comitte one password</lable>
-                    <input type='password' name="pass2" id="commette2pass" class="swal2-input" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <lable>Comitte one phone number</lable>
-                    <input type='text' id="commette3phone" name="phone3" class="swal2-input" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <lable>Comitte one password</lable>
-                    <input type='password' name="pass3" id="commette3pass" class="swal2-input" autocomplete="off" required>
-                </div>
 
-                `,
-                allowOutsideClick: false,
-                        allowEscapeKey: false,
-            focusConfirm: false,
-            preConfirm: async (resolve) => {
-
-                var commette1phone = document.getElementById('commette1phone').value
-                var commette1pass = document.getElementById('commette1pass').value
-
-                var commette2phone = document.getElementById('commette2phone').value
-                var commette2pass = document.getElementById('commette2pass').value
-
-                var commette3phone = document.getElementById('commette3phone').value
-                var commette3pass = document.getElementById('commette3pass').value
-
-                if(commette1phone && commette1pass && commette2phone && commette2pass && commette3phone && commette3pass){
-
-                    if(commette1phone===item.commette1phone && commette2phone===item.commette2phone && commette3phone===item.commette3phone && commette1pass===item.commette1pass && commette2pass===item.commette2pass && commette3pass===item.commette3pass){
-
-                        Swal.fire({
-                            title:'ইজারা মূল্যায়ন করার জন্য প্রস্তুত',
-                            icon:'success'
-                        })
-
-                        this.$router.push({name:'tendersubmitlist',params:{tender_id:item.id}});
+            this.$router.push({name:'tendersubmitlist',params:{tender_id:item.id}});
 
 
-                    }else{
-                        Swal.fire({
-                            title:'মূল্যায়ন কমিটির ফোন নাম্বার অথবা পাসওয়ার্ড ভুল',
-                            icon:'error'
-                        })
-                    }
-                }else{
-                    Swal.fire({
-                        title:'সবগুলো ফিল্ড পূরণ করুন',
-                        icon:'error'
-                    })
-                }
-            }
-            })
+            // Swal.fire({
+            // title: 'Result Committe',
+            // html:
+            //     `
+            //     <div class="form-group">
+            //         <lable>Comitte one phone number</lable>
+            //         <input type='text' name="phone1" id="commette1phone" class="swal2-input" autocomplete="off" required>
+            //     </div>
+            //     <div class="form-group">
+            //         <lable>Comitte one password</lable>
+            //         <input type='password' name="pass1" id="commette1pass" class="swal2-input" autocomplete="off" required>
+            //     </div>
+            //     <div class="form-group">
+            //         <lable>Comitte one phone number</lable>
+            //         <input type='text' id="commette2phone" name="phone2" class="swal2-input" autocomplete="off" required>
+            //     </div>
+            //     <div class="form-group">
+            //         <lable>Comitte one password</lable>
+            //         <input type='password' name="pass2" id="commette2pass" class="swal2-input" autocomplete="off" required>
+            //     </div>
+            //     <div class="form-group">
+            //         <lable>Comitte one phone number</lable>
+            //         <input type='text' id="commette3phone" name="phone3" class="swal2-input" autocomplete="off" required>
+            //     </div>
+            //     <div class="form-group">
+            //         <lable>Comitte one password</lable>
+            //         <input type='password' name="pass3" id="commette3pass" class="swal2-input" autocomplete="off" required>
+            //     </div>
+
+            //     `,
+            //     allowOutsideClick: false,
+            //             allowEscapeKey: false,
+            // focusConfirm: false,
+            // preConfirm: async (resolve) => {
+
+            //     var commette1phone = document.getElementById('commette1phone').value
+            //     var commette1pass = document.getElementById('commette1pass').value
+
+            //     var commette2phone = document.getElementById('commette2phone').value
+            //     var commette2pass = document.getElementById('commette2pass').value
+
+            //     var commette3phone = document.getElementById('commette3phone').value
+            //     var commette3pass = document.getElementById('commette3pass').value
+
+            //     if(commette1phone && commette1pass && commette2phone && commette2pass && commette3phone && commette3pass){
+
+            //         if(commette1phone===item.commette1phone && commette2phone===item.commette2phone && commette3phone===item.commette3phone && commette1pass===item.commette1pass && commette2pass===item.commette2pass && commette3pass===item.commette3pass){
+
+            //             Swal.fire({
+            //                 title:'ইজারা মূল্যায়ন করার জন্য প্রস্তুত',
+            //                 icon:'success'
+            //             })
+
+            //             this.$router.push({name:'tendersubmitlist',params:{tender_id:item.id}});
+
+
+            //         }else{
+            //             Swal.fire({
+            //                 title:'মূল্যায়ন কমিটির ফোন নাম্বার অথবা পাসওয়ার্ড ভুল',
+            //                 icon:'error'
+            //             })
+            //         }
+            //     }else{
+            //         Swal.fire({
+            //             title:'সবগুলো ফিল্ড পূরণ করুন',
+            //             icon:'error'
+            //         })
+            //     }
+            // }
+            // })
+
+
+
+
+
         },
 
 

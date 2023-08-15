@@ -8,6 +8,7 @@ use App\Models\Visitor;
 use App\Models\TenderList;
 use App\Models\Uniouninfo;
 use Illuminate\Http\Request;
+use App\Models\TenderFormBuy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -158,7 +159,34 @@ Route::get('/tenders/form/buy/{tender_id}', function ($tender_id) {
 
 Route::post('/form/submit', function (Request $request) {
 
-    $data = $request->except(['_token','bank_draft_image','deposit_details']);
+
+    $data = $request->except(['_token','bank_draft_image','deposit_details','form_code']);
+
+    $form_code = $request->form_code;
+     $tenderformbuy = TenderFormBuy::where(['form_code'=>$form_code,'status'=>'Paid'])->first();
+    if($tenderformbuy){
+
+        $data['nidNo'] = $tenderformbuy->nidNo;
+        $data['nidDate'] = $tenderformbuy->nidDate;
+        $data['applicant_orgName'] = $tenderformbuy->name;
+        $data['applicant_org_fatherName'] = $tenderformbuy->applicant_org_fatherName;
+        $data['vill'] = $tenderformbuy->vill;
+        $data['postoffice'] = $tenderformbuy->postoffice;
+        $data['thana'] = $tenderformbuy->thana;
+        $data['distric'] = $tenderformbuy->distric;
+        $data['mobile'] = $tenderformbuy->PhoneNumber;
+
+
+
+    }else{
+        Session::flash('Fmessage', 'দয়া করে সঠিক সিডিউল ফর্ম নং প্রদান করুন');
+        return redirect()->back();
+    }
+
+
+
+
+
     $bank_draft_image = $request->file('bank_draft_image');
     $extension = $bank_draft_image->getClientOriginalExtension();
     $path = public_path('files/bank_draft_image/');
@@ -181,7 +209,13 @@ Route::post('/form/submit', function (Request $request) {
 
 
     $data['bank_draft_image'] = $bank_draft_image;
-    $data['payment_status'] = 'Unpaid';
+    $data['payment_status'] = 'Paid';
+
+
+
+
+
+
 
 
 
@@ -190,9 +224,9 @@ Route::post('/form/submit', function (Request $request) {
   $tender =  Tender::create($data);
   Session::flash('Smessage', 'আপনার দরপত্রটি দাখিল হয়েছে');
 
-  return redirect("/tenders/payment/$tender->id");
+//   return redirect("/tenders/payment/$tender->id");
 
-//   return redirect()->back();
+  return redirect()->back();
 
 
 });
@@ -200,6 +234,7 @@ Route::post('/form/submit', function (Request $request) {
 
 Route::get('/pdf/sder/download/{tender_id}', function (Request $request,$tender_id) {
 
+    $row = TenderList::find($tender_id);
 $html = '
 <style>
 td{
@@ -211,7 +246,38 @@ td{
     padding:4px 10px;
     font-size: 14px;
 }
+
+
+.m-0{
+    margin:0 !important;
+}
+.mb-0{
+    margin-bottom:0 !important;
+}
+.mt-0{
+    margin-top:0 !important;
+}
+.roles p {
+    margin:0 !important;
+}
+
+
 </style>
+
+<div style="text-align:center">
+<p class="m-0">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
+<p class="m-0">উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
+<p class="m-0">তেঁতুলিয়া, পঞ্চগড়।</p>
+<p class="m-0">www.tetulia.panchagarh.gov.bd</p>
+
+</div>
+<table width="100%" style="border:0">
+<tr>
+    <td style="text-align:left;border:0">স্মারক নং:- '.int_en_to_bn($row->memorial_no).'</td>
+    <td style="text-align:right;border:0">তারিখ:- '.int_en_to_bn(date("d/m/Y", strtotime(now()))).'</td>
+</tr>
+</table>
+
     <p style="text-align:center;font-size:25px">দরপত্র দাখিল কারীর তালিকা</p>
 
 

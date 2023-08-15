@@ -16,6 +16,8 @@ class CreateTenderFormBuysTable extends Migration
         Schema::create('tender_form_buys', function (Blueprint $table) {
             $table->id();
             $table->string('tender_id');
+            $table->string('nidNo');
+            $table->string('nidDate');
             $table->string('name')->nullable();
             $table->string('applicant_org_fatherName')->nullable();
             $table->string('vill')->nullable();

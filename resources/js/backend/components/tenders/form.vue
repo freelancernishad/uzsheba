@@ -131,13 +131,13 @@
         <div class="col-md-12">
 
             <div class="form-group">
-                <label for="">Title</label>
+                <label for="">সংখ্যা/পরিমাণ</label>
                 <input type="text" v-model="form.tender_product_title" class="form-control" placeholder="" aria-describedby="helpId">
             </div>
 
 
             <div class="form-group">
-                <label for="">সংখ্যা/পরিমাণ</label>
+
                 <vue-editor v-model="form.tender_product_Number_Quantity" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
             </div>
 

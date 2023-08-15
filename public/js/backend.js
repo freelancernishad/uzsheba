@@ -5186,72 +5186,74 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     tendeSelection: function tendeSelection(item) {
-      var _this2 = this;
-
-      Swal.fire({
-        title: 'Result Committe',
-        html: "\n                <div class=\"form-group\">\n                    <lable>Comitte one phone number</lable>\n                    <input type='text' name=\"phone1\" id=\"commette1phone\" class=\"swal2-input\" autocomplete=\"off\" required>\n                </div>\n                <div class=\"form-group\">\n                    <lable>Comitte one password</lable>\n                    <input type='password' name=\"pass1\" id=\"commette1pass\" class=\"swal2-input\" autocomplete=\"off\" required>\n                </div>\n                <div class=\"form-group\">\n                    <lable>Comitte one phone number</lable>\n                    <input type='text' id=\"commette2phone\" name=\"phone2\" class=\"swal2-input\" autocomplete=\"off\" required>\n                </div>\n                <div class=\"form-group\">\n                    <lable>Comitte one password</lable>\n                    <input type='password' name=\"pass2\" id=\"commette2pass\" class=\"swal2-input\" autocomplete=\"off\" required>\n                </div>\n                <div class=\"form-group\">\n                    <lable>Comitte one phone number</lable>\n                    <input type='text' id=\"commette3phone\" name=\"phone3\" class=\"swal2-input\" autocomplete=\"off\" required>\n                </div>\n                <div class=\"form-group\">\n                    <lable>Comitte one password</lable>\n                    <input type='password' name=\"pass3\" id=\"commette3pass\" class=\"swal2-input\" autocomplete=\"off\" required>\n                </div>\n\n                ",
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        focusConfirm: false,
-        preConfirm: function () {
-          var _preConfirm2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(resolve) {
-            var commette1phone, commette1pass, commette2phone, commette2pass, commette3phone, commette3pass;
-            return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-              while (1) {
-                switch (_context2.prev = _context2.next) {
-                  case 0:
-                    commette1phone = document.getElementById('commette1phone').value;
-                    commette1pass = document.getElementById('commette1pass').value;
-                    commette2phone = document.getElementById('commette2phone').value;
-                    commette2pass = document.getElementById('commette2pass').value;
-                    commette3phone = document.getElementById('commette3phone').value;
-                    commette3pass = document.getElementById('commette3pass').value;
-
-                    if (commette1phone && commette1pass && commette2phone && commette2pass && commette3phone && commette3pass) {
-                      if (commette1phone === item.commette1phone && commette2phone === item.commette2phone && commette3phone === item.commette3phone && commette1pass === item.commette1pass && commette2pass === item.commette2pass && commette3pass === item.commette3pass) {
-                        Swal.fire({
-                          title: 'ইজারা মূল্যায়ন করার জন্য প্রস্তুত',
-                          icon: 'success'
-                        });
-
-                        _this2.$router.push({
-                          name: 'tendersubmitlist',
-                          params: {
-                            tender_id: item.id
-                          }
-                        });
-                      } else {
-                        Swal.fire({
-                          title: 'মূল্যায়ন কমিটির ফোন নাম্বার অথবা পাসওয়ার্ড ভুল',
-                          icon: 'error'
-                        });
-                      }
-                    } else {
-                      Swal.fire({
-                        title: 'সবগুলো ফিল্ড পূরণ করুন',
-                        icon: 'error'
-                      });
-                    }
-
-                  case 7:
-                  case "end":
-                    return _context2.stop();
-                }
-              }
-            }, _callee2);
-          }));
-
-          function preConfirm(_x2) {
-            return _preConfirm2.apply(this, arguments);
-          }
-
-          return preConfirm;
-        }()
-      });
+      this.$router.push({
+        name: 'tendersubmitlist',
+        params: {
+          tender_id: item.id
+        }
+      }); // Swal.fire({
+      // title: 'Result Committe',
+      // html:
+      //     `
+      //     <div class="form-group">
+      //         <lable>Comitte one phone number</lable>
+      //         <input type='text' name="phone1" id="commette1phone" class="swal2-input" autocomplete="off" required>
+      //     </div>
+      //     <div class="form-group">
+      //         <lable>Comitte one password</lable>
+      //         <input type='password' name="pass1" id="commette1pass" class="swal2-input" autocomplete="off" required>
+      //     </div>
+      //     <div class="form-group">
+      //         <lable>Comitte one phone number</lable>
+      //         <input type='text' id="commette2phone" name="phone2" class="swal2-input" autocomplete="off" required>
+      //     </div>
+      //     <div class="form-group">
+      //         <lable>Comitte one password</lable>
+      //         <input type='password' name="pass2" id="commette2pass" class="swal2-input" autocomplete="off" required>
+      //     </div>
+      //     <div class="form-group">
+      //         <lable>Comitte one phone number</lable>
+      //         <input type='text' id="commette3phone" name="phone3" class="swal2-input" autocomplete="off" required>
+      //     </div>
+      //     <div class="form-group">
+      //         <lable>Comitte one password</lable>
+      //         <input type='password' name="pass3" id="commette3pass" class="swal2-input" autocomplete="off" required>
+      //     </div>
+      //     `,
+      //     allowOutsideClick: false,
+      //             allowEscapeKey: false,
+      // focusConfirm: false,
+      // preConfirm: async (resolve) => {
+      //     var commette1phone = document.getElementById('commette1phone').value
+      //     var commette1pass = document.getElementById('commette1pass').value
+      //     var commette2phone = document.getElementById('commette2phone').value
+      //     var commette2pass = document.getElementById('commette2pass').value
+      //     var commette3phone = document.getElementById('commette3phone').value
+      //     var commette3pass = document.getElementById('commette3pass').value
+      //     if(commette1phone && commette1pass && commette2phone && commette2pass && commette3phone && commette3pass){
+      //         if(commette1phone===item.commette1phone && commette2phone===item.commette2phone && commette3phone===item.commette3phone && commette1pass===item.commette1pass && commette2pass===item.commette2pass && commette3pass===item.commette3pass){
+      //             Swal.fire({
+      //                 title:'ইজারা মূল্যায়ন করার জন্য প্রস্তুত',
+      //                 icon:'success'
+      //             })
+      //             this.$router.push({name:'tendersubmitlist',params:{tender_id:item.id}});
+      //         }else{
+      //             Swal.fire({
+      //                 title:'মূল্যায়ন কমিটির ফোন নাম্বার অথবা পাসওয়ার্ড ভুল',
+      //                 icon:'error'
+      //             })
+      //         }
+      //     }else{
+      //         Swal.fire({
+      //             title:'সবগুলো ফিল্ড পূরণ করুন',
+      //             icon:'error'
+      //         })
+      //     }
+      // }
+      // })
     },
     sonodname: function sonodname() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.preLooding = true;
       var position = this.Users.position;
@@ -5261,17 +5263,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get("/api/tender?union_name=".concat(unioun, "&status=").concat(status)).then(function (_ref) {
         var data = _ref.data;
         // console.log(data)
-        _this3.items = data;
-        _this3.TotalRows = "".concat(_this3.items.length);
-        _this3.preLooding = false;
+        _this2.items = data;
+        _this2.TotalRows = "".concat(_this2.items.length);
+        _this2.preLooding = false;
       })["catch"]();
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
+    var _this3 = this;
 
     setTimeout(function () {
-      _this4.sonodname();
+      _this3.sonodname();
     }, 2000);
   }
 });
@@ -11672,7 +11674,7 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_vm._v("Title")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("সংখ্যা/পরিমাণ")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11697,11 +11699,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": ""
-    }
-  }, [_vm._v("সংখ্যা/পরিমাণ")]), _vm._v(" "), _c("vue-editor", {
+  }, [_c("vue-editor", {
     staticStyle: {
       height: "250px"
     },
@@ -11822,27 +11820,14 @@ var render = function render() {
         target: "_blank",
         href: "/tenders/" + item.tender_id
       }
-    }, [_vm._v("সিডিউল ফর্ম")]) : _vm._e(), _vm._v(" "), !item.commette1phone && !item.commette2phone && !item.commette3phone ? _c("span", {
+    }, [_vm._v("সিডিউল ফর্ম")]) : _vm._e(), _vm._v(" "), item.isOpen && item.status == "proccesing" ? _c("a", {
       staticClass: "btn btn-success mr-1 mt-1",
       attrs: {
-        size: "sm"
-      },
-      on: {
-        click: function click($event) {
-          return _vm.tenderComitti(item.id);
-        }
+        size: "sm",
+        href: "/pdf/sder/download/" + item.id,
+        target: "_blank"
       }
-    }, [_vm._v("মূল্যায়ন কমিটি তৈরি করুন")]) : _c("span", {
-      staticClass: "btn btn-success mr-1 mt-1",
-      attrs: {
-        size: "sm"
-      },
-      on: {
-        click: function click($event) {
-          return _vm.tenderComittiVeiw(item);
-        }
-      }
-    }, [_vm._v("মূল্যায়ন কমিটি দেখুন")]), _vm._v(" "), item.isOpen && item.status == "proccesing" ? _c("span", {
+    }, [_vm._v("ওপেনিং সীট")]) : _vm._e(), _vm._v(" "), item.isOpen && item.status == "proccesing" ? _c("span", {
       staticClass: "btn btn-success mr-1 mt-1",
       attrs: {
         size: "sm"

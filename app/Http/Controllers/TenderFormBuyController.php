@@ -45,6 +45,8 @@ class TenderFormBuyController extends Controller
 
        $datas = [
             'tender_id'=>$tender_id,
+            'nidNo'=>$request->nidNo,
+            'nidDate'=>$request->nidDate,
             'name'=>$name,
             'applicant_org_fatherName'=>$request->applicant_org_fatherName,
             'vill'=>$request->vill,
@@ -133,6 +135,19 @@ class TenderFormBuyController extends Controller
                     ";
                     }
 
+
+    }
+
+
+
+    function check_form_code(Request $request){
+        $form_code = $request->form_code;
+      $tenderformbuy = TenderFormBuy::where(['form_code'=>$form_code,'status'=>'Paid'])->first();
+      if($tenderformbuy){
+        return 1;
+      }else{
+        return 0;
+      }
 
     }
 

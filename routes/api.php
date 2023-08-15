@@ -95,6 +95,8 @@ Route::resources([
 	'tenderform' => TenderFormBuyController::class,
 ]);
 
+Route::post('check/form_code', [TenderFormBuyController::class,'check_form_code']);
+
 
 Route::post('tender/selection/{tender_id}', [TenderListController::class,'SeletionTender']);
 

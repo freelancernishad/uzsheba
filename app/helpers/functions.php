@@ -10,6 +10,26 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 
+function PdfMaker($pageSize='A4',$html,$Filename,$Watermark=true)
+{
+
+    $mpdf = new \Mpdf\Mpdf([
+        'mode' => 'utf-8', 'format' => $pageSize, 'default_font' => 'bangla', 'margin_left' => 5,
+        'margin_right' => 5,
+        'margin_top' => 6,
+        'margin_bottom' => 6,
+        'setAutoTopMargin' => 'stretch',
+    ]);
+    $mpdf->SetDisplayMode('fullpage');
+    $mpdf->defaultheaderfontsize = 10;
+    $mpdf->defaultheaderfontstyle = 'B';
+    $mpdf->defaultheaderline = 0;
+    $mpdf->showWatermarkImage = $Watermark;
+
+    $mpdf->WriteHTML($html);
+    $mpdf->Output($Filename, 'I');
+}
+
 
 
     function makeshorturl($url){
