@@ -33,6 +33,8 @@ class TenderList extends Model
        'tender_submit_role_address',
        'tender_open',
        'tender_open_address',
+       'tender_product_title',
+       'tender_product_Number_Quantity',
        'tender_roles',
        'status',
        'committe1name',

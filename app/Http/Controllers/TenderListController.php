@@ -286,6 +286,14 @@ class TenderListController extends Controller
 
 
 
+             <p class='mb-0' style='text-align:left;text-weight:900;font-size:20px'><u>$row->tender_product_title:</u></p>
+
+             <div class='roles'>
+             $row->tender_product_Number_Quantity
+             </div>
+
+
+
              <p class='mb-0' style='text-align:left;text-weight:900;font-size:20px'><u>শর্তাবলী:</u></p>
 
              <div class='roles'>

@@ -37,6 +37,8 @@ class CreateTenderListsTable extends Migration
             $table->string('tender_submit_role_address')->nullable();
             $table->string('tender_open')->nullable();
             $table->string('tender_open_address')->nullable();
+            $table->string('tender_product_title')->nullable();
+            $table->longText('tender_product_Number_Quantity')->nullable();
             $table->longText('tender_roles')->nullable();
             $table->string('status')->nullable();
 

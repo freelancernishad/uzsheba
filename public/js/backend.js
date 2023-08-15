@@ -11676,8 +11676,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.tender_open_address,
-      expression: "form.tender_open_address"
+      value: _vm.form.tender_product_title,
+      expression: "form.tender_product_title"
     }],
     staticClass: "form-control",
     attrs: {
@@ -11686,13 +11686,13 @@ var render = function render() {
       "aria-describedby": "helpId"
     },
     domProps: {
-      value: _vm.form.tender_open_address
+      value: _vm.form.tender_product_title
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.form, "tender_open_address", $event.target.value);
+        _vm.$set(_vm.form, "tender_product_title", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("div", {
@@ -11710,11 +11710,11 @@ var render = function render() {
       init: _vm.tinyInt
     },
     model: {
-      value: _vm.form.tender_roles,
+      value: _vm.form.tender_product_Number_Quantity,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "tender_roles", $$v);
+        _vm.$set(_vm.form, "tender_product_Number_Quantity", $$v);
       },
-      expression: "form.tender_roles"
+      expression: "form.tender_product_Number_Quantity"
     }
   })], 1)]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-12"
