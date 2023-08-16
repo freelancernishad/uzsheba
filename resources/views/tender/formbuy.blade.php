@@ -195,7 +195,7 @@ text-align: center;
         </div>
         <div class="col-md-2" style="display: flex;justify-content: space-around;align-items: center;margin-top: 14px;" v-if="attactType=='nid'">
             <div class="form-group mb-0">
-               <button class="btn btn-info" type="button" onclick="checknid()">Check Nid</button>
+               <button class="btn btn-info" type="button" onclick="checknid()">যাচাই করুন</button>
             </div>
         </div>
 
