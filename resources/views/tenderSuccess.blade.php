@@ -18,7 +18,7 @@
             <p style="font-size:20px;color:#5C5C5C;">আপনার পেমেন্ট সফলভাবে গ্রহণ হয়েছে। </p>
 
 
-            <h3 style="color:red">আপনার গ্রহণ আইডি:- {{ $sonod->form_code }}</h4>
+            <h3 style="color:red">আপনার ফর্ম আইডি:- {{ $sonod->form_code }}</h4>
 
             {{-- <h4 style="color:red">বিঃদ্রঃ ফর্ম নং মনে রাখতে হবে। ফর্ম নং ছাড়া দরপত্র দাখিল করতে পারবেন না।</h4> --}}
             <a href="/" class="btn btn-danger">Back to Home</a>
