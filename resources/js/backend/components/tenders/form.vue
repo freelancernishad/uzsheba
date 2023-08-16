@@ -14,20 +14,20 @@
     <form class="row" @submit.stop.prevent="onSubmit">
 
 
-        <div class="form-group col-md-6">
+        <!-- <div class="form-group col-md-6">
           <label for="">ইজারার ধরণ</label>
           <input type="text" v-model="form.tender_type" class="form-control" placeholder="" aria-describedby="helpId">
-        </div>
+        </div> -->
 
         <div class="form-group col-md-6">
           <label for="">স্মারক নং</label>
           <input type="text" v-model="form.memorial_no" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
 
-        <div class="form-group col-md-6">
+        <!-- <div class="form-group col-md-6">
           <label for="">ইজারার শিরোনাম</label>
           <input type="text" v-model="form.tender_name" class="form-control" placeholder="" aria-describedby="helpId">
-        </div>
+        </div> -->
 
         <div class="form-group col-md-12">
           <label for="">ইজারার বিবরণ</label>
