@@ -100,7 +100,7 @@ text-align: center;
 
         {{-- <h1>Orange</h1> --}}
 
-        <img src="{{ asset('assets/img/mail_logo-01.png') }}" alt="">
+        <img src="{{ asset('assets/img/upazila-01.png') }}" alt="">
         <br>
         <img src="{{ asset('es-01.png') }}" alt="">
         <br>
