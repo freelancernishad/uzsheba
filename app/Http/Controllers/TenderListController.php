@@ -281,14 +281,17 @@ class TenderListController extends Controller
 
 
 
-             </table>
+             </table>";
 
 
 
 
-             <p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>$row->tender_product_title:</u></p>
+             if($row->tender_product_title){
+                 $nagoriinfo .= "<p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>$row->tender_product_title:</u></p>";
+            }
 
-             <div class='roles'>
+
+             $nagoriinfo .= "<div class='roles'>
              $row->tender_product_Number_Quantity
              </div>
 
