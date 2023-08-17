@@ -247,7 +247,7 @@ class TenderListController extends Controller
             <p class='mb-0' style='text-align:justify'>
              &nbsp;&nbsp;&nbsp;&nbsp;
 
-             এতদ্বারা সর্বসাধারণের অবগতির জন্য জানানো যাচ্ছে যে, $row->description নিলামে বিক্রয়ের নিমিত্ত নিম্নোক্ত শর্তসাপেক্ষে প্রকৃত কাঠ ব্যবসায়ী/বৈধ করাতকল মালিক/ফার্নিচার ব্যবসায়ী/আগ্রহী ব্যক্তি/প্রতিষ্ঠানের নিকট হতে দরপত্র  আহবান করা যাচ্ছে।
+              $row->description 
 
 
 
