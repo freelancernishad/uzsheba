@@ -147,11 +147,12 @@ class TenderListController extends Controller
                 'mode' => 'utf-8',
                 'format' => 'A4',
                 'setAutoTopMargin' => 'stretch',
+                'autoMarginPadding' => -5,
                 'setAutoBottomMargin' => 'stretch'
             ]);
             $mpdf->SetDisplayMode('fullpage');
-            // $mpdf->SetHTMLHeader($this->pdfHeader($row,$uniouninfo, $filename));
-            // $mpdf->SetHTMLFooter($this->pdfFooter($row,$uniouninfo, $filename));
+            $mpdf->SetHTMLHeader($this->pdfHeader($row,$uniouninfo, $filename));
+            $mpdf->SetHTMLFooter($this->pdfFooter($row,$uniouninfo, $filename));
             // $mpdf->SetHTMLHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->defaultheaderfontsize = 10;
             $mpdf->defaultheaderfontstyle = 'B';
@@ -209,45 +210,31 @@ class TenderListController extends Controller
 
 
         $nagoriinfo = "
+
+
         <style>
-            .m-0{
-                margin:0 !important;
-            }
-            .mb-0{
-                margin-bottom:0 !important;
-            }
-            .mt-0{
-                margin-top:0 !important;
-            }
-            .roles p {
-                margin:0 !important;
-            }
-        </style>
-
-        <div style='text-align:center'>
-            <p class='m-0'>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
-            <p class='m-0'>উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
-            <p class='m-0'>তেঁতুলিয়া, পঞ্চগড়।</p>
-            <p class='m-0'>www.tetulia.panchagarh.gov.bd</p>
-
-        </div>
+        .m-0{
+            margin:0 !important;
+        }
+        .mb-0{
+            margin-bottom:0 !important;
+        }
+        .mt-0{
+            margin-top:0 !important;
+        }
+        .roles p {
+            margin:0 !important;
+        }
+    </style>
 
 
-
-
-            <table width='100%'>
-                <tr>
-                    <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($row->memorial_no)."</td>
-                    <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime($noticeDate)))."</td>
-                </tr>
-            </table>
-            <p class='mb-0' style='text-align:center;text-weight:900;font-size:30px'><u>নিলাম বিজ্ঞপ্তি</u></p>
+            <p class='mb-0' style='text-align:center;text-weight:900;font-size:30px;margin-top:-100px !important;'><u>নিলাম বিজ্ঞপ্তি</u></p>
 
 
             <p class='mb-0' style='text-align:justify'>
              &nbsp;&nbsp;&nbsp;&nbsp;
 
-              $row->description 
+              $row->description
 
 
 
@@ -303,6 +290,10 @@ class TenderListController extends Controller
              $row->tender_roles
              </div>
 
+             <div class='roles' style='margin-top:50px'>
+             $row->other_content
+             </div>
+
 
 
         ";
@@ -313,126 +304,54 @@ class TenderListController extends Controller
     public function pdfHeader($row,$uniouninfo, $filename)
     {
 
+        $noticeDate = $row->noticeDate;
 
 
 
-        $pdfHead = '
+        $output = "
 
 
 
-        ';
-        $output = '
-          ' . $pdfHead . '
-              <table width="100%" style="border-collapse: collapse;" border="0">
-                  <tr>
-                      <td style="text-align: center;" width="20%">
-					  <span style="color:#b400ff;"><b>
-					  উন্নয়নের গণতন্ত্র,  <br /> শেখ হাসিনার মূলমন্ত্র </b>
+    <div style='text-align:center'>
+        <p class='m-0'>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
+        <p class='m-0'>উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
+        <p class='m-0'>তেঁতুলিয়া, পঞ্চগড়।</p>
+        <p class='m-0'>www.tetulia.panchagarh.gov.bd</p>
 
-					  </span>
-                      </td>
-                      <td style="text-align: center;" width="20%">
-                          <img width="70px" src="' . base64('backend/bd-logo.png') . '">
-                      </td>
-                      <td style="text-align: center;" width="20%">';
-        $output .= '</td>
-                  </tr>
-                  <tr style="margin-top:2px;margin-bottom:2px;">
-                      <td>
-                      </td>
-                      <td style="text-align: center;" width="50%">
-                          <p style="font-size:20px">গণপ্রজাতন্ত্রী বাংলাদেশ</p>
+    </div>
 
 
-                      </td>
-                      <td>
-                      </td>
-                  </tr>
-                  <tr style="margin-top:0px;margin-bottom:0px;">
-                      <td>
-                      </td>
-                      <td style="margin-top:0px; margin-bottom:0px; text-align: center;" width=50%>
-                          <h1 style="color: #7230A0; margin: 0px; font-size: 28px">' . $uniouninfo->full_name . '</h3>
-                      </td>
-                      <td>
-                      </td>
-                  </tr>
-                  <tr style="margin-top:2px;margin-bottom:2px;">
-                      <td>
-                      </td>
-                      <td style="text-align: center; " width="50%">
 
-                          <p style="font-size:20px">উপজেলা: ' . $uniouninfo->thana . ', জেলা: ' . $uniouninfo->district . ' ।</p>
-                      </td>
-                      <td>
-                      </td>
-                  </tr>
-                  </table>';
+
+        <table width='100%' style='margin-bottom:0px !important'>
+            <tr>
+                <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($row->memorial_no)."</td>
+                <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime($noticeDate)))."</td>
+            </tr>
+        </table>
+        ";
         return $output;
     }
     public function pdfFooter($row,$uniouninfo, $filename)
     {
 
 
-
-
-        $sonodNO = ' <div class="signature text-center position-relative">
-        স্মারক নং: ' .  int_en_to_bn($row->memorial_no) . ' <br /> বিজ্ঞপ্তির তারিখ: '.int_en_to_bn(date("d/m/Y", strtotime($row->created_at))).'</div>';
-
-
-
-
-$C_color = '#5c1caa';
-$C_size = '20px';
-$color = '#5c1caa';
-$style = '';
-
-
-            $ccc = '<img width="170px"  style="'.$style.'" src="' . base64($uniouninfo->c_signture) . '"><br/>
-                              <b><span style="color:'.$C_color.';font-size:'.$C_size.';">' . $uniouninfo->c_name . '</span> <br />
-                                      </b><span style="font-size:16px;">উপজেলা নির্বাহী অফিসার</span><br />';
-
-
-
-         $qrurl = url("/pdf/tenders/$row->tender_id");
-
-        // $qrurl = url("/verification/sonod/$row->id");
-        //in Controller
-        $qrcode = \QrCode::size(70)
-            ->format('svg')
-            ->generate($qrurl);
         $output = '
         <table width="100%" style="border-collapse: collapse;" border="0">
                               <tr>
-                                  <td  style="text-align: center;" width="40%">
-                             <div class="signature text-center position-relative">
-                                      ' . $qrcode . '<br/>
-                                       ' . $sonodNO . '
-                                    </div>
-                                  </td>
-                                  <td style="text-align: center; width: 200px;" width="30%">
-                                      <img width="100px" src="' . base64($uniouninfo->sonod_logo) . '">
-                                  </td>
+                                  <td  style="text-align: center;" width="40%"></td>
+                                  <td style="text-align: center; width: 200px;" width="30%"></td>
                                   <td style="text-align: center;" width="40%">
-                                      <div class="signature text-center position-relative" style="color:'.$color.'">
+                                      <div class="signature text-center position-relative">
 
-                                      ' . $ccc . $uniouninfo->full_name . ' <br> ' . $uniouninfo->thana . ', ' . $uniouninfo->district . ' ।
-                                      <br/>
-                                      '. $row->c_email.'
-
+                                    সোহাগ চন্দ্র সাহা <br>
+                                    উপজেলা নির্বাহী অফিসার <br>
+                                    তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    e-mail: unotetulia@mopa.gov.bd
                                       </div>
                                   </td>
                               </tr>
-                          </table>
-                            <p style="background: #787878;
-            color: white;
-            text-align: center;
-            padding: 2px 2px;font-size: 16px;     margin-top: 0px;" class="m-0">"সময়মত ইউনিয়ন কর পরিশোধ করুন। ইউনিয়নের উন্নয়নমূক কাজে সহায়তা করুন"</p>
-                            <p class="m-0" style="font-size:14px;text-align:center">বিজ্ঞপ্তিটি যাচাই করতে QR কোড স্ক্যান করুন</p>
-                      </div>
-                  </div>
-              </div>';
-        $output = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $output);
+                          </table>';
         return $output;
     }
 

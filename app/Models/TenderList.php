@@ -36,6 +36,7 @@ class TenderList extends Model
        'tender_product_title',
        'tender_product_Number_Quantity',
        'tender_roles',
+       'other_content',
        'status',
        'committe1name',
        'committe1position',

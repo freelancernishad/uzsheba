@@ -157,7 +157,16 @@
 
 
 
-        <div class="col-md-12 text-center">
+
+        <div class="form-group col-md-12">
+          <label for="">অনুলিপি এবং অন্যান্য</label>
+          <vue-editor v-model="form.other_content" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
+        <!-- <textarea v-model="form.tender_roles" class="form-control" style="height:300px"></textarea> -->
+        </div>
+
+
+
+        <div class="col-md-12 text-center mb-5">
 
     <button class="btn btn-info px-5 py-3" style="font-size: 18px;" type="submit">বিজ্ঞপ্তি সম্পন্ন করুন</button>
 </div>
@@ -185,6 +194,7 @@ export default {
                 tender_end:'',
                 tender_open:'',
                 tender_roles:'',
+                other_content:'',
             },
             tinyInt:
                 {
