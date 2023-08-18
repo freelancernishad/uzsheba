@@ -290,7 +290,7 @@ class TenderListController extends Controller
              $row->tender_roles
              </div>
 
-             <div class='roles' style='margin-top:50px'>
+             <div class='roles' style='margin-top:40px'>
              $row->other_content
              </div>
 
