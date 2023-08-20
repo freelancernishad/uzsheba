@@ -115,7 +115,7 @@
                         </router-link>
 
 
-                        <a class="col-lg-6 mt-3 mb-3 text-center" target="_blank" href="https://tender.uzpseba.gov.bd/">
+                        <router-link class="col-lg-6 mt-3 mb-3 text-center" target="_blank" :to="{name:'tenders'}">
                             <div class="serviceBox">
                                 <div class="serviceLogo">
                                     <img :src="$asseturl+'assets/img/nilam.png'" width="200px" alt="" />
@@ -125,7 +125,7 @@
 
                                 </div>
                             </div>
-                        </a>
+                        </router-link>
 
 
 
