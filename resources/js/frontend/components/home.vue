@@ -69,7 +69,7 @@
                                     <img :src="$asseturl+'assets/img/nilam.png'" width="200px" alt="" />
                                 </div>
                                 <div class="serviceTitle defaltTextColor">
-                                    নিলাম
+                                    অনলাইন নিলাম
 
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                                     <img :src="$asseturl+'assets/img/nilam.png'" width="200px" alt="" />
                                 </div>
                                 <div class="serviceTitle defaltTextColor">
-                                    নিলাম
+                                    অনলাইন নিলাম
                                 </div>
                             </div>
                         </router-link>
