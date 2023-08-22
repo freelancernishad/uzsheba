@@ -214,7 +214,7 @@ text-align: center;
 
     </div>
 
-{{--
+
     <div class="col-md-12 mt-3 row">
 
 
@@ -297,18 +297,18 @@ text-align: center;
         </div>
     </div>
 </div>
-</div> --}}
+</div>
 
-{{--
+
     <div class="col-md-12 mt-3">
         <div class="form-group">
           <label class="mb-1" for="mobile">মোবাইল নম্বর</label>
           <input type="tel" class="form-control" id="mobile" name="mobile" minlength="11" maxlength="11" required>
         </div>
-    </div> --}}
+    </div>
 
 
-    <div class="col-md-12 mt-3 row">
+    {{-- <div class="col-md-12 mt-3 row">
 
 
         <div class="col-md-10" >
@@ -325,7 +325,7 @@ text-align: center;
         </div>
 
 
-    </div>
+    </div> --}}
 
 
 
@@ -373,7 +373,7 @@ text-align: center;
 
     </div>
 
-        <button type="submit" disabled id="submitButton" class="btn btn-info mt-5">দরপত্র দাখিল করুন</button>
+        <button type="submit"  id="submitButton" class="btn btn-info mt-5">দরপত্র দাখিল করুন</button>
       </form>
 
       {{-- @endif --}}
