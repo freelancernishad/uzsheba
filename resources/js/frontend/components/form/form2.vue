@@ -83,7 +83,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for=""  class="labelColor">নাম</label>
-                                                <input type="text" v-model="form.appicant_name" id="appicant_name" class="form-control" placeholder="" disabled readonly required >
+                                                <input type="text" v-model="form.appicant_name" id="appicant_name" class="form-control" placeholder=""  required >
 
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for=""  class="labelColor">পিতার নাম</label>
-                                                <input type="text" v-model="form.applicant_father_name" id="applicant_father_name" class="form-control" placeholder="" disabled readonly required >
+                                                <input type="text" v-model="form.applicant_father_name" id="applicant_father_name" class="form-control" placeholder=""   required >
 
                                             </div>
                                         </div>
@@ -163,25 +163,25 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="" class="labelColor">জেলা</label>
-                        <input type="text" class="form-control" v-model="form.district" disabled readonly>
+                        <input type="text" class="form-control" v-model="form.district"  >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="" class="labelColor">উপজেলা/থানা</label>
-                        <input type="text" class="form-control" v-model="form.upozila" disabled readonly>
+                        <input type="text" class="form-control" v-model="form.upozila"  >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="" class="labelColor">ইউনিয়ন</label>
-                        <input type="text" class="form-control" v-model="form.union" disabled readonly>
+                        <input type="text" class="form-control" v-model="form.union"  >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">ডাকঘর</label>
-                        <input type="text" class="form-control" v-model="form.post" disabled readonly>
+                        <input type="text" class="form-control" v-model="form.post"  >
                     </div>
                 </div>
             </div>
@@ -774,7 +774,7 @@
 
 
         <!-- Info modal -->
-        <b-modal :id="infoModal.id" size="xl" :title="infoModal.title" ok-only ok-disabled no-close-on-esc
+        <b-modal :id="infoModal.id" size="xl" :title="infoModal.title" ok-only ok- no-close-on-esc
             no-close-on-backdrop>
 
 
