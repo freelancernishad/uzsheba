@@ -69,6 +69,8 @@
                             <th width="15%" >মোবাইল নম্বর</th>
                             <th width="25%" >ঠিকানা</th>
                             <th width="15%" >View</th>
+                            <!-- <th width="40%" >আবেদন ফি</th> -->
+                            <th width="40%" >লাইসেন্স ফি</th>
                             <th width="40%" >Action</th>
                         </tr>
 
@@ -101,7 +103,11 @@
 
 
 
-
+                            <!-- <td> <span class="btn btn-success">Paid</span></td> -->
+                            <td>
+                                <span v-if="item.payment_status=='Unpaid'" class="btn btn-danger">Unpaid</span>
+                                <span v-else-if="item.payment_status=='Paid'"  class="btn btn-success">Paid</span>
+                            </td>
 
                             <td class="sonodTd">
 
@@ -123,8 +129,7 @@
                                     <a  v-if="item.status=='approved'" :href="'/license/'+item.id" target="_blank" class="btn btn-success">লাইসেন্সে ডাউনলোড করুন</a>
 
 
-                                    <span v-if="item.payment_status=='Unpaid'" class="btn btn-danger">Unpaid</span>
-                                    <span v-else-if="item.payment_status=='Paid'"  class="btn btn-success">Paid</span>
+
 
                                     <!-- <a  v-if="item.status=='approved'" :href="'/l/f/'+item.id+'?f=l'" target="_blank" class="btn btn-success">Test pay</a> -->
 
@@ -134,6 +139,7 @@
 
 
                             </td>
+
                         </tr>
 
                     </tbody>
