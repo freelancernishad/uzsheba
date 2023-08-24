@@ -503,12 +503,6 @@ class TenderListController extends Controller
 
 
 
-
-
-
-
-
-
             if($row->permitDetials){
                 $nagoriinfo .= "<p style='text-align: justify;margin-top:-30px'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      $row->permitDetials</p>";
             }else{
@@ -935,6 +929,284 @@ class TenderListController extends Controller
 
 
     }
+
+
+
+
+
+    public function ResulationPdf(Request $request, $tender_id)
+    {
+
+
+
+        ini_set('max_execution_time', '60000');
+        ini_set("pcre.backtrack_limit", "50000000000000000");
+        ini_set('memory_limit', '12008M');
+
+        // $pdf = LaravelMpdf::loadView('tender.notice');
+        // return $pdf->stream("fghfg.pdf");
+
+
+        $tender_list_count = TenderList::where('tender_id',$tender_id)->count();
+        if($tender_list_count<1){
+            return 'No data Found';
+        }
+
+        $row = TenderList::with('tenderWorkOrders')->where('tender_id',$tender_id)->first();
+
+
+
+        $uniouninfo = Uniouninfo::where('short_name_e', $row->union_name)->first();
+
+        $filename = time().".pdf";
+        // return $this->pdfWordHTMLut($row,$uniouninfo);
+            $mpdf = new \Mpdf\Mpdf([
+                'default_font_size' => 13,
+                'default_font' => 'bangla',
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'setAutoTopMargin' => 'stretch',
+                'autoMarginPadding' => -25,
+                'setAutoBottomMargin' => 'stretch'
+            ]);
+
+
+            $mpdf->SetDisplayMode('fullpage');
+            // $mpdf->SetHTMLHeader($this->pdfWordHeader($row,$uniouninfo, $filename));
+            // $mpdf->SetHTMLFooter($this->pdfWordFooter($row,$uniouninfo, $filename));
+            // $mpdf->SetHTMLHeader('Document Title|Center Text|{PAGENO}');
+            $mpdf->defaultheaderfontsize = 10;
+            $mpdf->defaultheaderfontstyle = 'B';
+            $mpdf->defaultheaderline = 0;
+            $mpdf->defaultfooterfontsize = 10;
+            $mpdf->defaultfooterfontstyle = 'BI';
+            $mpdf->defaultfooterline = 0;
+            $mpdf->showWatermarkImage = true;
+            // $mpdf->WriteHTML('<watermarkimage src="'.$watermark.'" alpha="0.1" size="80,80" />');
+            $mpdf->SetDisplayMode('fullpage');
+
+            $mpdf->WriteHTML($this->pdfResulationHTMLut($row,$uniouninfo));
+            $mpdf->useSubstitutions = false;
+            $mpdf->simpleTables = true;
+            $mpdf->Output($filename, 'I');
+
+    }
+
+    public function pdfResulationHTMLut($row,$uniouninfo)
+    {
+
+        $tenderWorkOrders =  $row->tenderWorkOrders;
+
+
+        $tenderSubmitCount = Tender::where(['tender_id'=>$row->id,'payment_status'=>'Paid'])->count();
+        $tenders = Tender::where(['tender_id'=>$row->id,'payment_status'=>'Paid'])->orderBy('DorAmount','desc')->get();
+
+
+
+        $nagoriinfo = "
+
+
+        <style>
+        .m-0{
+            margin:0 !important;
+        }
+        .mb-0{
+            margin-bottom:0 !important;
+        }
+        .mt-0{
+            margin-top:0 !important;
+        }
+        .roles p {
+            margin:0 !important;
+        }
+        p{
+            font-size:16px
+         }
+         .selector p::first-line {
+            text-indent: 20px !important;
+          }
+    </style>
+
+    <div style='text-align:center'>
+        <p class='m-0' style='font-size:20px'><u>উপজেলা দরপত্র মূল্যায়ন ও বাছাই কমিটির সভার কার্যবিবরণী:</u></p>
+        <p class='m-0'>উপজেলা- তেঁতুলিয়া, জেলা- পঞ্চগড়</p>
+    </div>
+
+    <table>
+
+          <tr>
+            <td style='vertical-align: top;'>সভাপতি</td>
+            <td>: জনাব সোহাগ চন্দ্র সাহা <br/>
+            উপজেলা নির্বাহী অফিসার, তেঁতুলিয়া, পঞ্চগড়।</td>
+          </tr>
+
+          <tr>
+            <td>স্থান</td>
+            <td>: উপজেলা নির্বাহী অফিসারের অফিস কক্ষ, তেঁতুলিয়া, পঞ্চগড়।</td>
+          </tr>
+
+          <tr>
+            <td>তারিখ</td>
+            <td>: ১৮/০৭/২০২৩ খ্রি., সময়” বিকাল ৪.৩০ ঘটিকা।</td>
+          </tr>
+
+    </table>
+
+
+
+
+            <p style='margin-top:0px'>সভায় উপস্থিত সদস্যবৃন্দ - পরিশিষ্ট ‘ক’-তে দেখানো হলো।</p>
+
+
+            <p style='text-align: justify;margin-top:-30px;text-indent: 40px;' class='mb-0'>
+            সভাপতি মহোদয় উপস্থিত সকল সদস্যকে স্বাগত জানিয়ে সভার কাজ শুরু করেন। অত:পর সভাপতি মহোদয় সভায় জানান,
+            ............................................................................................... নিমিত্ত গত ১২/০৭/২০২৩ তারিখে নিলাম দরপত্র বিজ্ঞপ্তি আহবান করা হয়। তৎপ্রেক্ষিতে, অদ্য ১৮/০৭/২০২৩ তারিখ দরপত্র দাখিলের নির্ধারিত সময় দুপুর ২.০০ ঘটিকা পর্যন্ত মোট ০৩ (তিন)টি প্রতিষ্ঠানের নিকট হতে দরপত্র পাওয়া যায়। <br/>
+            জনাব .......................... সভায় জানান যে, বিক্রিত সিডিউলের মধ্যে ০৩টি প্রতিষ্ঠানই নির্ধারিত তারিখ ও সময়ের মধ্যে দরপত্র দাখিল করেন
+            </p>
+
+
+
+
+            ";
+
+
+            $nagoriinfo .= "
+
+    <table width='100%' border='1' style='border-collapse: collapse;'>
+
+    <tr>
+      <td style='vertical-align: top;'>ক্র. নং</td>
+      <td style='text-align:center'>সরবরাহকারী প্রতিষ্ঠানের নাম</td>
+      <td style='text-align:center'>দাখিলকৃত দর</td>
+      <td style='text-align:center'>মন্তব্য</td>
+    </tr>";
+
+
+          $i = 1;
+    foreach ($tenders as $tender) {
+        $nagoriinfo .= "<tr>
+        <td  style='text-align:center;padding:0px 10px'>". int_en_to_bn($i)."</td>
+        <td  style='text-align:left;padding:0px 10px'>
+        $tender->applicant_orgName <br/>
+        $tender->vill, $tender->postoffice, $tender->thana, $tender->distric
+
+        </td>
+        <td  style='text-align:center;padding:0px 10px'>". int_en_to_bn($tender->DorAmount)."</td>
+        <td  style='text-align:center;padding:0px 10px'>";
+
+        if($tender->status=='Selected'){
+
+            $nagoriinfo .= "
+            সর্বোচ্চ দরদাতা";
+        }else{
+
+        }
+
+
+
+        $nagoriinfo .= "</td></tr>";
+
+        $i++;
+    }
+
+
+
+
+
+    $nagoriinfo .= "</table>
+
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; দরপত্র মূল্যায়ন কমিটি কর্তৃক দাখিলকৃত দরদাতা প্রতিণ্ঠান সমূহের বিবরণী যাচাই বাছাই করা হয়। স্থানীয় বাজারদর অনুযায়ী ............................. এর দাখিলকৃত দর সর্বোচ্চ হওয়ায় দরপত্র মূল্যায়ন ও বাছাই কমিটি কর্তৃক উক্ত দরদাতার দাখিলকৃত দর গৃহীত হলো। এতদসংশ্লিষ্ট সকল বিধি বিধান/শর্তাবলী প্রতিপালন পূর্বক দরদাতার অনুকূলে কার্যাদেশ প্রদানের জন্য সুপারিশ করা হলো। <br/> <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; অত:পর অদ্য আর কোন আলোচনা না থাকায় সভাপতি উপস্থিত সকল সদস্যকে ধন্যবাদ জানিয়ে সভার সমাপ্তি ঘোষণা করেন।</p>
+
+
+
+            ";
+
+
+
+
+
+
+
+
+
+
+
+            $nagoriinfo .= "
+
+
+         <table width='100%' style='border-collapse: collapse;margin-bottom:15px;margin-top:35px' border='0'>
+         <tr>
+             <td  style='text-align: left;' width='40%'>
+            </td>
+             <td style='text-align: center; width: 200px;' width='30%'></td>
+             <td style='text-align: center;' width='40%'>
+                 <div class='signature text-center position-relative'>
+
+               সোহাগ চন্দ্র সাহা <br>
+               উপজেলা নির্বাহী অফিসার <br>
+               তেঁতুলিয়া, পঞ্চগড়। <br>
+               <span style='font-size:12px'>e-mail: unotetulia@mopa.gov.bd</span>
+                 </div>
+             </td>
+         </tr>
+     </table>
+
+
+
+
+
+     <div style='text-align:center'>
+     <p class='m-0'>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
+     <p class='m-0'>উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
+     <p class='m-0'>তেঁতুলিয়া, পঞ্চগড়।</p>
+ </div>
+
+
+
+
+     <table width='100%' style='margin-bottom:40px !important'>
+         <tr>
+             <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($row->memorial_no)."</td>
+             <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime(now())))."</td>
+         </tr>
+     </table>
+
+
+
+
+
+
+
+
+
+
+
+
+         <p style='margin:0 !important'>অনুলিপি : সদয় জ্ঞাতার্থে /জ্ঞাতার্থে  কার্যাথে</p>
+
+
+         <p style='margin:0 !important'>১। জেলা প্রশাসক,পঞ্চগড়।</p>
+         <p style='margin:0 !important'>২। চেয়ারম্যান, উপজেলা পরিষদ তেতুলিয়া, পঞ্চগড়।</p>
+         <p style='margin:0 !important'>৩। উপজেলা নির্বাহী অফিসার, তেতুলিয়া, পঞ্চগড়।</p>
+         <p style='margin:0 !important'>৪। নোটিশ বোড/ওয়েবসাইড।</p>
+         <p style='margin:0 !important'>৫। অফিস কপি।</p>
+
+
+
+
+
+        ";
+
+        return $nagoriinfo;
+    }
+
+
+
+
+
+
+
 
 
 

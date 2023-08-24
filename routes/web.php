@@ -460,6 +460,8 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']], function() {
 
     Route::get('/pdf/tenders/work/access/{tender_id}', [TenderListController::class,'workAccessPdf']);
 
+    Route::get('/pdf/tenders/resulation/{tender_id}', [TenderListController::class,'ResulationPdf']);
+
 
 
     Route::get('/application/report/{id}',[AplicationController::class,'download_report']);
