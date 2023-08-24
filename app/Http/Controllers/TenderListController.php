@@ -26,14 +26,14 @@ class TenderListController extends Controller
         $union_name = $request->union_name;
         $status = $request->status;
         if($union_name && $status){
-            return TenderList::where(['union_name'=>$union_name,'status'=>$status])->orderBy('id','desc')->get();
+            return TenderList::with('tenderWorkOrders')->where(['union_name'=>$union_name,'status'=>$status])->orderBy('id','desc')->get();
         }
         if($union_name){
-            return TenderList::where('union_name',$union_name)->orderBy('id','desc')->get();
+            return TenderList::with('tenderWorkOrders')->where('union_name',$union_name)->orderBy('id','desc')->get();
         }
 
 
-        return TenderList::orderBy('id','desc')->get();
+        return TenderList::with('tenderWorkOrders')->orderBy('id','desc')->get();
     }
 
     /**
@@ -377,7 +377,7 @@ class TenderListController extends Controller
             return 'No data Found';
         }
 
-        $row = TenderList::where('tender_id',$tender_id)->first();
+        $row = TenderList::with('tenderWorkOrders')->where('tender_id',$tender_id)->first();
 
 
 
@@ -391,11 +391,14 @@ class TenderListController extends Controller
                 'mode' => 'utf-8',
                 'format' => 'A4',
                 'setAutoTopMargin' => 'stretch',
+                'autoMarginPadding' => -25,
                 'setAutoBottomMargin' => 'stretch'
             ]);
+
+
             $mpdf->SetDisplayMode('fullpage');
             $mpdf->SetHTMLHeader($this->pdfWordHeader($row,$uniouninfo, $filename));
-            $mpdf->SetHTMLFooter($this->pdfWordFooter($row,$uniouninfo, $filename));
+            // $mpdf->SetHTMLFooter($this->pdfWordFooter($row,$uniouninfo, $filename));
             // $mpdf->SetHTMLHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->defaultheaderfontsize = 10;
             $mpdf->defaultheaderfontstyle = 'B';
@@ -416,6 +419,9 @@ class TenderListController extends Controller
 
     public function pdfWordHTMLut($row,$uniouninfo)
     {
+
+        $tenderWorkOrders =  $row->tenderWorkOrders;
+
 
         $tenderSubmitCount = Tender::where(['tender_id'=>$row->id,'payment_status'=>'Paid'])->count();
         $tenderSelected = Tender::where(['tender_id'=>$row->id,'status'=>'Selected'])->first();
@@ -458,29 +464,42 @@ class TenderListController extends Controller
 
 
         $nagoriinfo = "
-         <style>
-         p{
+
+
+        <style>
+        .m-0{
+            margin:0 !important;
+        }
+        .mb-0{
+            margin-bottom:0 !important;
+        }
+        .mt-0{
+            margin-top:0 !important;
+        }
+        .roles p {
+            margin:0 !important;
+        }
+        p{
             font-size:16px
          }
-         </style>
-            <table width='100%'>
-                <tr>
-                    <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($row->memorial_no)."</td>
-                    <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime($noticeDate)))."ইং তারিখের নিলাম বিজ্ঞপ্তি মোতাবেক </td>
-                </tr>
-            </table>
+         .selector p::first-line {
+            text-indent: 20px !important;
+          }
+    </style>
 
 
-            <p style='text-weight:700'>বিষয়ঃ  $row->tender_name নিলামে বিক্রয় কার্যাদেশ প্রসঙ্গে। </p>
 
-            <p style='text-align: justify;'>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;উপযুক্ত বিষয় ও সুত্রোক্ত স্মারকের প্রেক্ষিতে জানানো যাচ্ছে যে, $row->tender_name ইউনিয়ন পরিষদ আইন ২০০৯ এবং আদশকর তফসিল-২০১৩, মোতাবেক গত-".int_en_to_bn(date('d/m/Y', strtotime($noticeDate)))."ইং তারিখের ".int_en_to_bn($row->memorial_no)." নং স্মারকে নিলাম দরপত্র বিজ্ঞপ্তি আহবান করা হয়।
+            <p style='text-weight:bold;margin-bottom:-8px'>বিষয়ঃ  কার্যাদেশ প্রদান। </p>
+            <p style='text-align: justify;margin-top:-30px' class='mb-0'>$tenderWorkOrders->formula
             </p>
 
 
-            <p style='text-align: justify;'>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;উক্ত নিলাম কাযক্রমে নির্ধারিত তারিখ ও সময়ের মধ্যে দাখিলকৃত মোট ".int_en_to_bn($tenderSubmitCount)."টি দরপত্রের মধ্যে $tenderSelected->applicant_orgName, পিতা: $tenderSelected->applicant_org_fatherName, গ্রামঃ $tenderSelected->vill, ডাকঘরঃ $tenderSelected->postoffice, উপজেলাঃ $tenderSelected->thana, জেলাঃ $tenderSelected->distric এর দাখিলকৃত দর ".int_en_to_bn($tenderSelected->DorAmount)."/-($DorAmount) সর্বোচ্চ হওয়ায় তার দরটি গৃহিত হয় এবং এ সংক্রান্ত দরপত্র আহবান ও মুল্যায়ন কমিটি কর্তৃক কার্যাদেশ প্রদানের জন্য সুপারিশ করা হয়।
-            </p>";
+
+            <div class='selector' style='text-align: justify;margin-top:-10px;text-indent: 20px !important;'>
+                $tenderWorkOrders->order_description
+            </div>
+
+            ";
 
 
 
@@ -491,10 +510,16 @@ class TenderListController extends Controller
 
 
             if($row->permitDetials){
-                $nagoriinfo .= "<p style='text-align: justify;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      $row->permitDetials</p>";
+                $nagoriinfo .= "<p style='text-align: justify;margin-top:-30px'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      $row->permitDetials</p>";
             }else{
-            $nagoriinfo .= " <p style='text-align: justify;'>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      এমতাবস্থায় $tenderSelected->applicant_orgName, পিতা: $tenderSelected->applicant_org_fatherName, গ্রামঃ $tenderSelected->vill, ডাকঘরঃ $tenderSelected->postoffice, উপজেলাঃ $tenderSelected->thana, জেলাঃ $tenderSelected->distric-কে তার দাখিলকৃত দর ".int_en_to_bn($tenderSelected->DorAmount)."/-($DorAmount) $row->bankName $row->bankCheck হিসাব নম্বরে এবং তৎসঙ্গে নিদিষ্ট কোডে বিধি মোতাবেক দাখিলকৃত  ".int_en_to_bn($tenderSelected->DorAmount)."/-($DorAmount) এর ১৫% ভ্যাট =  ".int_en_to_bn($result15Percent)."/-($result15PercentText) এবং দাখিলকৃত ".int_en_to_bn($tenderSelected->DorAmount)."/-($DorAmount) এর  ৫% আয়কর = ".int_en_to_bn($result5Percent)."/-($result5PercentText) সরকারি কোষাগারে আগামী ".int_en_to_bn($row->daysOfDepositeAmount)." কর্মদিবসের মধ্যে সমুদয় অর্থ জমা প্রদান নিশ্চিত করা সাপেক্ষে $meyadStart ইং তারিখে হতে $meyadEnd ইং তারিখ পর্যন্ত $row->tender_name প্রদানের কার্যাদেশ প্রদান করা হলো। অন্যথায়/ ব্যথতায় জামানত বাজেয়াপ্তসহ নিলাম বিজ্ঞপ্তিটি বাজেয়াপ্ত বলে গন্য হইবে এবং পুনরায় ডাক প্রদান করা হইবে।
+            $nagoriinfo .= " <p style='text-align: justify;margin-top:-5px'>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            তৎপ্রেক্ষিতে, $tenderSelected->applicant_orgName, পিতা: $tenderSelected->applicant_org_fatherName, গ্রামঃ $tenderSelected->vill, ডাকঘরঃ $tenderSelected->postoffice, উপজেলাঃ $tenderSelected->thana, জেলাঃ $tenderSelected->distric-কে তার দাখিলকৃত সর্বোচ্চ দর ".int_en_to_bn($tenderSelected->DorAmount)."/-($DorAmount) টাকা উপজেলা পরিষদ রাজস্ব, তেঁতুলিয়া, পঞ্চগড় এর নামীয় $tenderWorkOrders->bank_name, তেঁতুলিয়া শাখা’র অনুকূলে থানা সঞ্চয়ী ব্যাংক হিসাব নম্বর $tenderWorkOrders->bank_account_no-এ জমাসহ বিধি মোতাবেক ভ্যাট/মূসক ও আয়কর নির্ধারিত কোডে সরকারি কোষাগারে জমা নিশ্চিত পূর্বক নিলামকৃত গাছ এবং গাছের ডালপালা আগামী ০৭ (সাত) দিনের মধ্যে কর্তন/অপসারণের জন্য কার্যাদেশ প্রদান করা হলো।
+
+
+
+
             </p>";
         }
 
@@ -508,11 +533,43 @@ class TenderListController extends Controller
 
 
 
-            $nagoriinfo .= "<p>
-            &nbsp;&nbsp;&nbsp;&nbsp; $tenderSelected->applicant_orgName , পিতা: $tenderSelected->applicant_org_fatherName, <br/>
-            &nbsp;&nbsp;&nbsp;&nbsp; গ্রামঃ $tenderSelected->vill , ডাকঘরঃ $tenderSelected->postoffice , <br/>
-            &nbsp;&nbsp;&nbsp;&nbsp; উপজেলাঃ $tenderSelected->thana, জেলাঃ $tenderSelected->distric <br/>
-         </p>
+            $nagoriinfo .= "
+
+
+         <table width='100%' style='border-collapse: collapse;margin-bottom:15px' border='0'>
+         <tr>
+             <td  style='text-align: left;' width='40%'>
+             <br/>
+             <br/>
+            <p>
+             &nbsp;&nbsp;&nbsp;&nbsp; $tenderSelected->applicant_orgName , পিতা: $tenderSelected->applicant_org_fatherName, <br/>
+             &nbsp;&nbsp;&nbsp;&nbsp; গ্রামঃ $tenderSelected->vill , ডাকঘরঃ $tenderSelected->postoffice , <br/>
+             &nbsp;&nbsp;&nbsp;&nbsp; উপজেলাঃ $tenderSelected->thana, জেলাঃ $tenderSelected->distric <br/>
+          </p></td>
+             <td style='text-align: center; width: 200px;' width='30%'></td>
+             <td style='text-align: center;' width='40%'>
+                 <div class='signature text-center position-relative'>
+
+               সোহাগ চন্দ্র সাহা <br>
+               উপজেলা নির্বাহী অফিসার <br>
+               তেঁতুলিয়া, পঞ্চগড়। <br>
+               <span style='font-size:12px'>e-mail: unotetulia@mopa.gov.bd</span>
+                 </div>
+             </td>
+         </tr>
+     </table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
          <p style='margin:0 !important'>অনুলিপি : সদয় জ্ঞাতার্থে /জ্ঞাতার্থে  কার্যাথে</p>
@@ -536,124 +593,57 @@ class TenderListController extends Controller
     public function pdfWordHeader($row,$uniouninfo, $filename)
     {
 
+        $noticeDate = $row->noticeDate;
 
 
 
-        $pdfHead = '
+        $output = "
 
 
 
-        ';
-        $output = '
-          ' . $pdfHead . '
-              <table width="100%" style="border-collapse: collapse;" border="0">
-                  <tr>
-                      <td style="text-align: center;" width="20%">
-					  <span style="color:#b400ff;"><b>
-					  উন্নয়নের গণতন্ত্র,  <br /> শেখ হাসিনার মূলমন্ত্র </b>
+    <div style='text-align:center'>
+        <p class='m-0'>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
+        <p class='m-0'>উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
+        <p class='m-0'>তেঁতুলিয়া, পঞ্চগড়।</p>
+        <p class='m-0'>www.tetulia.panchagarh.gov.bd</p>
 
-					  </span>
-                      </td>
-                      <td style="text-align: center;" width="20%">
-                          <img width="70px" src="' . base64('backend/bd-logo.png') . '">
-                      </td>
-                      <td style="text-align: center;" width="20%">';
-        $output .= '</td>
-                  </tr>
-                  <tr style="margin-top:2px;margin-bottom:2px;">
-                      <td>
-                      </td>
-                      <td style="text-align: center;" width="50%">
-                          <p style="font-size:20px">গণপ্রজাতন্ত্রী বাংলাদেশ</p>
-                          <p style="font-size:25px">চেয়ারম্যানের কার্যালয়</p>
+    </div>
 
-                      </td>
-                      <td>
-                      </td>
-                  </tr>
-                  <tr style="margin-top:0px;margin-bottom:0px;">
-                      <td>
-                      </td>
-                      <td style="margin-top:0px; margin-bottom:0px; text-align: center;" width=50%>
-                          <h1 style="color: #7230A0; margin: 0px; font-size: 28px">' . $uniouninfo->full_name . '</h3>
-                      </td>
-                      <td>
-                      </td>
-                  </tr>
-                  <tr style="margin-top:2px;margin-bottom:2px;">
-                      <td>
-                      </td>
-                      <td style="text-align: center; " width="50%">
 
-                          <p style="font-size:20px">উপজেলা: ' . $uniouninfo->thana . ', জেলা: ' . $uniouninfo->district . ' ।</p>
-                      </td>
-                      <td>
-                      </td>
-                  </tr>
-                  </table>';
+
+
+        <table width='100%' style='margin-bottom:20px !important'>
+            <tr>
+                <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($row->memorial_no)."</td>
+                <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime(now())))."</td>
+            </tr>
+        </table>
+        ";
         return $output;
     }
+
+
+
 
     public function pdfWordFooter($row,$uniouninfo, $filename)
     {
 
-
-
-
-        $sonodNO = ' <div class="signature text-center position-relative">
-        স্মারক নং: ' .  int_en_to_bn($row->memorial_no) . ' <br /> বিজ্ঞপ্তির তারিখ: '.int_en_to_bn(date("d/m/Y", strtotime($row->created_at))).'</div>';
-
-
-
-
-$C_color = '#5c1caa';
-$C_size = '20px';
-$color = '#5c1caa';
-$style = '';
-
-
-            $ccc = '<img width="170px"  style="'.$style.'" src="' . base64($uniouninfo->c_signture) . '"><br/>
-                              <b><span style="color:'.$C_color.';font-size:'.$C_size.';">' . $uniouninfo->c_name . '</span> <br />
-                                      </b><span style="font-size:16px;">উপজেলা নির্বাহী অফিসার</span><br />';
-
-
-
-         $qrurl = url("/pdf/tenders/$row->tender_id");
-
-        // $qrurl = url("/verification/sonod/$row->id");
-        //in Controller
-        $qrcode = \QrCode::size(70)
-            ->format('svg')
-            ->generate($qrurl);
         $output = '
         <table width="100%" style="border-collapse: collapse;" border="0">
                               <tr>
-                                  <td  style="text-align: center;" width="40%">
-
-                                  </td>
-                                  <td style="text-align: center; width: 200px;" width="30%">
-                                      <img width="100px" src="' . base64($uniouninfo->sonod_logo) . '">
-                                  </td>
+                                  <td  style="text-align: center;" width="40%"></td>
+                                  <td style="text-align: center; width: 200px;" width="30%"></td>
                                   <td style="text-align: center;" width="40%">
-                                      <div class="signature text-center position-relative" style="color:'.$color.'">
+                                      <div class="signature text-center position-relative">
 
-                                      ' . $ccc . $uniouninfo->full_name . ' <br> ' . $uniouninfo->thana . ', ' . $uniouninfo->district . ' ।
-                                      <br/>
-                                      '. $row->c_email.'
-
+                                    সোহাগ চন্দ্র সাহা <br>
+                                    উপজেলা নির্বাহী অফিসার <br>
+                                    তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    <span style="font-size:12px">e-mail: unotetulia@mopa.gov.bd</span>
                                       </div>
                                   </td>
                               </tr>
-                          </table>
-                            <p style="background: #787878;
-            color: white;
-            text-align: center;
-            padding: 2px 2px;font-size: 16px;     margin-top: 0px;" class="m-0">"সময়মত ইউনিয়ন কর পরিশোধ করুন। ইউনিয়নের উন্নয়নমূক কাজে সহায়তা করুন"</p>
-
-                      </div>
-                  </div>
-              </div>';
-        $output = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $output);
+                          </table>';
         return $output;
     }
 

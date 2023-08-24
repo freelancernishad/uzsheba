@@ -456,6 +456,12 @@ Route::get('/allow/application/notification', function () {
 Route::group(['prefix' => 'dashboard','middleware' => ['auth']], function() {
 
 
+
+
+    Route::get('/pdf/tenders/work/access/{tender_id}', [TenderListController::class,'workAccessPdf']);
+
+
+
     Route::get('/application/report/{id}',[AplicationController::class,'download_report']);
 
 Route::get('/report/download', [SonodController::class,'ReportDownload']);

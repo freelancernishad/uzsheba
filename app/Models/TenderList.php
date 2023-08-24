@@ -56,4 +56,11 @@ class TenderList extends Model
        'permitDetials',
     ];
 
+
+    public function tenderWorkOrders()
+    {
+        return $this->hasOne(TenderWorkOrder::class, 'tender_list_id');
+    }
+
+
 }

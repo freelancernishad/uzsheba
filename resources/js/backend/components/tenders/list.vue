@@ -65,7 +65,9 @@
 
                         <router-link size="sm" :to="{name:'tendersubmitlist',params:{tender_id:item.id}}" class="btn btn-success mr-1 mt-1" v-if="item.status=='Completed'"   >নির্বাচিত তালিকা</router-link>
 
-                        <a size="sm" target="_blank" :href="'/dashboard/pdf/tenders/work/access/'+item.tender_id" class="btn btn-warning mr-1 mt-1" v-if="item.status=='Completed'"   >কার্যাদেশ </a>
+                        <router-link size="sm" :to="{name:'tenderworkorder',params:{id:item.id}}" class="btn btn-warning mr-1 mt-1" v-if="item.status=='Completed' && !item.tender_work_orders">কার্যাদেশ</router-link>
+
+                        <a size="sm" target="_blank" :href="'/dashboard/pdf/tenders/work/access/'+item.tender_id" class="btn btn-warning mr-1 mt-1" v-if="item.tender_work_orders" >কার্যাদেশ ডাউনলোড  </a>
 
                         <!-- <router-link size="sm" :to="{ name: 'tendersubmitlist', params: { tender_id: item.id } }" class="btn btn-success mr-1 mt-1">Submited Tender</router-link> -->
                         <router-link size="sm" :to="{ name: 'tenderlistedit', params: { id: item.id } }" class="btn btn-info mr-1 mt-1" v-if="item.status=='pending'">Edit</router-link>

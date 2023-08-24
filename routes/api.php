@@ -25,6 +25,7 @@ use App\Http\Controllers\HoldingBokeyaController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\SonodnamelistController;
 use App\Http\Controllers\TenderFormBuyController;
+use App\Http\Controllers\TenderWorkOrderController;
 use App\Http\Controllers\CitizenInformationController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -94,6 +95,7 @@ Route::resources([
     'tender' => TenderListController::class,
 	'tenderform' => TenderFormBuyController::class,
 ]);
+Route::resource('tender-work-orders', TenderWorkOrderController::class);
 
 Route::post('check/form_code', [TenderFormBuyController::class,'check_form_code']);
 
