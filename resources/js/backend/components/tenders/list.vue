@@ -94,7 +94,16 @@
 
                         <!-- <router-link size="sm" :to="{ name: 'tendersubmitlist', params: { tender_id: item.id } }" class="btn btn-success mr-1 mt-1">Submited Tender</router-link> -->
 
+
+
                         <router-link size="sm" :to="{ name: 'tenderlistedit', params: { id: item.id } }" class="btn btn-info mr-1 mt-1" v-if="item.status=='pending' || item.status=='active'">Edit</router-link>
+
+
+
+                        <router-link size="sm" :to="{ name: 'tenderformBuyList', params: { id: item.id } }" class="btn btn-info mr-1 mt-1" v-if="item.status=='active'">সিডিউল ক্রেতার তালিকা</router-link>
+
+
+
 
                     </td>
 
@@ -179,8 +188,7 @@ export default {
   watch: {
         '$route':  {
             handler(newValue, oldValue) {
-
-                    this.sonodname();
+                this.sonodname();
 
             },
         deep: true

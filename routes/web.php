@@ -162,26 +162,26 @@ Route::post('/form/submit', function (Request $request) {
 
     $data = $request->except(['_token','bank_draft_image','deposit_details','form_code']);
 
-    // $form_code = $request->form_code;
-    //  $tenderformbuy = TenderFormBuy::where(['form_code'=>$form_code,'status'=>'Paid'])->first();
-    // if($tenderformbuy){
+    $form_code = $request->form_code;
+     $tenderformbuy = TenderFormBuy::where(['form_code'=>$form_code,'status'=>'Paid'])->first();
+    if($tenderformbuy){
 
-        // $data['nidNo'] = $tenderformbuy->nidNo;
-        // $data['nidDate'] = $tenderformbuy->nidDate;
-        // $data['applicant_orgName'] = $tenderformbuy->name;
-        // $data['applicant_org_fatherName'] = $tenderformbuy->applicant_org_fatherName;
-        // $data['vill'] = $tenderformbuy->vill;
-        // $data['postoffice'] = $tenderformbuy->postoffice;
-        // $data['thana'] = $tenderformbuy->thana;
-        // $data['distric'] = $tenderformbuy->distric;
-        // $data['mobile'] = $tenderformbuy->PhoneNumber;
+        $data['nidNo'] = $tenderformbuy->nidNo;
+        $data['nidDate'] = $tenderformbuy->nidDate;
+        $data['applicant_orgName'] = $tenderformbuy->name;
+        $data['applicant_org_fatherName'] = $tenderformbuy->applicant_org_fatherName;
+        $data['vill'] = $tenderformbuy->vill;
+        $data['postoffice'] = $tenderformbuy->postoffice;
+        $data['thana'] = $tenderformbuy->thana;
+        $data['distric'] = $tenderformbuy->distric;
+        $data['mobile'] = $tenderformbuy->PhoneNumber;
 
 
 
-    // }else{
-    //     Session::flash('Fmessage', 'দয়া করে সঠিক সিডিউল ফর্ম নং প্রদান করুন');
-    //     return redirect()->back();
-    // }
+    }else{
+        Session::flash('Fmessage', 'দয়া করে সঠিক সিডিউল ফর্ম নং প্রদান করুন');
+        return redirect()->back();
+    }
 
 
 

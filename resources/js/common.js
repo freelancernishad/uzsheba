@@ -16,7 +16,16 @@ export default {
               }
         }
     },
+    watch: {
+        '$route':  {
+            handler(newValue, oldValue) {
 
+                localStorage.setItem('unioun',this.getUsers.unioun)
+
+            },
+        deep: true
+        }
+    },
     methods: {
         async callApi(method, url, dataObj ){
             try {

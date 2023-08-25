@@ -273,9 +273,9 @@ class TenderListController extends Controller
 
 
 
-             if($row->tender_product_title){
+
                  $nagoriinfo .= "<p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>নিলামকৃত গাছের বিবরণ</u></p>";
-            }
+
 
 
 
@@ -305,6 +305,7 @@ class TenderListController extends Controller
                                     সোহাগ চন্দ্র সাহা <br>
                                     উপজেলা নির্বাহী অফিসার <br>
                                     তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    ফোন: ০২৫৮৯৯৪২৬০১ <br>
                                     e-mail: unotetulia@mopa.gov.bd
                                       </div>
                                   </td>
@@ -340,6 +341,7 @@ class TenderListController extends Controller
                                     সোহাগ চন্দ্র সাহা <br>
                                     উপজেলা নির্বাহী অফিসার <br>
                                     তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    ফোন: ০২৫৮৯৯৪২৬০১ <br>
                                     e-mail: unotetulia@mopa.gov.bd
                                       </div>
                                   </td>
@@ -397,6 +399,7 @@ class TenderListController extends Controller
                                     সোহাগ চন্দ্র সাহা <br>
                                     উপজেলা নির্বাহী অফিসার <br>
                                     তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    ফোন: ০২৫৮৯৯৪২৬০১ <br>
                                     e-mail: unotetulia@mopa.gov.bd
                                       </div>
                                   </td>
@@ -597,6 +600,7 @@ class TenderListController extends Controller
                সোহাগ চন্দ্র সাহা <br>
                উপজেলা নির্বাহী অফিসার <br>
                তেঁতুলিয়া, পঞ্চগড়। <br>
+               ফোন: ০২৫৮৯৯৪২৬০১ <br>
                <span style='font-size:12px'>e-mail: unotetulia@mopa.gov.bd</span>
                  </div>
              </td>
@@ -683,6 +687,7 @@ class TenderListController extends Controller
                                     সোহাগ চন্দ্র সাহা <br>
                                     উপজেলা নির্বাহী অফিসার <br>
                                     তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    ফোন: ০২৫৮৯৯৪২৬০১ <br>
                                     <span style="font-size:12px">e-mail: unotetulia@mopa.gov.bd</span>
                                       </div>
                                   </td>
@@ -1204,6 +1209,7 @@ class TenderListController extends Controller
                সোহাগ চন্দ্র সাহা <br>
                উপজেলা নির্বাহী অফিসার <br>
                তেঁতুলিয়া, পঞ্চগড়। <br>
+               ফোন: ০২৫৮৯৯৪২৬০১ <br>
                <span style='font-size:12px'>e-mail: unotetulia@mopa.gov.bd</span>
                  </div>
              </td>

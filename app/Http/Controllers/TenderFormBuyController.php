@@ -9,6 +9,12 @@ use App\Models\TenderFormBuy;
 
 class TenderFormBuyController extends Controller
 {
+
+    function tenderformBuyList($tender_id) {
+        return TenderFormBuy::where('tender_id',$tender_id)->get();
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -96,6 +96,10 @@ Route::resources([
     'tender' => TenderListController::class,
 	'tenderform' => TenderFormBuyController::class,
 ]);
+
+Route::post('get/all/form/buy/{tender_id}', [TenderFormBuyController::class,'tenderformBuyList']);
+
+
 Route::resource('tender-work-orders', TenderWorkOrderController::class);
 Route::resource('resolutions', ResolutionController::class);
 

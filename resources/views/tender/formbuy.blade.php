@@ -208,7 +208,7 @@ text-align: center;
 
     <div class="col-md-12 mt-3">
         <div class="form-group">
-          <label class="mb-1" for="name">দরপত্র দাখিলকারীর নাম</label>
+          <label class="mb-1" for="name">সিডিউল ক্রয়কারীর নাম</label>
           <input type="text" class="form-control" id="applicant_orgName" name="name" required>
         </div>
     </div>

@@ -77,6 +77,7 @@
 
 
 
+       <p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>নিলামকৃত গাছের বিবরণ</u></p>
 
        <div style="word-wrap: break-word;" v-html="tender.tender_product_Number_Quantity"></div>
 
@@ -98,6 +99,7 @@
                                     সোহাগ চন্দ্র সাহা <br>
                                     উপজেলা নির্বাহী অফিসার <br>
                                     তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    ফোন: ০২৫৮৯৯৪২৬০১ <br>
                                     e-mail: unotetulia@mopa.gov.bd
                                       </div>
                                   </td>
