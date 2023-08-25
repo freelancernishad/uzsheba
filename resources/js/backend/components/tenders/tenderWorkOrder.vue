@@ -88,7 +88,14 @@ export default {
         async getsonodById(){
            var id =  this.$route.params.id;
             var res = await this.callApi('get', `/api/tender/${id}`, []);
-            this.form = res.data;
+
+            var tender_work_orders = res.data.tender_work_orders;
+            if(tender_work_orders){
+                this.form.formula = tender_work_orders.formula;
+                this.form.order_description = tender_work_orders.order_description;
+                this.form.copy_details = tender_work_orders.copy_details;
+            }
+
         },
 
         async onSubmit() {
@@ -102,7 +109,7 @@ export default {
     },
     mounted(){
         if(this.$route.params.id){
-            // this.getsonodById();
+            this.getsonodById();
         }
     }
 }
