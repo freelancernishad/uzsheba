@@ -45,6 +45,7 @@ let tenderlist = require('./components/tenders/list.vue').default;
 let tenderlistedit = require('./components/tenders/form.vue').default;
 let tendersubmitlist = require('./components/tenders/tenderSubmit.vue').default;
 let tenderworkorder = require('./components/tenders/tenderWorkOrder.vue').default;
+let tenderResulation = require('./components/tenders/tenderResulation.vue').default;
 
 
 
@@ -78,6 +79,8 @@ export const routes = [
 
 
   { path:  `${prefix}/tender/work/order/:id`, component: tenderworkorder, name:'tenderworkorder',meta: { layout: adminlayout } },
+
+  { path:  `${prefix}/tender/resulation/:id`, component: tenderResulation, name:'tenderResulation',meta: { layout: adminlayout } },
 
 
   { path:  `${prefix}/user/list`, component: userlist, name:'userlist',meta: { layout: adminlayout } },

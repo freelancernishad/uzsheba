@@ -26,14 +26,14 @@ class TenderListController extends Controller
         $union_name = $request->union_name;
         $status = $request->status;
         if($union_name && $status){
-            return TenderList::with('tenderWorkOrders')->where(['union_name'=>$union_name,'status'=>$status])->orderBy('id','desc')->get();
+            return TenderList::with(['tenderWorkOrders','resolutions'])->where(['union_name'=>$union_name,'status'=>$status])->orderBy('id','desc')->get();
         }
         if($union_name){
-            return TenderList::with('tenderWorkOrders')->where('union_name',$union_name)->orderBy('id','desc')->get();
+            return TenderList::with(['tenderWorkOrders','resolutions'])->where('union_name',$union_name)->orderBy('id','desc')->get();
         }
 
 
-        return TenderList::with('tenderWorkOrders')->orderBy('id','desc')->get();
+        return TenderList::with(['tenderWorkOrders','resolutions'])->orderBy('id','desc')->get();
     }
 
     /**
@@ -70,7 +70,7 @@ class TenderListController extends Controller
      */
     public function show(TenderList $tenderList,$id)
     {
-        return TenderList::find($id);
+        return TenderList::with(['tenderWorkOrders','resolutions'])->find($id);
     }
 
     /**
@@ -1002,7 +1002,7 @@ class TenderListController extends Controller
             return 'No data Found';
         }
 
-        $row = TenderList::with('tenderWorkOrders')->where('tender_id',$tender_id)->first();
+        $row = TenderList::with(['tenderWorkOrders','resolutions'])->where('tender_id',$tender_id)->first();
 
 
 
@@ -1118,7 +1118,7 @@ class TenderListController extends Controller
 
             <p style='text-align: justify;margin-top:-30px;text-indent: 40px;' class='mb-0'>
             সভাপতি মহোদয় উপস্থিত সকল সদস্যকে স্বাগত জানিয়ে সভার কাজ শুরু করেন। অত:পর সভাপতি মহোদয় সভায় জানান,
-            ............................................................................................... নিমিত্ত গত ".int_en_to_bn(date('d/m/Y', strtotime($row->noticeDate)))." তারিখে নিলাম দরপত্র বিজ্ঞপ্তি আহবান করা হয়। তৎপ্রেক্ষিতে, অদ্য ".int_en_to_bn(date('d/m/Y', strtotime($row->tender_end)))." তারিখ দরপত্র দাখিলের নির্ধারিত সময় দুপুর ".int_en_to_bn(date('h.i', strtotime($row->tender_end)))." ঘটিকা পর্যন্ত মোট ".int_en_to_bn($tenderSubmitCount)." ($tenderSubmitCount_word)টি প্রতিষ্ঠানের নিকট হতে দরপত্র পাওয়া যায়। <br/>
+            ".$row->resolutions->description." নিমিত্ত গত ".int_en_to_bn(date('d/m/Y', strtotime($row->noticeDate)))." তারিখে নিলাম দরপত্র বিজ্ঞপ্তি আহবান করা হয়। তৎপ্রেক্ষিতে, অদ্য ".int_en_to_bn(date('d/m/Y', strtotime($row->tender_end)))." তারিখ দরপত্র দাখিলের নির্ধারিত সময় দুপুর ".int_en_to_bn(date('h.i', strtotime($row->tender_end)))." ঘটিকা পর্যন্ত মোট ".int_en_to_bn($tenderSubmitCount)." ($tenderSubmitCount_word)টি প্রতিষ্ঠানের নিকট হতে দরপত্র পাওয়া যায়। <br/>
             জনাব $row->committe5name সভায় জানান যে, বিক্রিত সিডিউলের মধ্যে ".int_en_to_bn($tenderSubmitCount)."টি প্রতিষ্ঠানই নির্ধারিত তারিখ ও সময়ের মধ্যে দরপত্র দাখিল করেন
             </p>
 
@@ -1225,7 +1225,7 @@ class TenderListController extends Controller
 
      <table width='100%' style='margin-bottom:40px !important'>
          <tr>
-             <td style='text-align:left'>স্মারক নং:- </td>
+             <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($row->resolutions->memorial_no)."</td>
              <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime($row->tender_open)))."</td>
          </tr>
      </table>

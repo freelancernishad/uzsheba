@@ -17,6 +17,7 @@ use App\Http\Controllers\ActionLogController;
 use App\Http\Controllers\AplicationController;
 use App\Http\Controllers\countryApiController;
 use App\Http\Controllers\HoldingtaxController;
+use App\Http\Controllers\ResolutionController;
 use App\Http\Controllers\TenderListController;
 use App\Http\Controllers\UniouninfoController;
 use App\Http\Controllers\ExpenditureController;
@@ -96,6 +97,7 @@ Route::resources([
 	'tenderform' => TenderFormBuyController::class,
 ]);
 Route::resource('tender-work-orders', TenderWorkOrderController::class);
+Route::resource('resolutions', ResolutionController::class);
 
 Route::post('check/form_code', [TenderFormBuyController::class,'check_form_code']);
 

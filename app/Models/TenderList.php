@@ -76,5 +76,8 @@ class TenderList extends Model
         return $this->hasOne(TenderWorkOrder::class, 'tender_list_id');
     }
 
-
+    public function resolutions()
+    {
+        return $this->hasOne(Resolution::class);
+    }
 }
