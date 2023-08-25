@@ -127,9 +127,9 @@
 
 
 
-                        
+
                         <li class="nav-item sidebar-nav-item">
-                            <a href="javascript:void(0)" class="nav-link" @click="submenu(100)"><i class="flaticon-technological"></i><span>ইজারা</span></a>
+                            <a href="javascript:void(0)" class="nav-link" @click="submenu(100)"><i class="flaticon-technological"></i><span>নিলাম/ইজারা</span></a>
                             <transition name="slide">
                                 <ul class="nav sub-group-menu menu-open child" v-if="selected == 100"
                                     style="display:block">
@@ -137,14 +137,14 @@
                                     <li class="nav-item">
                                         <router-link
                                             :to="{ name: 'tenderlist', params: { name: 'pending' } }"
-                                            class="nav-link"><i class="fas fa-angle-right"></i> নতুন ইজারা
+                                            class="nav-link"><i class="fas fa-angle-right"></i> বিজ্ঞপ্তি আহবান
                                         </router-link>
                                     </li>
 
                                     <li class="nav-item">
                                         <router-link
                                             :to="{ name: 'tenderlist', params: { name: 'active' } }"
-                                            class="nav-link"><i class="fas fa-angle-right"></i> চলমান ইজারা
+                                            class="nav-link"><i class="fas fa-angle-right"></i> চলমান নিলাম
                                         </router-link>
                                     </li>
 
@@ -279,6 +279,9 @@
 export default {
     props: ['user', 'permission', 'roles'],
     async created() {
+
+        localStorage.setItem('unioun',this.user.unioun)
+
         // this.getSonodNamesAdmin();
 
         // var url = this.$appUrl.split("//");
@@ -369,7 +372,9 @@ export default {
 
         },
     async sonodlistCount() {
+
             var unionname = localStorage.getItem('unioun');
+
             if (this.$localStorage.getItem('position') == 'District_admin' || this.$localStorage.getItem('position') == 'Thana_admin') {
 
                 var unionname = '';

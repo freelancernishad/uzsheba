@@ -24,13 +24,21 @@
           <input type="text" v-model="form.memorial_no" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
 
+
+        <div class="form-group col-md-6">
+          <label for="">তারিখ</label>
+          <input type="datetime-local" v-model="form.noticeDate" class="form-control" placeholder="" aria-describedby="helpId">
+        </div>
+
+
+
         <!-- <div class="form-group col-md-6">
           <label for="">ইজারার শিরোনাম</label>
           <input type="text" v-model="form.tender_name" class="form-control" placeholder="" aria-describedby="helpId">
         </div> -->
 
         <div class="form-group col-md-12">
-          <label for="">ইজারার বিবরণ</label>
+          <label for="">নিলাম/ইজারার বিবরণ</label>
              <textarea v-model="form.description" class="form-control" style="height:150px"></textarea>
         </div>
 
@@ -62,12 +70,12 @@
 
 
         <div class="form-group col-md-6">
-          <label for="">সরকারি মূল্য</label>
+          <label for="">সরকারি মূল্য (ইংরেজী)</label>
           <input type="Number" v-model="form.govt_price" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
 
         <div class="form-group col-md-6">
-          <label for="">সিডিউল মূল্য</label>
+          <label for="">সিডিউল মূল্য (ইংরেজী)</label>
           <input type="Number" v-model="form.form_price" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
 
@@ -91,12 +99,6 @@
 
 
         <div class="form-group col-md-6">
-          <label for="">বিজ্ঞপ্তির তারিখ</label>
-          <input type="datetime-local" v-model="form.noticeDate" class="form-control" placeholder="" aria-describedby="helpId">
-        </div>
-
-
-        <div class="form-group col-md-6">
           <label for="">দরপত্র গ্রহনের শুরুর তারিখ</label>
           <input type="datetime-local" v-model="form.tender_start" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
@@ -109,7 +111,7 @@
 
 
         <div class="form-group col-md-6">
-          <label for="">দরপত্র দাখিলের পদ্ধতি ও স্থান</label>
+          <label for="">দরপত্র দাখিলের স্থান</label>
           <input type="text" v-model="form.tender_submit_role_address" class="form-control" placeholder="" aria-describedby="helpId">
         </div>
 
@@ -131,7 +133,7 @@
         <div class="col-md-12">
 
             <div class="form-group">
-                <label for="">সংখ্যা/পরিমাণ</label>
+                <label for="">নিলাম ক্রীতকৃত মালামলের বিবরণ</label>
                 <input type="text" v-model="form.tender_product_title" class="form-control" placeholder="" aria-describedby="helpId">
             </div>
 

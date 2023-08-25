@@ -17,7 +17,7 @@
 
         <div class="card">
             <div class="card-header">
-                <router-link :to="{ name: 'tenderlistadd' }" class="btn btn-info">Add New</router-link>
+                <router-link :to="{ name: 'tenderlistadd' }" class="btn btn-info">বিজ্ঞপ্তি তৈরি করুন</router-link>
             </div>
         <div class="card-body">
 
