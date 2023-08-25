@@ -11,7 +11,7 @@ class TenderFormBuyController extends Controller
 {
 
     function tenderformBuyList($tender_id) {
-        return TenderFormBuy::where('tender_id',$tender_id)->get();
+        return TenderFormBuy::where(['tender_id'=>$tender_id,'status'=>'Paid'])->get();
     }
 
 
