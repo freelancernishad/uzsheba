@@ -32,7 +32,7 @@
                     <td>{{ application.name }}</td>
                     <td>{{ application.applicant_org_fatherName }}</td>
                     <td>গ্রাম- {{ application.vill }}, ডাকঘর- {{ application.postoffice }}, উপজেলা- {{ application.thana }}, জেলা- {{ application.distric }}</td>
-                    <td>{{ application.mobile }}</td>
+                    <td>{{ application.PhoneNumber }}</td>
 
 
                 </tr>

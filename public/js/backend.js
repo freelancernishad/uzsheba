@@ -12705,7 +12705,7 @@ var render = function render() {
       attrs: {
         scope: "row"
       }
-    }, [_vm._v(_vm._s(application.dorId))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(application.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(application.applicant_org_fatherName))]), _vm._v(" "), _c("td", [_vm._v("গ্রাম- " + _vm._s(application.vill) + ", ডাকঘর- " + _vm._s(application.postoffice) + ", উপজেলা- " + _vm._s(application.thana) + ", জেলা- " + _vm._s(application.distric))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(application.mobile))])]);
+    }, [_vm._v(_vm._s(application.dorId))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(application.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(application.applicant_org_fatherName))]), _vm._v(" "), _c("td", [_vm._v("গ্রাম- " + _vm._s(application.vill) + ", ডাকঘর- " + _vm._s(application.postoffice) + ", উপজেলা- " + _vm._s(application.thana) + ", জেলা- " + _vm._s(application.distric))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(application.PhoneNumber))])]);
   }), 0)])])]), _vm._v(" "), _vm.popup ? _c("div", {
     staticClass: "overlay"
   }, [_c("div", {
