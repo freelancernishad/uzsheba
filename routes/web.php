@@ -271,14 +271,22 @@ td{
 <p class="m-0">www.tetulia.panchagarh.gov.bd</p>
 
 </div>
-<table width="100%" style="border:0">
-<tr>
-    <td style="text-align:left;border:0">স্মারক নং:- '.int_en_to_bn($row->memorial_no).'</td>
-    <td style="text-align:right;border:0">তারিখ:- '.int_en_to_bn(date("d/m/Y", strtotime(now()))).'</td>
-</tr>
-</table>
 
-    <p style="text-align:center;font-size:25px">দরপত্র দাখিল কারীর তালিকা</p>
+<p style="margin:0px !important;">নিলামের বিবরণ :- '.$row->tender_name.'</p>
+<p style="margin:0px !important;">বিজ্ঞপ্তি নম্বর :- '.int_en_to_bn($row->tender_sl).'</p>
+<p style="margin:0px !important;">স্মারক নং :- '.int_en_to_bn($row->memorial_no).'</p>
+<p style="margin:0px !important;">প্রকাশের তারিখ :- '.int_en_to_bn(date("d/m/Y", strtotime($row->noticeDate))).'</p>
+<p style="margin:0px !important;">সরকারি মূল্য :- '.int_en_to_bn($row->govt_price).'</p>
+<p style="margin:0px !important;">দরপত্র খোলার তারিখ: '.int_en_to_bn(date("d/m/Y", strtotime($row->tender_open))).'   সময়:- '.int_en_to_bn(date("h.i", strtotime($row->tender_open))).'</p>
+
+
+
+
+
+
+
+
+    <p style="text-align:center;font-size:25px">দরপত্রের ওপেনিং শীট</p>
 
 
 <table class="table" border="1" style="border-collapse: collapse;width:100%">
@@ -301,14 +309,14 @@ td{
 
 
     $html .= " <tr>
-        <td>$application->dorId</td>
-        <td>$application->applicant_orgName</td>
-        <td>$application->applicant_org_fatherName</td>
-        <td>গ্রাম- $application->vill, ডাকঘর- $application->postoffice, উপজেলা- $application->thana, জেলা- $application->distric</td>
-        <td>$application->mobile</td>
-        <td>$application->DorAmount</td>
-        <td>$application->DorAmountText</td>
-        <td>$application->depositAmount</td>
+    <td>".int_en_to_bn($application->dorId)."</td>
+    <td>$application->applicant_orgName</td>
+    <td>$application->applicant_org_fatherName</td>
+    <td>গ্রাম- $application->vill, ডাকঘর- $application->postoffice, উপজেলা- $application->thana, জেলা- $application->distric</td>
+    <td>".int_en_to_bn($application->mobile)."</td>
+    <td>".int_en_to_bn($application->DorAmount)."</td>
+    <td>$application->DorAmountText</td>
+    <td>".int_en_to_bn($application->depositAmount)."</td>
         <td>".int_en_to_bn(date("d/m/Y h:i", strtotime($application->created_at)))."</td>
     </tr>";
 }
@@ -371,14 +379,22 @@ td{
 <p class="m-0">www.tetulia.panchagarh.gov.bd</p>
 
 </div>
-<table width="100%" style="border:0">
-<tr>
-    <td style="text-align:left;border:0">স্মারক নং:- '.int_en_to_bn($row->memorial_no).'</td>
-    <td style="text-align:right;border:0">তারিখ:- '.int_en_to_bn(date("d/m/Y", strtotime(now()))).'</td>
-</tr>
-</table>
 
-    <p style="text-align:center;font-size:25px">দরপত্র দাখিল কারীর তালিকা</p>
+<p style="margin:0px !important;">নিলামের বিবরণ :- '.$row->tender_name.'</p>
+<p style="margin:0px !important;">বিজ্ঞপ্তি নম্বর :- '.int_en_to_bn($row->tender_sl).'</p>
+<p style="margin:0px !important;">স্মারক নং :- '.int_en_to_bn($row->memorial_no).'</p>
+<p style="margin:0px !important;">প্রকাশের তারিখ :- '.int_en_to_bn(date("d/m/Y", strtotime($row->noticeDate))).'</p>
+<p style="margin:0px !important;">সরকারি মূল্য :- '.int_en_to_bn($row->govt_price).'</p>
+<p style="margin:0px !important;">দরপত্র খোলার তারিখ: '.int_en_to_bn(date("d/m/Y", strtotime($row->tender_open))).'   সময়:- '.int_en_to_bn(date("h.i", strtotime($row->tender_open))).'</p>
+
+
+
+
+
+
+
+
+    <p style="text-align:center;font-size:25px">দরপত্র মূল্যায়ন বিবরণী</p>
 
 
 <table class="table" border="1" style="border-collapse: collapse;width:100%">
@@ -402,14 +418,14 @@ td{
 
 
     $html .= " <tr>
-        <td>$application->dorId</td>
+        <td>".int_en_to_bn($application->dorId)."</td>
         <td>$application->applicant_orgName</td>
         <td>$application->applicant_org_fatherName</td>
         <td>গ্রাম- $application->vill, ডাকঘর- $application->postoffice, উপজেলা- $application->thana, জেলা- $application->distric</td>
-        <td>$application->mobile</td>
-        <td>$application->DorAmount</td>
+        <td>".int_en_to_bn($application->mobile)."</td>
+        <td>".int_en_to_bn($application->DorAmount)."</td>
         <td>$application->DorAmountText</td>
-        <td>$application->depositAmount</td>";
+        <td>".int_en_to_bn($application->depositAmount)."</td>";
 
 
         if($application->status=='Selected'){

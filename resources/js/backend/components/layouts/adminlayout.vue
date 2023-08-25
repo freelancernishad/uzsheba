@@ -158,7 +158,7 @@
                                     <li class="nav-item">
                                         <router-link
                                             :to="{ name: 'tenderlist', params: { name: 'Completed' } }"
-                                            class="nav-link"><i class="fas fa-angle-right"></i> কমপ্লিট ইজারা
+                                            class="nav-link"><i class="fas fa-angle-right"></i> নিলাম চূড়ান্তকরণ
                                         </router-link>
                                     </li>
 
