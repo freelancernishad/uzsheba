@@ -651,7 +651,7 @@ class TenderListController extends Controller
 
 
 
-         <p style='margin:0 !important'>অনুলিপি : সদয় জ্ঞাতার্থে /জ্ঞাতার্থে  কার্যাথে</p>
+  
 
          <div class='selector' style='text-align: justify;margin-top:-10px;text-indent: 20px !important;'>
             $tenderWorkOrders->copy_details
@@ -664,6 +664,7 @@ class TenderListController extends Controller
 
 
         ";
+        // <p style='margin:0 !important'>অনুলিপি : সদয় জ্ঞাতার্থে /জ্ঞাতার্থে  কার্যাথে</p>
         // <p style='margin:0 !important'>১। জেলা প্রশাসক,পঞ্চগড়।</p>
         // <p style='margin:0 !important'>২। চেয়ারম্যান, উপজেলা পরিষদ তেতুলিয়া, পঞ্চগড়।</p>
         // <p style='margin:0 !important'>৩। উপজেলা নির্বাহী অফিসার, তেতুলিয়া, পঞ্চগড়।</p>
