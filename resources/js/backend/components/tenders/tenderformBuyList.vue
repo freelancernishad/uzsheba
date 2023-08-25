@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 <tr v-for="application in applications" :key="application.id">
-                    <th scope="row">{{ application.dorId }}</th>
+                   
                     <td>{{ application.name }}</td>
                     <td>{{ application.applicant_org_fatherName }}</td>
                     <td>গ্রাম- {{ application.vill }}, ডাকঘর- {{ application.postoffice }}, উপজেলা- {{ application.thana }}, জেলা- {{ application.distric }}</td>
