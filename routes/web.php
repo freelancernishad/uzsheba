@@ -264,7 +264,7 @@ td{
 
 </style>
 
-<div style="text-align:center">
+<div style="text-align:center;margin-bottom:15px">
 <p class="m-0">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
 <p class="m-0">উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
 <p class="m-0">তেঁতুলিয়া, পঞ্চগড়।</p>
@@ -372,7 +372,7 @@ td{
 
 </style>
 
-<div style="text-align:center">
+<div style="text-align:center;margin-bottom:15px">
 <p class="m-0">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
 <p class="m-0">উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
 <p class="m-0">তেঁতুলিয়া, পঞ্চগড়।</p>
