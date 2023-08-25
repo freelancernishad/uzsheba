@@ -75,7 +75,7 @@
                          <!-- <span size="sm" @click="tendeSelection(item,'select')" class="btn btn-success mr-1 mt-1" v-if="item.isOpen && item.status=='proccesing'">মূল্যায়ন</span> -->
 
 
-                        <span size="sm" class="btn btn-danger mr-1 mt-1" v-else-if="!item.isOpen && item.status=='proccesing'"   > মূল্যায়ন করার জন্য অপেক্ষা করুন</span>
+                        <span size="sm" class="btn btn-danger mr-1 mt-1" v-else-if="!item.isOpen && item.status=='proccesing'" >মূল্যায়ন করার জন্য অপেক্ষা করুন</span>
 
 
 
@@ -93,7 +93,9 @@
                         <a size="sm" target="_blank" :href="'/dashboard/pdf/tenders/work/access/'+item.tender_id" class="btn btn-warning mr-1 mt-1" v-if="item.status=='Completed' && item.tender_work_orders" >কার্যাদেশ ডাউনলোড  </a>
 
                         <!-- <router-link size="sm" :to="{ name: 'tendersubmitlist', params: { tender_id: item.id } }" class="btn btn-success mr-1 mt-1">Submited Tender</router-link> -->
-                        <router-link size="sm" :to="{ name: 'tenderlistedit', params: { id: item.id } }" class="btn btn-info mr-1 mt-1" v-if="item.status=='pending'">Edit</router-link>
+
+                        <router-link size="sm" :to="{ name: 'tenderlistedit', params: { id: item.id } }" class="btn btn-info mr-1 mt-1" v-if="item.status=='pending' || item.status=='active'">Edit</router-link>
+
                     </td>
 
                 </tr>

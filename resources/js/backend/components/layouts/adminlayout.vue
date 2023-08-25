@@ -151,7 +151,7 @@
                                     <li class="nav-item">
                                         <router-link
                                             :to="{ name: 'tenderlist', params: { name: 'proccesing' } }"
-                                            class="nav-link"><i class="fas fa-angle-right"></i> নির্বাচন প্রক্রিয়াধীন
+                                            class="nav-link"><i class="fas fa-angle-right"></i> ওপেনিং ও মূল্যায়ন
                                         </router-link>
                                     </li>
 
