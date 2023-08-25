@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payment;
 use App\Models\Tender;
+use App\Models\Payment;
+use App\Models\Uniouninfo;
 use Illuminate\Http\Request;
 use App\Models\TenderFormBuy;
+use App\Models\TenderList;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+use Rakibhstu\Banglanumber\NumberToBangla;
 
 class TenderFormBuyController extends Controller
 {
@@ -156,6 +160,29 @@ class TenderFormBuyController extends Controller
       }
 
     }
+
+
+
+
+
+
+    public function invoice(Request $request, $id)
+    {
+        $row = TenderFormBuy::find($id);
+        $tenderList = TenderList::find($row->tender_id);
+        $uniouninfo = Uniouninfo::where('short_name_e', $tenderList->union_name)->first();
+        $payment = Payment::where(['sonodId'=>$id,'sonod_type'=>'Tenders_form','status'=>'Paid'])->first();
+
+        $numto = new NumberToBangla();
+
+        $amountText = $numto->bnMoney($payment->amount) . ' মাত্র';
+            $pdf = LaravelMpdf::loadView('tenderSlip', compact('row', 'uniouninfo','payment','amountText'));
+            $pdf->stream("$row->form_code.pdf");
+
+
+    }
+
+
 
 
 }

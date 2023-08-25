@@ -443,7 +443,7 @@ td{
 
 
 Route::get('/tenderformpay/success', [TenderFormBuyController::class,'tenderFormPaymentSuccess']);
-
+Route::get('/tenderformpay/invoice/{id}', [TenderFormBuyController::class,'invoice']);
 
 
 

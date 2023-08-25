@@ -22,8 +22,8 @@
 
             {{-- <h4 style="color:red">বিঃদ্রঃ ফর্ম নং মনে রাখতে হবে। ফর্ম নং ছাড়া দরপত্র দাখিল করতে পারবেন না।</h4> --}}
             <a href="/" class="btn btn-danger">Back to Home</a>
-            {{-- <a href="{{ url('/document/d/'.$sonod->id) }}" target="_blank" class="btn btn-success">Applicant Copy</a>
-            <a href="{{ url('/invoice/d/'.$sonod->id) }}"  target="_blank" class="btn btn-success">Invoice</a> --}}
+            {{-- <a href="{{ url('/document/d/'.$sonod->id) }}" target="_blank" class="btn btn-success">Applicant Copy</a> --}}
+            <a href="{{ url('/tenderformpay/invoice/'.$sonod->id) }}"  target="_blank" class="btn btn-success">Invoice</a>
 
             <br><br>
         </div>
