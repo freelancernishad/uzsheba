@@ -593,7 +593,7 @@ class TenderListController extends Controller
             $nagoriinfo .= " <p style='text-align: justify;margin-top:-5px'>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-            তৎপ্রেক্ষিতে, $tenderSelected->applicant_orgName, পিতা: $tenderSelected->applicant_org_fatherName, গ্রামঃ $tenderSelected->vill, ডাকঘরঃ $tenderSelected->postoffice, উপজেলাঃ $tenderSelected->thana, জেলাঃ $tenderSelected->distric-কে তার দাখিলকৃত সর্বোচ্চ দর ".int_en_to_bn($tenderSelected->DorAmount)."/-($DorAmount) টাকা উপজেলা পরিষদ রাজস্ব, তেঁতুলিয়া, পঞ্চগড় এর নামীয় $tenderWorkOrders->bank_name, তেঁতুলিয়া শাখা’র অনুকূলে থানা সঞ্চয়ী ব্যাংক হিসাব নম্বর $tenderWorkOrders->bank_account_no-এ জমাসহ বিধি মোতাবেক ভ্যাট/মূসক ও আয়কর নির্ধারিত কোডে সরকারি কোষাগারে জমা নিশ্চিত পূর্বক নিলামকৃত গাছ এবং গাছের ডালপালা আগামী ০৭ (সাত) দিনের মধ্যে কর্তন/অপসারণের জন্য কার্যাদেশ প্রদান করা হলো।
+            তৎপ্রেক্ষিতে, $tenderSelected->applicant_orgName, পিতা: $tenderSelected->applicant_org_fatherName, গ্রামঃ $tenderSelected->vill, ডাকঘরঃ $tenderSelected->postoffice, উপজেলাঃ $tenderSelected->thana, জেলাঃ $tenderSelected->distric-কে তার দাখিলকৃত সর্বোচ্চ দর ".int_en_to_bn($tenderSelected->DorAmount)."/-($DorAmount) টাকা $tenderWorkOrders->bank_name, তেঁতুলিয়া শাখা, পঞ্চগড় এর অনুকূলে থাকা ব্যাংক হিসাব নম্বর $tenderWorkOrders->bank_account_no-এ জমা প্রদানসহ বিধি মোতাবেক ভ্যাট/মূসক ও আয়কর নির্ধারিত কোডে সরকারি কোষাগারে জমা নিশ্চিত পূর্বক নিলামকৃত গাছ এবং গাছের ডালপালা আগামী ০৭ (সাত) দিনের মধ্যে কর্তন/অপসারণের জন্য কার্যাদেশ প্রদান করা হলো।
 
 
 
