@@ -50,6 +50,20 @@ class TenderList extends Model
        'committe3position',
        'commette3phone',
        'commette3pass',
+
+       'committe4name',
+       'committe4position',
+       'commette4phone',
+       'commette4pass',
+
+
+       'committe5name',
+       'committe5position',
+       'commette5phone',
+       'commette5pass',
+
+
+
        'bankName',
        'bankCheck',
        'daysOfDepositeAmount',

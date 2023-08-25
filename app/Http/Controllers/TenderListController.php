@@ -147,12 +147,12 @@ class TenderListController extends Controller
                 'mode' => 'utf-8',
                 'format' => 'A4',
                 'setAutoTopMargin' => 'stretch',
-                'autoMarginPadding' => -5,
+                'autoMarginPadding' => -18,
                 'setAutoBottomMargin' => 'stretch'
             ]);
             $mpdf->SetDisplayMode('fullpage');
             $mpdf->SetHTMLHeader($this->pdfHeader($row,$uniouninfo, $filename));
-            $mpdf->SetHTMLFooter($this->pdfFooter($row,$uniouninfo, $filename));
+            // $mpdf->SetHTMLFooter($this->pdfFooter($row,$uniouninfo, $filename));
             // $mpdf->SetHTMLHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->defaultheaderfontsize = 10;
             $mpdf->defaultheaderfontstyle = 'B';
@@ -228,7 +228,7 @@ class TenderListController extends Controller
     </style>
 
 
-            <p class='mb-0' style='text-align:center;text-weight:900;font-size:30px;margin-top:-100px !important;'><u>নিলাম বিজ্ঞপ্তি</u></p>
+            <p class='mb-0' style='text-align:center;text-weight:900;font-size:30px;margin-top:-100px !important;'><u>নিলাম  দরপত্র বিজ্ঞপ্তি</u></p>
 
 
             <p class='mb-0' style='text-align:justify'>
@@ -274,11 +274,14 @@ class TenderListController extends Controller
 
 
              if($row->tender_product_title){
-                 $nagoriinfo .= "<p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>$row->tender_product_title:</u></p>";
+                 $nagoriinfo .= "<p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>নিলামকৃত গাছের বিবরণ</u></p>";
             }
 
 
-             $nagoriinfo .= "<div class='roles'>
+
+             $nagoriinfo .= "
+
+             <div class='roles'>
              $row->tender_product_Number_Quantity
              </div>
 
@@ -288,15 +291,62 @@ class TenderListController extends Controller
 
              <div class='roles'>
              $row->tender_roles
-             </div>
+             </div>";
 
-             <div class='roles' style='margin-top:40px'>
+             $nagoriinfo .= '
+
+        <table width="100%" style="border-collapse: collapse;" border="0">
+                              <tr>
+                                  <td  style="text-align: center;" width="40%"></td>
+                                  <td style="text-align: center; width: 200px;" width="30%"></td>
+                                  <td style="text-align: center;" width="40%">
+                                      <div class="signature text-center position-relative">
+
+                                    সোহাগ চন্দ্র সাহা <br>
+                                    উপজেলা নির্বাহী অফিসার <br>
+                                    তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    e-mail: unotetulia@mopa.gov.bd
+                                      </div>
+                                  </td>
+                              </tr>
+                          </table>
+
+                          <pagebreak>
+                          ';
+
+
+
+
+
+             $nagoriinfo .= "<div class='roles' style='margin-top:40px'>
              $row->other_content
              </div>
 
 
 
         ";
+
+
+
+        $nagoriinfo .= '
+
+        <table width="100%" style="border-collapse: collapse;" border="0">
+                              <tr>
+                                  <td  style="text-align: center;" width="40%"></td>
+                                  <td style="text-align: center; width: 200px;" width="30%"></td>
+                                  <td style="text-align: center;" width="40%">
+                                      <div class="signature text-center position-relative">
+
+                                    সোহাগ চন্দ্র সাহা <br>
+                                    উপজেলা নির্বাহী অফিসার <br>
+                                    তেঁতুলিয়া, পঞ্চগড়। <br>
+                                    e-mail: unotetulia@mopa.gov.bd
+                                      </div>
+                                  </td>
+                              </tr>
+                          </table>
+                          ';
+
 
         return $nagoriinfo;
     }
@@ -1069,7 +1119,7 @@ class TenderListController extends Controller
             <p style='text-align: justify;margin-top:-30px;text-indent: 40px;' class='mb-0'>
             সভাপতি মহোদয় উপস্থিত সকল সদস্যকে স্বাগত জানিয়ে সভার কাজ শুরু করেন। অত:পর সভাপতি মহোদয় সভায় জানান,
             ............................................................................................... নিমিত্ত গত ".int_en_to_bn(date('d/m/Y', strtotime($row->noticeDate)))." তারিখে নিলাম দরপত্র বিজ্ঞপ্তি আহবান করা হয়। তৎপ্রেক্ষিতে, অদ্য ".int_en_to_bn(date('d/m/Y', strtotime($row->tender_end)))." তারিখ দরপত্র দাখিলের নির্ধারিত সময় দুপুর ".int_en_to_bn(date('h.i', strtotime($row->tender_end)))." ঘটিকা পর্যন্ত মোট ".int_en_to_bn($tenderSubmitCount)." ($tenderSubmitCount_word)টি প্রতিষ্ঠানের নিকট হতে দরপত্র পাওয়া যায়। <br/>
-            জনাব .......................... সভায় জানান যে, বিক্রিত সিডিউলের মধ্যে ".int_en_to_bn($tenderSubmitCount)."টি প্রতিষ্ঠানই নির্ধারিত তারিখ ও সময়ের মধ্যে দরপত্র দাখিল করেন
+            জনাব $row->committe5name সভায় জানান যে, বিক্রিত সিডিউলের মধ্যে ".int_en_to_bn($tenderSubmitCount)."টি প্রতিষ্ঠানই নির্ধারিত তারিখ ও সময়ের মধ্যে দরপত্র দাখিল করেন
             </p>
 
 

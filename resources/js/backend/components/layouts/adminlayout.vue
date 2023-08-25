@@ -325,7 +325,7 @@ export default {
     },
     watch: {
         '$route': async function (to, from) {
-
+            localStorage.setItem('unioun',this.user.unioun)
 
         }
     },

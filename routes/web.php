@@ -292,6 +292,7 @@ td{
     <td>দরের পরিমাণ</td>
     <td>কথায়</td>
     <td>জামানতের পরিমাণ</td>
+    <td>দাখিলের তারিখ ও সময়</td>
     </tr>
 </thead>
 <tbody>';
@@ -308,7 +309,118 @@ td{
         <td>$application->DorAmount</td>
         <td>$application->DorAmountText</td>
         <td>$application->depositAmount</td>
+        <td>".int_en_to_bn(date("d/m/Y h:i", strtotime($application->created_at)))."</td>
     </tr>";
+}
+
+
+    $html .= '
+
+</tbody>
+</table>
+
+
+
+';
+   return PdfMaker('A4',$html,'list',false);
+
+
+
+});
+
+
+
+Route::get('/pdf/tender/selected/download/{tender_id}', function (Request $request,$tender_id) {
+
+    $row = TenderList::find($tender_id);
+
+
+$html = '
+<style>
+td{
+    border: 1px solid black;
+    padding:4px 10px;
+    font-size: 14px;
+}    th{
+    border: 1px solid black;
+    padding:4px 10px;
+    font-size: 14px;
+}
+
+
+.m-0{
+    margin:0 !important;
+}
+.mb-0{
+    margin-bottom:0 !important;
+}
+.mt-0{
+    margin-top:0 !important;
+}
+.roles p {
+    margin:0 !important;
+}
+
+
+</style>
+
+<div style="text-align:center">
+<p class="m-0">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
+<p class="m-0">উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
+<p class="m-0">তেঁতুলিয়া, পঞ্চগড়।</p>
+<p class="m-0">www.tetulia.panchagarh.gov.bd</p>
+
+</div>
+<table width="100%" style="border:0">
+<tr>
+    <td style="text-align:left;border:0">স্মারক নং:- '.int_en_to_bn($row->memorial_no).'</td>
+    <td style="text-align:right;border:0">তারিখ:- '.int_en_to_bn(date("d/m/Y", strtotime(now()))).'</td>
+</tr>
+</table>
+
+    <p style="text-align:center;font-size:25px">দরপত্র দাখিল কারীর তালিকা</p>
+
+
+<table class="table" border="1" style="border-collapse: collapse;width:100%">
+<thead>
+    <tr>
+    <td>দরপত্র নম্বর</td>
+    <td>নাম</td>
+    <td>পিতার নাম</td>
+    <td>ঠিকানা</td>
+    <td>মোবাইল</td>
+    <td>দরের পরিমাণ</td>
+    <td>কথায়</td>
+    <td>জামানতের পরিমাণ</td>
+    <td>দাখিলের তারিখ ও সময়</td>
+    </tr>
+</thead>
+<tbody>';
+    $tenders = Tender::where(['tender_id'=>$tender_id,'payment_status'=>'Paid'])->orderBy('DorAmount','desc')->get();
+    // $tenders =  Tender::where('tender_id',$tender_id)->get();
+    foreach ($tenders as $application) {
+
+
+    $html .= " <tr>
+        <td>$application->dorId</td>
+        <td>$application->applicant_orgName</td>
+        <td>$application->applicant_org_fatherName</td>
+        <td>গ্রাম- $application->vill, ডাকঘর- $application->postoffice, উপজেলা- $application->thana, জেলা- $application->distric</td>
+        <td>$application->mobile</td>
+        <td>$application->DorAmount</td>
+        <td>$application->DorAmountText</td>
+        <td>$application->depositAmount</td>";
+
+
+        if($application->status=='Selected'){
+            $html .= "<td>সর্বোচ্চ দরদাতা</td>";
+        }else{
+            $html .= "<td></td>";
+        }
+
+
+
+        $html .= "</tr>";
 }
 
 

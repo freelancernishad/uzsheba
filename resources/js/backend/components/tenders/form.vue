@@ -32,10 +32,11 @@
 
 
 
-        <!-- <div class="form-group col-md-6">
-          <label for="">ইজারার শিরোনাম</label>
-          <input type="text" v-model="form.tender_name" class="form-control" placeholder="" aria-describedby="helpId">
-        </div> -->
+        <div class="form-group col-md-12">
+          <label for="">নিলাম/ইজারার  শিরোনাম</label>
+          <textarea v-model="form.tender_name" class="form-control" style="height:150px"></textarea>
+          <!-- <input type="text" v-model="form.tender_name" class="form-control" placeholder="" aria-describedby="helpId"> -->
+        </div>
 
         <div class="form-group col-md-12">
           <label for="">নিলাম/ইজারার বিবরণ</label>
@@ -152,7 +153,7 @@
 
 
         <div class="form-group col-md-12">
-          <label for="">শর্তাবলি</label>
+          <label for="">শর্তাবলী</label>
           <vue-editor v-model="form.tender_roles" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
         <!-- <textarea v-model="form.tender_roles" class="form-control" style="height:300px"></textarea> -->
         </div>

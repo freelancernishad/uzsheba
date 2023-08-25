@@ -116,6 +116,14 @@ Route::post('committe/update/{id}', function (Request $request,$id) {
     $committe3position = $request->committe3position;
     $commette3phone = $request->commette3phone;
 
+    $committe4name = $request->committe4name;
+    $committe4position = $request->committe4position;
+    $commette4phone = $request->commette4phone;
+
+    $committe5name = $request->committe5name;
+    $committe5position = $request->committe5position;
+    $commette5phone = $request->commette5phone;
+
 
 
 
@@ -128,10 +136,26 @@ Route::post('committe/update/{id}', function (Request $request,$id) {
         'committe2position'=> $committe2position,
         'commette2phone'=> $commette2phone,
         'commette2pass'=> mt_rand(1000000, 9999999),
+
+
         'committe3name'=> $committe3name,
         'committe3position'=> $committe3position,
         'commette3phone'=> $commette3phone,
         'commette3pass'=> mt_rand(1000000, 9999999),
+
+
+        'committe4name'=> $committe4name,
+        'committe4position'=> $committe4position,
+        'commette4phone'=> $commette4phone,
+        'commette4pass'=> mt_rand(1000000, 9999999),
+
+
+        'committe5name'=> $committe5name,
+        'committe5position'=> $committe5position,
+        'commette5phone'=> $commette5phone,
+        'commette5pass'=> mt_rand(1000000, 9999999),
+
+
     ];
 
 
@@ -139,8 +163,10 @@ Route::post('committe/update/{id}', function (Request $request,$id) {
     $tenderList = TenderList::find($id);
 
     SmsNocSmsSend("ইযারা মূল্যায়নের পাসওয়ার্ড ".$updatedData['commette1pass'],$updatedData['commette1phone'],$tenderList->union_name);
-    SmsNocSmsSend("ইযারা মূল্যায়নের পাসওয়ার্ড ".$updatedData['commette2pass'],$updatedData['commette2phone'],$tenderList->union_name);
-    SmsNocSmsSend("ইযারা মূল্যায়নের পাসওয়ার্ড ".$updatedData['commette3pass'],$updatedData['commette3phone'],$tenderList->union_name);
+
+    // SmsNocSmsSend("ইযারা মূল্যায়নের পাসওয়ার্ড ".$updatedData['commette2pass'],$updatedData['commette2phone'],$tenderList->union_name);
+
+    SmsNocSmsSend("ইযারা মূল্যায়নের পাসওয়ার্ড ".$updatedData['commette5pass'],$updatedData['commette5phone'],$tenderList->union_name);
 
 
 

@@ -15,10 +15,20 @@
 
 
 
-        <div class="d-flex justify-content-center align-items-center" v-if="tenders.status!='Completed'">
-            <button class="btn btn-info py-3 px-3" @click="selections">এই বাটন ক্লিক করে নির্বাচন করুন</button>
-        </div>
+        <!-- <div class="d-flex justify-content-center align-items-center" v-if="tenders.status!='Completed'">
+            <button class="btn btn-info py-3 px-3" @click="selections">মূল্যায়ন</button>
+        </div> -->
 
+        <div class="text-right">
+
+            <button class="btn btn-info py-3 px-3" v-if="tenders.status!='Completed'" style="font-size: 20px;padding: 3px 18px !important;margin-bottom: 16px;" @click="selections">মূল্যায়ন</button>
+
+            <a size="sm" :href="'/pdf/tender/selected/download/'+tenders.id" v-else target="_blank" class="btn btn-info mr-1 mt-1" style="font-size: 20px;padding: 3px 18px;margin-bottom: 16px;">মূল্যায়ন সীট</a>
+
+
+            <a size="sm" :href="'/pdf/sder/download/'+tenders.id" target="_blank" class="btn btn-success mr-1 mt-1" style="font-size: 20px;padding: 3px 18px;margin-bottom: 16px;">ওপেনিং সীট</a>
+
+        </div>
 
 
 
@@ -99,13 +109,17 @@ export default {
         // if (!User.loggedIn()) {
         //     this.$router.push({ name: "/" });
         // }
+
+
+
+
     },
 
     data() {
         return {
             tenders:{status:'Pending'},
             applications:{},
-            preLooding:false,
+            preLooding:true,
             popup:false,
             poupitems:{},
         };
@@ -115,7 +129,11 @@ export default {
 
         this.getTender();
         setTimeout(() => {
+            if(!localStorage.getItem('tenderAccess') && this.tenders.status!='Completed'){
+                this.$router.push({ name: 'tenderlist', params: { name: 'proccesing' } });
+            }
             if(this.tenders.status=='Completed'){
+
                 this.getApplication();
             }
         }, 3000);
@@ -126,13 +144,8 @@ export default {
        async selections(){
 
 
-        Swal.fire({
-            title: 'ইজারাটি কি সফটওয়্যার এর মাধমে নির্বাচন করতে চান?',
-            showCancelButton: true,
-            confirmButtonText: 'হ্যাঁ',
-            }).then(async (result) => {
                 this.preLooding = true
-                if (result.isConfirmed) {
+
                     var tender_id = this.$route.params.tender_id
                     var res = await this.callApi('post',`/api/tender/selection/${tender_id}`);
                     if(res.status==200){
@@ -142,18 +155,18 @@ export default {
                     }else if(res.status==404){
                         Swal.fire({
                             icon:'error',
-                            title:'কোনো ইজারা জমা হয় নি!',
+                            title:'কোনো দরপত্র জমা হয় নি!',
                         })
                         this.preLooding = false
                     }else if(res.status==422){
                         Swal.fire({
                             icon:'error',
-                            title:'ইজারা খোলার সময় হয় নি!',
+                            title:'নিলাম/ইজারা খোলার সময় হয় নি!',
                         })
                         this.preLooding = false
                     }
-                }
-            })
+
+
 
 
 

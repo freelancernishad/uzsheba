@@ -25,6 +25,9 @@
         </table>
 
 
+        <h3 class="text-center">নিলাম দরপত্র বিজ্ঞপ্তি</h3>
+
+
        <p>{{ tender.description }}</p>
 
        <!-- <h4 class="text-center">বিবরণ</h4>
@@ -33,14 +36,54 @@
        <!-- <p>ইজারার ধরণ : {{ tender.tender_type }}</p> -->
        <!-- <p>সরকারি মূল্য : {{ tender.govt_price }}</p> -->
 
-       <p>সিডিউল মূল্য : {{ tender.form_price }} [অফেরতযোগ্য</p>
-       <p>অনলাইনে সিডিউল ক্রয়ের শেষ তারিখ ও সময় : {{ dateformatGlobal(tender.form_buy_last_date)[6] }}</p>
-       <p>দরপত্র গ্রহনের শুরুর তারিখ ও সময় : {{ dateformatGlobal(tender.tender_start)[6] }}</p>
-       <p>দরপত্র গ্রহনের শেষ তারিখ ও সময় : {{ dateformatGlobal(tender.tender_end)[6] }}</p>
-       <p>দরপত্র খোলার তারিখ ও সময় : {{ dateformatGlobal(tender.tender_open)[6] }}</p>
+
+
+
+
+
+
+
+       <table  width="100%" border="1" class="detailsTable mb-3">
+
+
+            <tr>
+                <td width="40%">সিডিউল মূল্য</td>
+                <td  width="60%">{{ tender.form_price }} [অফেরতযোগ্য]</td>
+            </tr>
+
+            <tr>
+                <td>দরপত্র দাখিলের তারিখ ও সময়</td>
+                <td>{{ dateformatGlobal(tender.form_buy_last_date)[6] }}</td>
+            </tr>
+
+            <tr>
+                <td>দরপত্র দাখিলের শেষ তারিখ ও সময়</td>
+                <td>{{ dateformatGlobal(tender.tender_end)[6] }}</td>
+            </tr>
+
+            <tr>
+                <td>দরপত্র খোলার তারিখ, সময় ও স্থান</td>
+                <td>
+                    {{ dateformatGlobal(tender.tender_open)[6] }} <br>
+                    {{ tender.tender_open_address }}
+                </td>
+            </tr>
+
+
+       </table>
+
+
+
+
+
+
+
+       <div style="word-wrap: break-word;" v-html="tender.tender_product_Number_Quantity"></div>
 
        <h4 class="text-center">শর্তাবলী</h4>
        <hr>
+
+
        <div style="word-wrap: break-word;" v-html="tender.tender_roles"></div>
 
 
@@ -109,3 +152,12 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+
+.detailsTable tr td{
+    padding: 10px 16px;
+}
+</style>
+
