@@ -46,11 +46,12 @@
 
             <tbody>
                 <tr v-for="(item,index) in filteredItems" :key="''+item.id">
-                    <td></td>
+
+                    <td>{{ item.tender_sl }}</td>
                     <td>{{ item.tender_name }}</td>
-                    <td>{{ item.noticeDate }}</td>
+                    <td>{{ dateformatGlobal(item.noticeDate)[3] }}</td>
                     <td>{{ item.memorial_no }}</td>
-                    <td>{{ item.tender_end }}</td>
+                    <td>{{ dateformatGlobal(item.tender_end)[3] }}</td>
                     <td>
 
                         <!-- <a size="sm" target="_blank" :href="'/tenders/'+ item.tender_id" class="btn btn-danger mr-1 mt-1" v-if="item.status!='Completed'">সিডিউল ফর্ম</a> -->
@@ -537,7 +538,16 @@ export default {
             var position = this.Users.position
             var thana = this.Users.thana
             var unioun = localStorage.getItem('unioun');
-            var status = this.$route.params.name;
+
+            if(this.$route.params.name=='pending'){
+
+                var status = 'all';
+            }else{
+
+                var status = this.$route.params.name;
+            }
+
+
               axios.get(`/api/tender?union_name=${unioun}&status=${status}`)
                 .then(({ data }) => {
                     // console.log(data)

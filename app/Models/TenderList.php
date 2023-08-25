@@ -11,6 +11,7 @@ class TenderList extends Model
 
 
     protected $fillable=[
+       'tender_sl',
        'union_name',
        'tender_id',
        'tender_type',

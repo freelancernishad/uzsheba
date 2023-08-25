@@ -26,7 +26,13 @@ class TenderListController extends Controller
         $union_name = $request->union_name;
         $status = $request->status;
         if($union_name && $status){
+            if($status=='all'){
+
+                return TenderList::with(['tenderWorkOrders','resolutions'])->where(['union_name'=>$union_name])->orderBy('id','desc')->get();
+            }
+
             return TenderList::with(['tenderWorkOrders','resolutions'])->where(['union_name'=>$union_name,'status'=>$status])->orderBy('id','desc')->get();
+
         }
         if($union_name){
             return TenderList::with(['tenderWorkOrders','resolutions'])->where('union_name',$union_name)->orderBy('id','desc')->get();
@@ -51,13 +57,38 @@ class TenderListController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+
      */
+
+
+     function tenderSl(){
+        $latestData = TenderList::latest()->first();
+        if($latestData){
+            if($latestData->sl){
+                return (int)$latestData->tender_sl+1;
+
+            }else{
+
+                return "20230001";
+            }
+        }else{
+            return "20230001";
+        }
+    }
+
+
+
     public function store(Request $request)
     {
         $datas = $request->all();
         $random = Str::random(20);
+
+        $datas['tender_sl'] = $this->tenderSl();
+
         $datas['tender_id'] = time().$random;
         $datas['status'] = 'pending';
+
+
 
         return TenderList::create($datas);
     }
