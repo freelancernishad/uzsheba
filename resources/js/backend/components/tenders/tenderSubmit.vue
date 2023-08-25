@@ -21,7 +21,7 @@
 
         <div class="text-right">
 
-            <button class="btn btn-info py-3 px-3" v-if="tenders.status!='Completed'" style="font-size: 20px;padding: 3px 18px !important;margin-bottom: 16px;" @click="selections">মূল্যায়ন</button>
+            <button class="btn btn-info py-3 px-3" v-if="tenders.status!='Completed'" style="font-size: 20px;padding: 3px 18px !important;margin-bottom: 16px;" @click="selections">মূল্যায়ন বিববরণী</button>
 
             <a size="sm" :href="'/pdf/tender/selected/download/'+tenders.id" v-else target="_blank" class="btn btn-info mr-1 mt-1" style="font-size: 20px;padding: 3px 18px;margin-bottom: 16px;">মূল্যায়ন সীট</a>
 
@@ -183,6 +183,7 @@ export default {
             var tender_id = this.$route.params.tender_id
             var res = await this.callApi('get',`/api/tender/${tender_id}`,[]);
             this.tenders = res.data;
+            this.preLooding = false
         },
 
         getApplication(Selected='') {
@@ -194,6 +195,7 @@ export default {
                 .get(`/api/get/all/aplications/${tender_id}${quiry}`)
                 .then(({ data }) => (this.applications = data))
                 .catch();
+
                 this.preLooding = false
         },
 

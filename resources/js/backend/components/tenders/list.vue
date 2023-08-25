@@ -97,7 +97,9 @@
 
 
 
+
                         <router-link size="sm" :to="{ name: 'tenderlistedit', params: { id: item.id } }" class="btn btn-info mr-1 mt-1" v-if="item.status=='pending' || item.status=='active'">Edit</router-link>
+
 
 
 
@@ -375,7 +377,7 @@ export default {
 
 
 
-                if(committe1 && committe2 && committe3){
+                if(committe1 && committe5){
                     var formValues = {};
 
                     formValues['commette1phone'] = committe1;

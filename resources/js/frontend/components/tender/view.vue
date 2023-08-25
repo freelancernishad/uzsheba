@@ -113,9 +113,9 @@
 
 
        <div class="text-center">
-            <a target="_blank" :href="'/pdf/tenders/'+tender.tender_id" class="btn btn-danger mt-3">বিজ্ঞপ্তি ডাউনলোড করুন</a>
-            <a :href="'/tenders/form/buy/'+tender.tender_id" class="btn btn-warning mt-3">সিডিউল ফর্ম কিনুন</a>
-            <a :href="'/tenders/'+tender.tender_id" class="btn btn-info mt-3">ইজারা দাখিল করার জন্য ক্লিক করুন</a>
+            <a target="_blank" :href="'/pdf/tenders/'+tender.tender_id" class="btn btn-success mt-3">বিজ্ঞপ্তি ডাউনলোড করুন</a>
+            <a :href="'/tenders/form/buy/'+tender.tender_id" class="btn btn-warning mt-3">সিডিউল কিনুন</a>
+            <a :href="'/tenders/'+tender.tender_id" class="btn btn-danger mt-3">দরপত্র দাখিল করার জন্য ক্লিক করুন</a>
        </div>
 
 
