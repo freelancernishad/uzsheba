@@ -12760,10 +12760,6 @@ var staticRenderFns = [function () {
     attrs: {
       scope: "col"
     }
-  }, [_vm._v("দরপত্র নম্বর")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
   }, [_vm._v("নাম")]), _vm._v(" "), _c("th", {
     attrs: {
       scope: "col"

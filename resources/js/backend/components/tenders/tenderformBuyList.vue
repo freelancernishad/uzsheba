@@ -19,7 +19,6 @@
             <table class="table">
             <thead>
                 <tr>
-                <th scope="col">দরপত্র নম্বর</th>
                 <th scope="col">নাম</th>
                 <th scope="col">পিতার নাম</th>
                 <th scope="col">ঠিকানা</th>
