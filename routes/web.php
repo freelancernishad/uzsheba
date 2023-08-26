@@ -160,12 +160,15 @@ Route::get('/tenders/form/buy/{tender_id}', function ($tender_id) {
 Route::post('/form/submit', function (Request $request) {
 
 
-    $data = $request->except(['_token','bank_draft_image','deposit_details','form_code']);
+    $data = $request->except(['_token','bank_draft_image','deposit_details','form_code','dorId']);
+
 
     $form_code = $request->form_code;
-     $tenderformbuy = TenderFormBuy::where(['form_code'=>$form_code,'status'=>'Paid'])->first();
-    if($tenderformbuy){
 
+
+    $tenderformbuy = TenderFormBuy::where(['form_code'=>$form_code,'status'=>'Paid'])->first();
+    if($tenderformbuy){
+        $data['dorId'] = $tenderformbuy->form_code;
         $data['nidNo'] = $tenderformbuy->nidNo;
         $data['nidDate'] = $tenderformbuy->nidDate;
         $data['applicant_orgName'] = $tenderformbuy->name;
@@ -175,9 +178,6 @@ Route::post('/form/submit', function (Request $request) {
         $data['thana'] = $tenderformbuy->thana;
         $data['distric'] = $tenderformbuy->distric;
         $data['mobile'] = $tenderformbuy->PhoneNumber;
-
-
-
     }else{
         Session::flash('Fmessage', 'দয়া করে সঠিক সিডিউল ফর্ম নং প্রদান করুন');
         return redirect()->back();
@@ -190,7 +190,11 @@ Route::post('/form/submit', function (Request $request) {
     $bank_draft_image = $request->file('bank_draft_image');
     $extension = $bank_draft_image->getClientOriginalExtension();
     $path = public_path('files/bank_draft_image/');
+
+
     $fileName = $request->dorId.'-'.uniqid().'.'.$extension;
+
+
     $bank_draft_image->move($path, $fileName);
     $bank_draft_image = asset('files/bank_draft_image/'.$fileName);
 
