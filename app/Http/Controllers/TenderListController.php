@@ -569,18 +569,21 @@ class TenderListController extends Controller
          .selector p::first-line {
             text-indent: 20px !important;
           }
+          .copy_text p {
+            margin: 7px 0px !important;
+        }
     </style>
 
 
 
-            <p style='text-weight:bold;margin-bottom:-8px'>বিষয়ঃ  কার্যাদেশ প্রদান। </p>
+            <p style='text-weight:bold;margin-bottom:10px'>বিষয়ঃ  কার্যাদেশ প্রদান। </p>
             <p style='text-align: justify;margin-top:-30px' class='mb-0'>$tenderWorkOrders->formula
             </p>
 
 
 
-            <div class='selector' style='text-align: justify;margin-top:-10px;text-indent: 20px !important;'>
-                $tenderWorkOrders->order_description
+            <div class='selector' style='text-align: justify;margin-bottom:10px;text-indent: 20px !important;'>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $tenderWorkOrders->order_description
             </div>
 
             ";
@@ -651,9 +654,9 @@ class TenderListController extends Controller
 
 
 
-  
 
-         <div class='selector' style='text-align: justify;margin-top:-10px;text-indent: 20px !important;'>
+
+         <div class='copy_text' style='text-align: justify;margin-top:-10px;text-indent: 20px !important;'>
             $tenderWorkOrders->copy_details
         </div>
 
@@ -675,6 +678,7 @@ class TenderListController extends Controller
 
     public function pdfWordHeader($row,$uniouninfo, $filename)
     {
+        $tenderWorkOrders =  $row->tenderWorkOrders;
 
         $noticeDate = $row->noticeDate;
 
@@ -697,8 +701,8 @@ class TenderListController extends Controller
 
         <table width='100%' style='margin-bottom:20px !important'>
             <tr>
-                <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($row->memorial_no)."</td>
-                <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime(now())))."</td>
+                <td style='text-align:left'>স্মারক নং:- ".int_en_to_bn($tenderWorkOrders->memorial_no)."</td>
+                <td style='text-align:right'>তারিখ:- ".int_en_to_bn(date('d/m/Y', strtotime($tenderWorkOrders->date)))."</td>
             </tr>
         </table>
         ";
@@ -1085,7 +1089,7 @@ class TenderListController extends Controller
     public function pdfResulationHTMLut($row,$uniouninfo)
     {
 
-        $tenderWorkOrders =  $row->tenderWorkOrders;
+
 
 
         $selected = Tender::where(['tender_id'=>$row->id,'payment_status'=>'Paid','status'=>'Selected'])->first();
@@ -1123,6 +1127,10 @@ class TenderListController extends Controller
          .selector p::first-line {
             text-indent: 20px !important;
           }
+
+     .copy_text p {
+        margin: 7px 0px !important;
+    }
     </style>
 
     <div style='text-align:center'>
@@ -1282,14 +1290,10 @@ class TenderListController extends Controller
 
 
 
-         <p style='margin:0 !important'>অনুলিপি : সদয় জ্ঞাতার্থে /জ্ঞাতার্থে  কার্যাথে</p>
 
-
-         <p style='margin:0 !important'>১। জেলা প্রশাসক,পঞ্চগড়।</p>
-         <p style='margin:0 !important'>২। চেয়ারম্যান, উপজেলা পরিষদ তেতুলিয়া, পঞ্চগড়।</p>
-         <p style='margin:0 !important'>৩। উপজেলা নির্বাহী অফিসার, তেতুলিয়া, পঞ্চগড়।</p>
-         <p style='margin:0 !important'>৪। নোটিশ বোড/ওয়েবসাইড।</p>
-         <p style='margin:0 !important'>৫। অফিস কপি।</p>
+    <div class='copy_text' style='text-align: justify;margin-top:0px;'>
+        ". $row->resolutions->copy_details ."
+    </div>
 
 
 

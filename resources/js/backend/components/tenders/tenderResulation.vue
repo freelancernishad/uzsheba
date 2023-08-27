@@ -27,6 +27,10 @@
 
 
 
+    <div class="form-group col-md-12">
+  <label for="">অনুলিপি এবং অন্যান্য</label>
+  <vue-editor v-model="form.copy_details" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
+</div>
 
 
 
@@ -51,7 +55,8 @@ export default {
         return {
             form:{
                 memorial_no:'',
-                description:''
+                description:'',
+                copy_details:'',
             },
             tinyInt:
                 {

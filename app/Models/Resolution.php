@@ -12,6 +12,7 @@ class Resolution extends Model
     protected $fillable = [
         'description',
         'memorial_no',
+        'copy_details',
         'tender_list_id',
     ];
 

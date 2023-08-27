@@ -9,6 +9,8 @@ class TenderWorkOrder extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'memorial_no',
+        'date',
         'formula',
         'order_description',
         'bank_name',

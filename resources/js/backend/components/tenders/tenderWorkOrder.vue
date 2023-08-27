@@ -15,6 +15,17 @@
 
 
     <div class="form-group col-md-6">
+          <label for="">স্মারক নং</label>
+          <input type="text" v-model="form.memorial_no" class="form-control" placeholder="" aria-describedby="helpId">
+    </div>
+
+
+    <div class="form-group col-md-6">
+          <label for="">তারিখ</label>
+          <input type="date" v-model="form.date" class="form-control" placeholder="" aria-describedby="helpId">
+    </div>
+
+    <div class="form-group col-md-6">
           <label for="">ব্যাংকের নাম</label>
           <input type="text" v-model="form.bank_name" class="form-control" placeholder="" aria-describedby="helpId">
     </div>
@@ -39,7 +50,10 @@
 
 <div class="form-group col-md-12">
   <label for="">কার্যাদেশের বিবরণ</label>
-  <vue-editor v-model="form.order_description" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
+
+  <textarea v-model="form.order_description" style="height:250px;" class="form-control"></textarea>
+
+  <!-- <vue-editor v-model="form.order_description" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor> -->
 </div>
 
 
@@ -69,6 +83,8 @@ export default {
     data(){
         return {
             form:{
+                memorial_no:'',
+                date:'',
                 formula:'',
                 order_description:'',
                 copy_details:'',
