@@ -14,7 +14,7 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard_asset/css/main.css') }}">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('dashboard_asset/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard_asset/css/bootstrap.min.css?v=1.0.0') }}">
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard_asset/css/all.min.css') }}">
     <!-- Flaticon CSS -->
@@ -85,7 +85,7 @@ li.page-item.active button {
 <!-- Popper js -->
 <script src="{{ asset('dashboard_asset/js/popper.min.js') }}"></script>
 <!-- Bootstrap js -->
-<script src="{{ asset('dashboard_asset/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('dashboard_asset/js/bootstrap.min.js?v=1.0.0') }}"></script>
 {{-- <script src="{{ asset('js/datatables.min.js') }}"></script> --}}
 </body>
 </html>
