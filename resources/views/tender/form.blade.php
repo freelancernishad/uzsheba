@@ -479,16 +479,21 @@ var requestOptions = {
     fetch("/api/check/form_code", requestOptions)
         .then(response => response.json())
         .then(result => {
-          console.log(result)
           if(result){
+            Swal.fire({
+                        title: 'সফল',
+                        text: `দরপত্র দাখিল করার জন্য প্রস্তুত`,
+                        icon: 'success',
+                        timer: 1500
+                    })
             submitButton.disabled = false;
           }else{
             submitButton.disabled = true;
             Swal.fire({
-                        title: 'দুঃখিত',
-                        text: `দয়া করে সঠিক সিডিউল ফর্ম নং প্রদান করুন`,
-                        icon: 'error',
-                    })
+                title: 'দুঃখিত',
+                text: `দয়া করে সঠিক সিডিউল ফর্ম নং প্রদান করুন`,
+                icon: 'error',
+            })
           }
         })
         .catch(error => console.log('error', error));

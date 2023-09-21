@@ -62,7 +62,7 @@
                             </div>
                         </div>
 
-
+<!--
                         <router-link class="col-lg-6 mt-3 mb-3 text-center" :to="{name:'tenders'}">
                             <div class="serviceBox">
                                 <div class="serviceLogo">
@@ -73,7 +73,21 @@
 
                                 </div>
                             </div>
-                        </router-link>
+                        </router-link> -->
+
+
+
+                        <a target="_blank" class="col-lg-6 mt-3 mb-3 text-center" href="https://tender.uzpseba.gov.bd/">
+                            <div class="serviceBox">
+                                <div class="serviceLogo">
+                                    <img :src="$asseturl+'assets/img/nilam.png'" width="200px" alt="" />
+                                </div>
+                                <div class="serviceTitle defaltTextColor">
+                                    অনলাইন নিলাম
+
+                                </div>
+                            </div>
+                        </a>
 
 
 
@@ -114,7 +128,7 @@
                             </div>
                         </router-link>
 
-
+<!--
                         <router-link class="col-lg-6 mt-3 mb-3 text-center" :to="{name:'tenders'}">
                             <div class="serviceBox">
                                 <div class="serviceLogo">
@@ -124,7 +138,17 @@
                                     অনলাইন নিলাম
                                 </div>
                             </div>
-                        </router-link>
+                        </router-link> -->
+           <a target="_blank" class="col-lg-6 mt-3 mb-3 text-center" href="https://tender.uzpseba.gov.bd/">
+                            <div class="serviceBox">
+                                <div class="serviceLogo">
+                                    <img :src="$asseturl+'assets/img/nilam.png'" width="200px" alt="" />
+                                </div>
+                                <div class="serviceTitle defaltTextColor">
+                                    অনলাইন নিলাম
+                                </div>
+                            </div>
+                        </a>
 
 
 
