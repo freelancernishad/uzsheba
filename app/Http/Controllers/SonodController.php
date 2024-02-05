@@ -1497,6 +1497,7 @@ if ($sonod_name == 'ওয়ারিশান সনদ') {
          }
 
 
+        //  $updatedData['payment_status']='Paid';
 
 
          $aplication->update($updatedData);

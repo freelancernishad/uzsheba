@@ -60,6 +60,10 @@ class fronendController extends Controller
 
             return;
         }
+
+        $updatedData['payment_status']='Paid';
+        $row->update($updatedData);
+
         if($row->payment_status=='Unpaid'){
 
 
