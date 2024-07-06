@@ -134,6 +134,30 @@
                                 <ul class="nav sub-group-menu menu-open child" v-if="selected == 100"
                                     style="display:block">
 
+
+                                    <li class="nav-item">
+                                        <router-link
+                                            :to="{ name: 'tendercalender',params: { status: 'new' } }"
+                                            class="nav-link"><i class="fas fa-angle-right"></i> New Calender
+                                        </router-link>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <router-link
+                                            :to="{ name: 'tendercalender',params: { status: 'pending' } }"
+                                            class="nav-link"><i class="fas fa-angle-right"></i> Pending Calender
+                                        </router-link>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <router-link
+                                            :to="{ name: 'tendercalender',params: { status: 'approved' } }"
+                                            class="nav-link"><i class="fas fa-angle-right"></i> Approved Calender
+                                        </router-link>
+                                    </li>
+
                                     <li class="nav-item">
                                         <router-link
                                             :to="{ name: 'tenderlist', params: { name: 'pending' } }"

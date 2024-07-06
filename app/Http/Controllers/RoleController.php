@@ -41,6 +41,9 @@ class RoleController extends Controller
     {
         $id = $request->id;
 
+         $unioun = upzilaConvert($request->upozila);
+
+
 
           $data = $request->except(['password','signature']);
 
@@ -49,15 +52,16 @@ class RoleController extends Controller
               $data['signature'] =  fileupload($request->signature, "sonod/signature/");
           }
 
+          $data['unioun'] = $unioun;
 
           if($id){
             $users = User::find($id);
-$changepass =   $request->changepass;
+            $changepass =   $request->changepass;
             if($changepass){
 
                 $oldpassword =   $request->oldpassword;
-               $oldpasscheck =  Hash::check($oldpassword, $users->password);
-               if($oldpasscheck){
+                $oldpasscheck =  Hash::check($oldpassword, $users->password);
+                if($oldpasscheck){
 
                 $newpassword =   $request->newpassword;
                 // if($newpassword===$oldpasscheck){

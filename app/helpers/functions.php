@@ -10,6 +10,34 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 
+
+function upzilaConvert($name = '') {
+    $mapping = [
+        'পঞ্চগড় সদর' => 'panchagarh',
+        'পঞ্চগড়' => 'panchagarh',
+        'বোদা' => 'boda',
+        'তেঁতুলিয়া' => 'tetulia',
+        'আটোয়ারী' => 'atwari',
+        'দেবীগঞ্জ' => 'debiganj'
+    ];
+    return $mapping[$name] ?? '';
+}
+
+function int_en_to_bn($number)
+{
+
+    $bn_digits = array('০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯');
+    $en_digits = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+
+    return str_replace($en_digits, $bn_digits, $number);
+}
+
+function replacefontfamilly($html=''){
+    $cleanedHtml = preg_replace('/font-family:\s*[^;"]*;?/', '', $html);
+    return $cleanedHtml;
+}
+
+
 function PdfMaker($pageSize='A4',$html,$Filename,$Watermark=true)
 {
 
@@ -453,14 +481,7 @@ function subjectCol($subject)
     }
 
 
-function int_en_to_bn($number)
-{
 
-    $bn_digits = array('০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯');
-    $en_digits = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-
-    return str_replace($en_digits, $bn_digits, $number);
-}
 function int_bn_to_en($number)
 {
 

@@ -26,8 +26,10 @@ use App\Http\Controllers\HoldingBokeyaController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\SonodnamelistController;
 use App\Http\Controllers\TenderFormBuyController;
+use App\Http\Controllers\TenderCalenderController;
 use App\Http\Controllers\TenderWorkOrderController;
 use App\Http\Controllers\CitizenInformationController;
+use App\Http\Controllers\TenderCalenderItemController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -290,3 +292,19 @@ Route::post('payment/update',[UniouninfoController::class, 'paymentUpdate']);
 
 
 Route::get('niddob/verify',[SonodController::class,'niddob']);
+
+
+
+
+
+Route::get('tender-calenders', [TenderCalenderController::class, 'index']);
+Route::post('tender-calenders', [TenderCalenderController::class, 'store']);
+Route::get('tender-calenders/{id}', [TenderCalenderController::class, 'show']);
+Route::post('tender-calenders/{id}', [TenderCalenderController::class, 'update']);
+Route::delete('tender-calenders/{id}', [TenderCalenderController::class, 'destroy']);
+
+Route::get('tender-calender-items', [TenderCalenderItemController::class, 'index']);
+Route::post('tender-calender-items', [TenderCalenderItemController::class, 'store']);
+Route::get('tender-calender-items/{id}', [TenderCalenderItemController::class, 'show']);
+Route::put('tender-calender-items/{id}', [TenderCalenderItemController::class, 'update']);
+Route::delete('tender-calender-items/{id}', [TenderCalenderItemController::class, 'destroy']);

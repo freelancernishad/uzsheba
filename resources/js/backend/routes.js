@@ -41,6 +41,9 @@ let qr = require('./components/sonod/qr2.vue').default;
 
 
 
+let TenderCalenderForm = require('./components/tenders/TenderCalenderForm.vue').default;
+let tendercalender = require('./components/tenders/TenderCalenderList.vue').default;
+
 let tenderlist = require('./components/tenders/list.vue').default;
 let tenderlistedit = require('./components/tenders/form.vue').default;
 let tendersubmitlist = require('./components/tenders/tenderSubmit.vue').default;
@@ -72,6 +75,10 @@ export const routes = [
 
 
 
+
+  { path:  `${prefix}/tenders/calander/add/new`, component: TenderCalenderForm, name:'TenderCalenderForm',meta: { layout: adminlayout } },
+  { path:  `${prefix}/tenders/calander/add/edit/:id`, component: TenderCalenderForm, name:'TenderCalenderedit',meta: { layout: adminlayout } },
+  { path:  `${prefix}/tenders/calander/:status`, component: tendercalender, name:'tendercalender',meta: { layout: adminlayout } },
 
   { path:  `${prefix}/tenders/list/:name`, component: tenderlist, name:'tenderlist',meta: { layout: adminlayout } },
   { path:  `${prefix}/tender/list/add`, component: tenderlistedit, name:'tenderlistadd',meta: { layout: adminlayout } },

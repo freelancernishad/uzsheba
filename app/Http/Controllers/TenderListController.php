@@ -305,7 +305,8 @@ class TenderListController extends Controller
 
 
 
-                 $nagoriinfo .= "<p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>নিলামকৃত গাছের বিবরণ</u></p>";
+                //  $nagoriinfo .= "<p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>নিলামকৃত গাছের বিবরণ</u></p>";
+                 $nagoriinfo .= "<p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>$row->tender_product_title</u></p>";
 
 
 
@@ -313,7 +314,7 @@ class TenderListController extends Controller
              $nagoriinfo .= "
 
              <div class='roles'>
-             $row->tender_product_Number_Quantity
+             ".replacefontfamilly($row->tender_product_Number_Quantity)."
              </div>
 
 
@@ -321,7 +322,7 @@ class TenderListController extends Controller
              <p class='mb-0' style='text-align:left;text-weight:900;font-size:20px'><u>শর্তাবলী:</u></p>
 
              <div class='roles'>
-             $row->tender_roles
+             ".replacefontfamilly($row->tender_roles)."
              </div>";
 
              $nagoriinfo .= '
