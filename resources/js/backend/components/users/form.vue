@@ -26,6 +26,7 @@
           <select v-model="form.position" class="form-control">
             <option value="">নির্বাচন করুন</option>
             <option value="admin">এডমিন</option>
+            <option value="dc">জেলা প্রশাসক</option>
             <option value="uno">উপজেলা নির্বাহী অফিসার</option>
             <option value="chairman">উপজেলা চেয়ারম্যান</option>
             <option value="sub_admin">উপজেলা ইঞ্জিনিয়ার</option>

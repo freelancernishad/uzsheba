@@ -14,7 +14,7 @@ class TenderCalenderController extends Controller
     {
         $status = $request->status;
 
-        $tenderCalenders = TenderCalender::with('items')->where('status',$status)->orderBy('id','desc')->get();
+        $tenderCalenders = TenderCalender::with(['items','teams'])->where('status',$status)->orderBy('id','desc')->get();
         return response()->json($tenderCalenders);
     }
 
@@ -141,4 +141,22 @@ class TenderCalenderController extends Controller
         $tenderCalender->delete();
         return response()->json(null, 204);
     }
+
+
+    function approveCalender(Request $request,$id) {
+        
+        $dc_name = $request->dc_name;
+        $dc_signature = $request->dc_signature;
+
+        $updatedItem = [
+            'dc_name'=>$dc_name,
+            'dc_signature'=>$dc_signature,
+            'status'=>'approved',
+        ];
+
+        $tenderCalendar = TenderCalender::find($id);
+        $tenderCalendar->update($updatedItem);
+        return $tenderCalendar;
+    }
+
 }

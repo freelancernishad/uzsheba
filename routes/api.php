@@ -19,6 +19,7 @@ use App\Http\Controllers\countryApiController;
 use App\Http\Controllers\HoldingtaxController;
 use App\Http\Controllers\ResolutionController;
 use App\Http\Controllers\TenderListController;
+use App\Http\Controllers\TenderTeamController;
 use App\Http\Controllers\UniouninfoController;
 use App\Http\Controllers\ExpenditureController;
 use App\Http\Controllers\BlogCategoryController;
@@ -302,9 +303,18 @@ Route::post('tender-calenders', [TenderCalenderController::class, 'store']);
 Route::get('tender-calenders/{id}', [TenderCalenderController::class, 'show']);
 Route::post('tender-calenders/{id}', [TenderCalenderController::class, 'update']);
 Route::delete('tender-calenders/{id}', [TenderCalenderController::class, 'destroy']);
+Route::post('tender-calenders/approve/{id}', [TenderCalenderController::class, 'approveCalender']);
+
+
 
 Route::get('tender-calender-items', [TenderCalenderItemController::class, 'index']);
 Route::post('tender-calender-items', [TenderCalenderItemController::class, 'store']);
 Route::get('tender-calender-items/{id}', [TenderCalenderItemController::class, 'show']);
 Route::put('tender-calender-items/{id}', [TenderCalenderItemController::class, 'update']);
 Route::delete('tender-calender-items/{id}', [TenderCalenderItemController::class, 'destroy']);
+
+Route::get('tender-teams', [TenderTeamController::class, 'index']);
+Route::post('tender-teams', [TenderTeamController::class, 'store']);
+Route::get('tender-teams/{id}', [TenderTeamController::class, 'show']);
+Route::put('tender-teams/{id}', [TenderTeamController::class, 'update']);
+Route::delete('tender-teams/{id}', [TenderTeamController::class, 'destroy']);

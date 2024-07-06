@@ -5086,9 +5086,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      approvedata: {},
+      committeeFormVisible: false,
       loading: true,
       // Set to true initially to show the loader
       calenders: [],
+      tender_calender_id: '',
+      forms: {
+        1: {
+          name: '',
+          position: 'সভাপতি',
+          phone: '',
+          pass: ''
+        },
+        2: {
+          name: '',
+          position: 'সদস্য',
+          phone: '',
+          pass: ''
+        },
+        3: {
+          name: '',
+          position: 'সদস্য',
+          phone: '',
+          pass: ''
+        },
+        4: {
+          name: '',
+          position: 'সদস্য',
+          phone: '',
+          pass: ''
+        },
+        5: {
+          name: '',
+          position: 'সদস্য সচিব',
+          phone: '',
+          pass: ''
+        }
+      },
+      submittedCommittees: [],
+      // Array to store submitted committees
+      form: {},
+      committes: {},
+      committesModalVisible: false,
       modalVisible: false,
       selectedTenderCalendar: {} // Placeholder for selected tender calendar data
 
@@ -5106,16 +5146,46 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    showCommitteeForm: function showCommitteeForm(id) {
+      this.tender_calender_id = id;
+      this.committeeFormVisible = true;
+    },
+    handleClose: function handleClose() {
+      this.tender_calender_id = '';
+      this.committeeFormVisible = false;
+    },
+    handleCommitteeFormSubmit: function handleCommitteeFormSubmit() {
+      var _this = this;
+
+      this.loading = true;
+      this.form['tender_calender_id'] = this.tender_calender_id;
+      this.form['items'] = this.forms; // Handle form data submission
+
+      axios.post('/api/tender-teams', this.form).then(function (response) {
+        console.log('Form submitted:', response.data); // Optionally, refresh the data or give feedback to the user
+
+        _this.committeeFormVisible = false;
+
+        _this.fetchCalenders();
+      })["catch"](function (error) {
+        console.error('Error submitting form:', error);
+      });
+    },
     showModal: function showModal(items) {
       // Example: Fetch or set selected tender calendar data before showing modal
       this.selectedTenderCalendar = items;
       this.modalVisible = true; // Show the modal
     },
+    showCommittee: function showCommittee(items) {
+      // Example: Fetch or set selected tender calendar data before showing modal
+      this.committes = items;
+      this.committesModalVisible = true; // Show the modal
+    },
     handleCloseModal: function handleCloseModal() {
       this.modalVisible = false; // Close the modal
     },
     fetchCalenders: function fetchCalenders() {
-      var _this = this;
+      var _this2 = this;
 
       this.loading = true;
       var status = 'new';
@@ -5125,11 +5195,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios.get("/api/tender-calenders?status=".concat(status)).then(function (response) {
-        _this.calenders = response.data;
-        _this.loading = false; // Hide the loader once data is fetched
+        _this2.calenders = response.data;
+        _this2.loading = false; // Hide the loader once data is fetched
       })["catch"](function (error) {
         console.error('There was an error fetching the calenders:', error);
-        _this.loading = false; // Hide loader in case of error too
+        _this2.loading = false; // Hide loader in case of error too
       });
     },
     editCalender: function editCalender(id) {
@@ -5142,7 +5212,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     confirmDelete: function confirmDelete(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       // Show confirmation dialog before deletion
       Swal.fire({
@@ -5158,7 +5228,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.isConfirmed) {
           // User confirmed deletion, proceed with deleteCalender()
-          _this2.deleteCalender(id);
+          _this3.deleteCalender(id);
         } else {
           // User canceled deletion
           Swal.fire('Cancelled', 'Deletion has been cancelled.', 'info');
@@ -5166,14 +5236,55 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteCalender: function deleteCalender(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       // Perform deletion request
       axios["delete"]("/api/tender-calenders/".concat(id)).then(function (response) {
         // Deletion successful, show success message
         Swal.fire('Deleted!', 'The calendar has been deleted.', 'success'); // Optionally, perform any post-deletion actions (e.g., refresh data)
 
-        _this3.fetchCalenders();
+        _this4.fetchCalenders();
+      })["catch"](function (error) {
+        // Deletion failed, show error message
+        Swal.fire('Error', 'There was an error deleting the calendar.', 'error');
+        console.error('Error deleting calendar:', error);
+      });
+    },
+    confirmApprove: function confirmApprove(id) {
+      var _this5 = this;
+
+      // Show confirmation dialog before deletion
+      Swal.fire({
+        title: 'Confirm Approve',
+        text: 'Are you sure you want to Approve this calendar?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        // Red color for confirmation button
+        cancelButtonColor: '#6c757d',
+        // Grey color for cancel button
+        confirmButtonText: 'Confirm Approve'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          // User confirmed deletion, proceed with deleteCalender()
+          _this5.ApproveCalender(id);
+        } else {
+          // User canceled deletion
+          Swal.fire('Cancelled', 'Approve has been cancelled.', 'info');
+        }
+      });
+    },
+    ApproveCalender: function ApproveCalender(id) {
+      var _this6 = this;
+
+      this.approvedata['dc_name'] = this.Users.name;
+      this.approvedata['dc_signature'] = this.Users.signature; // Perform deletion request
+
+      axios.post("/api/tender-calenders/approve/".concat(id), this.approvedata).then(function (response) {
+        // Deletion successful, show success message
+        Swal.fire('Deleted!', 'The calendar has been deleted.', 'success'); // Optionally, perform any post-deletion actions (e.g., refresh data)
+
+        _this6.fetchCalenders();
       })["catch"](function (error) {
         // Deletion failed, show error message
         Swal.fire('Error', 'There was an error deleting the calendar.', 'error');
@@ -7653,7 +7764,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-angle-right"
-  }), _vm._v(" New Calender\n                                    ")])], 1), _vm._v(" "), _c("li", {
+  }), _vm._v(" Pending Calender\n                                    ")])], 1), _vm._v(" "), this.$localStorage.getItem("position") == "dc" ? _c("li", {
     staticClass: "nav-item"
   }, [_c("router-link", {
     staticClass: "nav-link",
@@ -7667,7 +7778,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-angle-right"
-  }), _vm._v(" Pending Calender\n                                    ")])], 1), _vm._v(" "), _c("li", {
+  }), _vm._v(" Pending Calender\n                                    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("router-link", {
     staticClass: "nav-link",
@@ -12206,28 +12317,49 @@ var render = function render() {
   }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.calenders, function (calender) {
     return _c("tr", {
       key: calender.id
-    }, [_c("td", [_vm._v(_vm._s(calender.sorok_no))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.bn_year))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.en_year))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.calender_id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.union))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.dc_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.status))]), _vm._v(" "), _c("td", [_c("button", {
+    }, [_c("td", [_vm._v(_vm._s(calender.sorok_no))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.bn_year))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.en_year))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.calender_id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.union))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.dc_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.status))]), _vm._v(" "), _c("td", [_vm.$route.params.status == "new" ? _c("button", {
+      staticClass: "btn btn-info btn-sm",
+      on: {
+        click: function click($event) {
+          return _vm.showCommitteeForm(calender.id);
+        }
+      }
+    }, [_vm._v("মূল্যায়ন কমিটি তৈরি করুন")]) : _c("button", {
+      staticClass: "btn btn-info btn-sm",
+      on: {
+        click: function click($event) {
+          return _vm.showCommittee(calender.teams);
+        }
+      }
+    }, [_vm._v("মূল্যায়ন কমিটি দেখুন")]), _vm._v(" "), _c("button", {
       staticClass: "btn btn-success btn-sm",
       on: {
         click: function click($event) {
           return _vm.showModal(calender.items);
         }
       }
-    }, [_vm._v("হাট বাজারের তালিকা")]), _vm._v(" "), _c("button", {
+    }, [_vm._v("হাট বাজারের তালিকা")]), _vm._v(" "), _vm.$route.params.status == "pending" ? _c("button", {
+      staticClass: "btn btn-info btn-sm",
+      on: {
+        click: function click($event) {
+          return _vm.confirmApprove(calender.id);
+        }
+      }
+    }, [_vm._v("Approve")]) : _vm._e(), _vm._v(" "), _vm.$route.params.status == "new" ? _c("button", {
       staticClass: "btn btn-info btn-sm",
       on: {
         click: function click($event) {
           return _vm.editCalender(calender.id);
         }
       }
-    }, [_vm._v("Edit")]), _vm._v(" "), _c("button", {
+    }, [_vm._v("Edit")]) : _vm._e(), _vm._v(" "), _vm.$route.params.status == "new" ? _c("button", {
       staticClass: "btn btn-danger btn-sm",
       on: {
         click: function click($event) {
           return _vm.confirmDelete(calender.id);
         }
       }
-    }, [_vm._v("Delete")])])]);
+    }, [_vm._v("Delete")]) : _vm._e()])]);
   }), 0)])])])]) : _vm._e()], 1), _vm._v(" "), _c("b-modal", {
     attrs: {
       size: "lg",
@@ -12258,7 +12390,148 @@ var render = function render() {
     return _c("tr", {
       key: index
     }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.union_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.hat_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.previous_ijara_price))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.six_percent_bitti))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.ijara_price))])]);
-  }), 0)])])])], 1);
+  }), 0)])])]), _vm._v(" "), _c("b-modal", {
+    attrs: {
+      size: "lg",
+      title: "মূল্যায়ন কমিটি"
+    },
+    scopedSlots: _vm._u([{
+      key: "modal-footer",
+      fn: function fn() {
+        return [_c("button", {
+          staticClass: "btn btn-primary",
+          on: {
+            click: _vm.handleCloseModal
+          }
+        }, [_vm._v("Close")])];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.committesModalVisible,
+      callback: function callback($$v) {
+        _vm.committesModalVisible = $$v;
+      },
+      expression: "committesModalVisible"
+    }
+  }, [_c("div", [_c("table", {
+    staticClass: "table"
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("নাম")]), _vm._v(" "), _c("th", [_vm._v("পদবি")]), _vm._v(" "), _c("th", [_vm._v("মোবাইল")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.committes, function (committee, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_vm._v(_vm._s(committee.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(committee.position))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(committee.phone))])]);
+  }), 0)])])]), _vm._v(" "), _c("b-modal", {
+    attrs: {
+      size: "lg",
+      title: "Add Committees"
+    },
+    scopedSlots: _vm._u([{
+      key: "modal-footer",
+      fn: function fn() {
+        return [_c("button", {
+          staticClass: "btn btn-primary",
+          on: {
+            click: _vm.handleClose
+          }
+        }, [_vm._v("Close")])];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.committeeFormVisible,
+      callback: function callback($$v) {
+        _vm.committeeFormVisible = $$v;
+      },
+      expression: "committeeFormVisible"
+    }
+  }, [_c("table", {
+    staticClass: "table table-striped"
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("নাম")]), _vm._v(" "), _c("th", [_vm._v("পদবি")]), _vm._v(" "), _c("th", [_vm._v("মোবাইল")])])]), _vm._v(" "), _c("tbody", _vm._l(5, function (index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.forms[index].name,
+        expression: "forms[index].name"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text",
+        required: ""
+      },
+      domProps: {
+        value: _vm.forms[index].name
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(_vm.forms[index], "name", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.forms[index].position,
+        expression: "forms[index].position"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text",
+        required: "",
+        readonly: "",
+        disabled: ""
+      },
+      domProps: {
+        value: _vm.forms[index].position
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(_vm.forms[index], "position", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.forms[index].phone,
+        expression: "forms[index].phone"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text",
+        required: ""
+      },
+      domProps: {
+        value: _vm.forms[index].phone
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(_vm.forms[index], "phone", $event.target.value);
+        }
+      }
+    })])]);
+  }), 0)]), _vm._v(" "), _vm.loading ? _c("button", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("Please Wait....")]) : _c("button", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.handleCommitteeFormSubmit
+    }
+  }, [_vm._v("Submit")])])], 1);
 };
 
 var staticRenderFns = [function () {
@@ -14587,6 +14860,10 @@ var render = function render() {
       value: "admin"
     }
   }, [_vm._v("এডমিন")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "dc"
+    }
+  }, [_vm._v("জেলা প্রশাসক")]), _vm._v(" "), _c("option", {
     attrs: {
       value: "uno"
     }

@@ -24,4 +24,12 @@ class TenderCalender extends Model
     {
         return $this->hasMany(TenderCalenderItem::class, 'tender_calender_id');
     }
+
+    public function teams()
+    {
+        return $this->hasMany(TenderTeam::class, 'tender_calender_id');
+    }
 }
+
+
+
