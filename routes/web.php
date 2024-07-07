@@ -23,7 +23,9 @@ use App\Http\Controllers\TenderListController;
 use App\Http\Controllers\UniouninfoController;
 use App\Http\Controllers\ExpenditureController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\TenderCalenderController;
 use App\Http\Controllers\TenderFormBuyController;
+use App\Models\TenderCalender;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,6 +124,8 @@ Route::post('/tenders/{tender_id}', [TenderListController::class,'TenderForm']);
 
 
 Route::get('/pdf/tenders/{tender_id}', [TenderListController::class,'viewpdf']);
+
+Route::get('/calander/download/{id}', [TenderCalenderController::class,'calander_download']);
 
 
 

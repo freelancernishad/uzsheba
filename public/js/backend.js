@@ -4907,6 +4907,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // Update with actual value if applicable
         dc_name: '',
         dc_signature: '',
+        rules: '',
+        onulipi: '',
         status: 'Active',
         items: [{
           id: '',
@@ -4916,6 +4918,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           previous_ijara_price: 0,
           six_percent_bitti: 0
         }]
+      },
+      tinyInt: {
+        plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons',
+        toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl'
       },
       serialCounter: 1
     };
@@ -5159,7 +5165,9 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       this.form['tender_calender_id'] = this.tender_calender_id;
-      this.form['items'] = this.forms; // Handle form data submission
+      this.form['items'] = this.forms;
+      this.form['uno_name'] = this.Users.name;
+      this.form['uno_signature'] = this.Users.signature; // Handle form data submission
 
       axios.post('/api/tender-teams', this.form).then(function (response) {
         console.log('Form submitted:', response.data); // Optionally, refresh the data or give feedback to the user
@@ -12242,7 +12250,49 @@ var render = function render() {
     on: {
       click: _vm.addNewItem
     }
-  }, [_vm._v("Add new item")])])])], 2)]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Add new item")])])])], 2)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("শর্তাবলী")]), _vm._v(" "), _c("vue-editor", {
+    staticStyle: {
+      height: "250px"
+    },
+    attrs: {
+      "api-key": "nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz",
+      init: _vm.tinyInt
+    },
+    model: {
+      value: _vm.form.rules,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "rules", $$v);
+      },
+      expression: "form.rules"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("অনুলিপি এবং অন্যান্য")]), _vm._v(" "), _c("vue-editor", {
+    staticStyle: {
+      height: "250px"
+    },
+    attrs: {
+      "api-key": "nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz",
+      init: _vm.tinyInt
+    },
+    model: {
+      value: _vm.form.onulipi,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "onulipi", $$v);
+      },
+      expression: "form.onulipi"
+    }
+  })], 1), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "submit"
@@ -12331,7 +12381,13 @@ var render = function render() {
           return _vm.showCommittee(calender.teams);
         }
       }
-    }, [_vm._v("মূল্যায়ন কমিটি দেখুন")]), _vm._v(" "), _c("button", {
+    }, [_vm._v("মূল্যায়ন কমিটি দেখুন")]), _vm._v(" "), _c("a", {
+      staticClass: "btn btn-success btn-sm",
+      attrs: {
+        href: "/calander/download/".concat(calender.id),
+        target: "_blank"
+      }
+    }, [_vm._v("ক্যালেন্ডার ডাউনলোড")]), _vm._v(" "), _c("button", {
       staticClass: "btn btn-success btn-sm",
       on: {
         click: function click($event) {

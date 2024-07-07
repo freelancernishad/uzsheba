@@ -56,7 +56,9 @@ class TenderTeamController extends Controller
             $createdTeams[] = $team;
         }
 
-        $tenderCalendar->update(['status'=>'pending']);
+        $uno_name = $request->uno_name;
+        $uno_signature = $request->uno_signature;
+        $tenderCalendar->update(['status'=>'pending','uno_name'=>$uno_name,'uno_signature'=>$uno_signature]);
 
         return response()->json($createdTeams, 201);
     }

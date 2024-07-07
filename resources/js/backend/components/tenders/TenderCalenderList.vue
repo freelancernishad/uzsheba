@@ -48,9 +48,13 @@
 
                 <button class="btn btn-info btn-sm" @click="showCommitteeForm(calender.id)" v-if="$route.params.status=='new'">মূল্যায়ন কমিটি তৈরি করুন</button>
                 <button class="btn btn-info btn-sm" @click="showCommittee(calender.teams)" v-else>মূল্যায়ন কমিটি দেখুন</button>
+
+                <a :href="`/calander/download/${calender.id}`" target="_blank" class="btn btn-success btn-sm" >ক্যালেন্ডার ডাউনলোড</a>
+
+
                 <button class="btn btn-success btn-sm" @click="showModal(calender.items)">হাট বাজারের তালিকা</button>
 
-                   
+
                 <button class="btn btn-info btn-sm" v-if="$route.params.status=='pending'" @click="confirmApprove(calender.id)">Approve</button>
 
 
@@ -240,6 +244,8 @@
             this.form['tender_calender_id'] = this.tender_calender_id
             this.form['items'] = this.forms
 
+            this.form['uno_name'] = this.Users.name;
+            this.form['uno_signature'] = this.Users.signature;
       // Handle form data submission
       axios.post('/api/tender-teams', this.form)
         .then(response => {
@@ -325,11 +331,11 @@
           Swal.fire('Error', 'There was an error deleting the calendar.', 'error');
           console.error('Error deleting calendar:', error);
         });
-    },        
-    
-    
-    
-    
+    },
+
+
+
+
     confirmApprove(id) {
       // Show confirmation dialog before deletion
       Swal.fire({

@@ -38,6 +38,18 @@ function upzilaConvert($name = '') {
     return $mapping[$name] ?? '';
 }
 
+
+function getAddres($name = '') {
+    $mapping = [
+         'panchagarh' =>'পঞ্চগড়',
+         'boda' =>'বোদা,পঞ্চগড়',
+         'tetulia' =>'তেঁতুলিয়া,পঞ্চগড়',
+         'atwari' =>'আটোয়ারী,পঞ্চগড়',
+         'debiganj' =>'দেবীগঞ্জ,পঞ্চগড়'
+    ];
+    return $mapping[$name] ?? '';
+}
+
 function int_en_to_bn($number)
 {
 
@@ -64,7 +76,7 @@ function PdfMaker($pageSize='A4',$html,$Filename,$Watermark=true)
         'setAutoTopMargin' => 'stretch',
     ]);
     $mpdf->SetDisplayMode('fullpage');
-    $mpdf->defaultheaderfontsize = 10;
+    $mpdf->defaultheaderfontsize = 12;
     $mpdf->defaultheaderfontstyle = 'B';
     $mpdf->defaultheaderline = 0;
     $mpdf->showWatermarkImage = $Watermark;

@@ -17,7 +17,11 @@ class TenderCalender extends Model
         'union',
         'dc_name',
         'dc_signature',
-        'status'
+        'uno_name',      // Add this line
+        'uno_signature', // Add this line
+        'status',
+        'rules',        // Add this line
+        'onulipi'       // Add this line
     ];
 
     public function items()

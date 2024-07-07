@@ -104,6 +104,26 @@
             </tbody>
           </table>
 
+
+
+          <div class="form-group col-md-12">
+          <label for="">শর্তাবলী</label>
+          <vue-editor v-model="form.rules" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
+        <!-- <textarea v-model="form.tender_roles" class="form-control" style="height:300px"></textarea> -->
+        </div>
+
+
+
+
+        <div class="form-group col-md-12">
+          <label for="">অনুলিপি এবং অন্যান্য</label>
+          <vue-editor v-model="form.onulipi" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
+        <!-- <textarea v-model="form.tender_roles" class="form-control" style="height:300px"></textarea> -->
+        </div>
+
+
+
+
           <button type="submit" class="btn btn-primary">{{ isNew ? 'Submit' : 'Update' }}</button>
         </form>
       </div>
@@ -128,7 +148,10 @@
           union: '', // Update with actual value if applicable
           dc_name: '',
           dc_signature: '',
+          rules: '',
+          onulipi: '',
           status: 'Active',
+
           items: [
             {
                 id: '',
@@ -140,6 +163,11 @@
             }
           ]
         },
+        tinyInt:
+                {
+                    plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons',
+                    toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+                },
         serialCounter: 1,
 
 
