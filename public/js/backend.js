@@ -7750,7 +7750,7 @@ var render = function render() {
     staticStyle: {
       display: "block"
     }
-  }, [_c("li", {
+  }, [this.$localStorage.getItem("position") != "dc" ? _c("li", {
     staticClass: "nav-item"
   }, [_c("router-link", {
     staticClass: "nav-link",
@@ -7764,7 +7764,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-angle-right"
-  }), _vm._v(" Pending Calender\n                                    ")])], 1), _vm._v(" "), this.$localStorage.getItem("position") == "dc" ? _c("li", {
+  }), _vm._v(" Pending Calender\n                                    ")])], 1) : _vm._e(), _vm._v(" "), this.$localStorage.getItem("position") == "dc" ? _c("li", {
     staticClass: "nav-item"
   }, [_c("router-link", {
     staticClass: "nav-link",
@@ -7778,7 +7778,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-angle-right"
-  }), _vm._v(" Pending Calender\n                                    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
+  }), _vm._v(" Pending Calender\n                                    ")])], 1) : _vm._e(), _vm._v(" "), this.$localStorage.getItem("position") != "dc" ? _c("li", {
     staticClass: "nav-item"
   }, [_c("router-link", {
     staticClass: "nav-link",
@@ -7792,7 +7792,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-angle-right"
-  }), _vm._v(" Approved Calender\n                                    ")])], 1), _vm._v(" "), _c("li", {
+  }), _vm._v(" Approved Calender\n                                    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("router-link", {
     staticClass: "nav-link",

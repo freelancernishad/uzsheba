@@ -135,7 +135,7 @@
                                     style="display:block">
 
 
-                                    <li class="nav-item">
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') != 'dc'">
                                         <router-link
                                             :to="{ name: 'tendercalender',params: { status: 'new' } }"
                                             class="nav-link"><i class="fas fa-angle-right"></i> Pending Calender
@@ -151,7 +151,7 @@
                                     </li>
 
 
-                                    <li class="nav-item" >
+                                    <li class="nav-item" v-if="this.$localStorage.getItem('position') != 'dc'">
                                         <router-link
                                             :to="{ name: 'tendercalender',params: { status: 'approved' } }"
                                             class="nav-link"><i class="fas fa-angle-right"></i> Approved Calender

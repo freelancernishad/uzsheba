@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TenderList;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TenderCalender;
 use App\Models\TenderCalenderItem;
@@ -142,21 +144,54 @@ class TenderCalenderController extends Controller
         return response()->json(null, 204);
     }
 
+    public function approveCalender(Request $request, $id)
+    {
+        $request->validate([
+            'dc_name' => 'required|string|max:255',
+            'dc_signature' => 'required|string|max:255',
+        ]);
 
-    function approveCalender(Request $request,$id) {
-        
         $dc_name = $request->dc_name;
         $dc_signature = $request->dc_signature;
 
         $updatedItem = [
-            'dc_name'=>$dc_name,
-            'dc_signature'=>$dc_signature,
-            'status'=>'approved',
+            'dc_name' => $dc_name,
+            'dc_signature' => $dc_signature,
+            'status' => 'approved',
         ];
 
-        $tenderCalendar = TenderCalender::find($id);
+        $tenderCalendar = TenderCalender::findOrFail($id);
         $tenderCalendar->update($updatedItem);
-        return $tenderCalendar;
+
+        // Retrieve items associated with this calendar
+        $items = $tenderCalendar->items;
+
+        // Retrieve committee members from TenderTeam
+        $teams = $tenderCalendar->teams;
+
+        // Prepare committee member data
+        $committeeData = [];
+        foreach ($teams as $index => $team) {
+            $committeeData['committe'.($index+1).'name'] = $team->name;
+            $committeeData['committe'.($index+1).'position'] = $team->position;
+            $committeeData['commette'.($index+1).'phone'] = $team->phone;
+            $committeeData['commette'.($index+1).'pass'] = $team->pass;
+        }
+
+        // Create TenderList entries based on TenderCalenderItems
+        foreach ($items as $item) {
+            $random = Str::random(20);
+            TenderList::create(array_merge([
+                'tender_sl' => tenderSl(), // Adjust this as needed
+                'union_name' => $tenderCalendar->union,
+                'tender_name' => $item->hat_name,
+                'govt_price' => $item->ijara_price,
+                'tender_id' => time().$random,
+                'status' => 'approved', // Adjust this as needed
+            ], $committeeData));
+        }
+
+        return response()->json($tenderCalendar, 200);
     }
 
 }

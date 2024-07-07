@@ -2,6 +2,7 @@
 
 use App\Models\Sonod;
 use App\Models\Visitor;
+use App\Models\TenderList;
 use App\Models\Uniouninfo;
 use App\Models\Sonodnamelist;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +10,20 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
+function tenderSl(){
+    $latestData = TenderList::latest()->first();
+    if($latestData){
+        if($latestData->sl){
+            return (int)$latestData->tender_sl+1;
+
+        }else{
+
+            return "20230001";
+        }
+    }else{
+        return "20230001";
+    }
+}
 
 
 function upzilaConvert($name = '') {

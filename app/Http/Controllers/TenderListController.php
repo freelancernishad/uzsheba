@@ -61,20 +61,6 @@ class TenderListController extends Controller
      */
 
 
-     function tenderSl(){
-        $latestData = TenderList::latest()->first();
-        if($latestData){
-            if($latestData->sl){
-                return (int)$latestData->tender_sl+1;
-
-            }else{
-
-                return "20230001";
-            }
-        }else{
-            return "20230001";
-        }
-    }
 
 
 
@@ -83,7 +69,7 @@ class TenderListController extends Controller
         $datas = $request->all();
         $random = Str::random(20);
 
-        $datas['tender_sl'] = $this->tenderSl();
+        $datas['tender_sl'] = tenderSl();
 
         $datas['tender_id'] = time().$random;
         $datas['status'] = 'pending';

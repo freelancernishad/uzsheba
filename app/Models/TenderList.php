@@ -81,4 +81,9 @@ class TenderList extends Model
     {
         return $this->hasOne(Resolution::class);
     }
+
+    public function tenderCalender()
+    {
+        return $this->belongsTo(TenderCalender::class, 'tender_calender_id');
+    }
 }
