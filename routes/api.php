@@ -304,6 +304,8 @@ Route::get('tender-calenders/{id}', [TenderCalenderController::class, 'show']);
 Route::post('tender-calenders/{id}', [TenderCalenderController::class, 'update']);
 Route::delete('tender-calenders/{id}', [TenderCalenderController::class, 'destroy']);
 Route::post('tender-calenders/approve/{id}', [TenderCalenderController::class, 'approveCalender']);
+Route::post('add-hat-bazar', [TenderCalenderController::class, 'updateTenderListsFromScheduleTime']);
+
 
 
 

@@ -24,7 +24,7 @@
 
 <td>{{ dateformatGlobal(tender.noticeDate)[6] }}</td>
 
-<td>{{ tender.description }}</td>
+<td>{{ tender.tender_name }}</td>
 
 <td><router-link class="btn btn-info" :to="{name:'tenderView',params:{id:tender.id}}">বিস্তারিত দেখুন</router-link></td>
 </tr>

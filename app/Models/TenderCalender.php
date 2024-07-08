@@ -11,6 +11,7 @@ class TenderCalender extends Model
 
     protected $fillable = [
         'sorok_no',
+        'date',
         'bn_year',
         'en_year',
         'calender_id',

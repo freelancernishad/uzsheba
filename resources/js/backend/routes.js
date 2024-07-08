@@ -41,6 +41,7 @@ let qr = require('./components/sonod/qr2.vue').default;
 
 
 
+let AddHatBazar = require('./components/tenders/AddHatBazar.vue').default;
 let TenderCalenderForm = require('./components/tenders/TenderCalenderForm.vue').default;
 let tendercalender = require('./components/tenders/TenderCalenderList.vue').default;
 
@@ -76,6 +77,7 @@ export const routes = [
 
 
 
+  { path:  `${prefix}/add-hat-bazar/:scheduleTimeId/:calenderId`, component: AddHatBazar, name:'AddHatBazar',meta: { layout: adminlayout } },
   { path:  `${prefix}/tenders/calander/add/new`, component: TenderCalenderForm, name:'TenderCalenderForm',meta: { layout: adminlayout } },
   { path:  `${prefix}/tenders/calander/add/edit/:id`, component: TenderCalenderForm, name:'TenderCalenderedit',meta: { layout: adminlayout } },
   { path:  `${prefix}/tenders/calander/:status`, component: tendercalender, name:'tendercalender',meta: { layout: adminlayout } },

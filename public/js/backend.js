@@ -4870,6 +4870,81 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      scheduleTimeId: null,
+      calenderId: null,
+      calendarItems: [],
+      // Fetch calendar items from your API
+      selectedItems: [],
+      scheduleTimes: []
+    };
+  },
+  computed: {
+    scheduleTime: function scheduleTime() {
+      var _this = this;
+
+      return this.scheduleTimes.find(function (item) {
+        return item.id == _this.scheduleTimeId;
+      });
+    }
+  },
+  created: function created() {
+    this.scheduleTimeId = this.$route.params.scheduleTimeId;
+    this.calenderId = this.$route.params.calenderId;
+    this.fetchCalendarItems();
+  },
+  methods: {
+    fetchCalendarItems: function fetchCalendarItems() {
+      var _this2 = this;
+
+      // Replace with your API call
+      axios.get("/api/tender-calenders/".concat(this.calenderId)).then(function (response) {
+        _this2.calendarItems = response.data.items;
+        _this2.scheduleTimes = response.data.schedule_times;
+      })["catch"](function (error) {
+        console.error('Error fetching calendar items:', error);
+      });
+    },
+    submitForm: function submitForm() {
+      var _this3 = this;
+
+      var data = {
+        scheduleTimeId: this.scheduleTimeId,
+        calenderId: this.calenderId,
+        selectedItems: this.selectedItems
+      }; // Replace with your API call
+
+      axios.post('/api/add-hat-bazar', data).then(function (response) {
+        alert('Hat Bazar added successfully');
+
+        _this3.$router.push({
+          name: 'tendercalender',
+          params: {
+            status: 'approved'
+          }
+        });
+      })["catch"](function (error) {
+        console.error('Error adding Hat Bazar:', error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/TenderCalenderForm.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/TenderCalenderForm.vue?vue&type=script&lang=js& ***!
@@ -4899,6 +4974,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isNew: true,
       form: {
         sorok_no: '',
+        date: '',
         bn_year: '',
         en_year: '',
         calender_id: '',
@@ -4916,7 +4992,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           hat_name: '',
           ijara_price: 0,
           previous_ijara_price: 0,
-          six_percent_bitti: 0
+          six_percent_bitti: 0,
+          form_price: 0
         }],
         scheduleTimes: [{
           id: '',
@@ -5046,7 +5123,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       hat_name: item.hat_name,
                       ijara_price: item.ijara_price,
                       previous_ijara_price: item.previous_ijara_price,
-                      six_percent_bitti: item.six_percent_bitti
+                      six_percent_bitti: item.six_percent_bitti,
+                      form_price: item.form_price
                     };
                   })
                 };
@@ -5075,7 +5153,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         hat_name: '',
         ijara_price: 0,
         previous_ijara_price: 0,
-        six_percent_bitti: 0
+        six_percent_bitti: 0,
+        form_price: 0
       });
     },
     removeItem: function removeItem(index) {
@@ -5114,6 +5193,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5160,12 +5243,16 @@ __webpack_require__.r(__webpack_exports__);
       form: {},
       committes: {},
       committesModalVisible: false,
+      calanderid: '',
       modalVisible: false,
       selectedTenderCalendar: {},
       // Placeholder for selected tender calendar data
       selectedScheduleTimes: [],
       // Add this to store selected schedule times
-      scheduleTimesModalVisible: false // Add this to control the new modal visibility
+      scheduleTimesModalVisible: false,
+      // Add this to control the new modal visibility
+      updateItemsModalVisible: false,
+      selectedItems: [] // Add this to store selected items
 
     };
   },
@@ -5180,16 +5267,27 @@ __webpack_require__.r(__webpack_exports__);
       deep: true
     }
   },
-  methods: {
+  methods: (_methods = {
+    goToAddHatBazar: function goToAddHatBazar(scheduleTimeId, calenderId) {
+      this.$router.push({
+        name: 'AddHatBazar',
+        params: {
+          scheduleTimeId: scheduleTimeId,
+          calenderId: calenderId
+        }
+      });
+    },
     showCommitteeForm: function showCommitteeForm(id) {
       this.tender_calender_id = id;
       this.committeeFormVisible = true;
     },
-    handleClose: function handleClose() {
-      this.tender_calender_id = '';
-      this.committeeFormVisible = false;
+    handleCloseModal: function handleCloseModal() {
+      this.modalVisible = false;
+      this.committesModalVisible = false;
+      this.updateItemsModalVisible = false;
     },
-    showScheduleTimes: function showScheduleTimes(scheduleTimes) {
+    showScheduleTimes: function showScheduleTimes(scheduleTimes, id) {
+      this.calanderid = id;
       this.selectedScheduleTimes = scheduleTimes;
       this.scheduleTimesModalVisible = true;
     },
@@ -5221,118 +5319,111 @@ __webpack_require__.r(__webpack_exports__);
       // Example: Fetch or set selected tender calendar data before showing modal
       this.committes = items;
       this.committesModalVisible = true; // Show the modal
-    },
-    handleCloseModal: function handleCloseModal() {
-      this.modalVisible = false; // Close the modal
-    },
-    fetchCalenders: function fetchCalenders() {
-      var _this2 = this;
-
-      this.loading = true;
-      var status = 'new';
-
-      if (this.$route.params.status) {
-        status = this.$route.params.status;
-      }
-
-      axios.get("/api/tender-calenders?status=".concat(status)).then(function (response) {
-        _this2.calenders = response.data;
-        _this2.loading = false; // Hide the loader once data is fetched
-      })["catch"](function (error) {
-        console.error('There was an error fetching the calenders:', error);
-        _this2.loading = false; // Hide loader in case of error too
-      });
-    },
-    editCalender: function editCalender(id) {
-      // Redirect to edit route with the calender ID
-      this.$router.push({
-        name: 'TenderCalenderedit',
-        params: {
-          id: id
-        }
-      });
-    },
-    confirmDelete: function confirmDelete(id) {
-      var _this3 = this;
-
-      // Show confirmation dialog before deletion
-      Swal.fire({
-        title: 'Confirm Deletion',
-        text: 'Are you sure you want to delete this calendar?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#dc3545',
-        // Red color for confirmation button
-        cancelButtonColor: '#6c757d',
-        // Grey color for cancel button
-        confirmButtonText: 'Confirm Delete'
-      }).then(function (result) {
-        if (result.isConfirmed) {
-          // User confirmed deletion, proceed with deleteCalender()
-          _this3.deleteCalender(id);
-        } else {
-          // User canceled deletion
-          Swal.fire('Cancelled', 'Deletion has been cancelled.', 'info');
-        }
-      });
-    },
-    deleteCalender: function deleteCalender(id) {
-      var _this4 = this;
-
-      // Perform deletion request
-      axios["delete"]("/api/tender-calenders/".concat(id)).then(function (response) {
-        // Deletion successful, show success message
-        Swal.fire('Deleted!', 'The calendar has been deleted.', 'success'); // Optionally, perform any post-deletion actions (e.g., refresh data)
-
-        _this4.fetchCalenders();
-      })["catch"](function (error) {
-        // Deletion failed, show error message
-        Swal.fire('Error', 'There was an error deleting the calendar.', 'error');
-        console.error('Error deleting calendar:', error);
-      });
-    },
-    confirmApprove: function confirmApprove(id) {
-      var _this5 = this;
-
-      // Show confirmation dialog before deletion
-      Swal.fire({
-        title: 'Confirm Approve',
-        text: 'Are you sure you want to Approve this calendar?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#dc3545',
-        // Red color for confirmation button
-        cancelButtonColor: '#6c757d',
-        // Grey color for cancel button
-        confirmButtonText: 'Confirm Approve'
-      }).then(function (result) {
-        if (result.isConfirmed) {
-          // User confirmed deletion, proceed with deleteCalender()
-          _this5.ApproveCalender(id);
-        } else {
-          // User canceled deletion
-          Swal.fire('Cancelled', 'Approve has been cancelled.', 'info');
-        }
-      });
-    },
-    ApproveCalender: function ApproveCalender(id) {
-      var _this6 = this;
-
-      this.approvedata['dc_name'] = this.Users.name;
-      this.approvedata['dc_signature'] = this.Users.signature; // Perform deletion request
-
-      axios.post("/api/tender-calenders/approve/".concat(id), this.approvedata).then(function (response) {
-        // Deletion successful, show success message
-        Swal.fire('Deleted!', 'The calendar has been deleted.', 'success'); // Optionally, perform any post-deletion actions (e.g., refresh data)
-
-        _this6.fetchCalenders();
-      })["catch"](function (error) {
-        // Deletion failed, show error message
-        Swal.fire('Error', 'There was an error deleting the calendar.', 'error');
-        console.error('Error deleting calendar:', error);
-      });
     }
-  }
+  }, _defineProperty(_methods, "handleCloseModal", function handleCloseModal() {
+    this.modalVisible = false; // Close the modal
+  }), _defineProperty(_methods, "fetchCalenders", function fetchCalenders() {
+    var _this2 = this;
+
+    this.loading = true;
+    var status = 'new';
+
+    if (this.$route.params.status) {
+      status = this.$route.params.status;
+    }
+
+    axios.get("/api/tender-calenders?status=".concat(status)).then(function (response) {
+      _this2.calenders = response.data;
+      _this2.loading = false; // Hide the loader once data is fetched
+    })["catch"](function (error) {
+      console.error('There was an error fetching the calenders:', error);
+      _this2.loading = false; // Hide loader in case of error too
+    });
+  }), _defineProperty(_methods, "editCalender", function editCalender(id) {
+    // Redirect to edit route with the calender ID
+    this.$router.push({
+      name: 'TenderCalenderedit',
+      params: {
+        id: id
+      }
+    });
+  }), _defineProperty(_methods, "confirmDelete", function confirmDelete(id) {
+    var _this3 = this;
+
+    // Show confirmation dialog before deletion
+    Swal.fire({
+      title: 'Confirm Approve',
+      text: 'Are you sure you want to Approve this calendar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      // Red color for confirmation button
+      cancelButtonColor: '#6c757d',
+      // Grey color for cancel button
+      confirmButtonText: 'Confirm Approve'
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        // User confirmed deletion, proceed with deleteCalender()
+        _this3.deleteCalender(id);
+      } else {
+        // User canceled deletion
+        Swal.fire('Cancelled', 'Approve has been cancelled.', 'info');
+      }
+    });
+  }), _defineProperty(_methods, "deleteCalender", function deleteCalender(id) {
+    var _this4 = this;
+
+    // Perform deletion request
+    axios["delete"]("/api/tender-calenders/".concat(id)).then(function (response) {
+      // Deletion successful, show success message
+      Swal.fire('Approved!', 'The calendar has been approved.', 'success'); // Optionally, perform any post-deletion actions (e.g., refresh data)
+
+      _this4.fetchCalenders();
+    })["catch"](function (error) {
+      // Deletion failed, show error message
+      Swal.fire('Error', 'There was an error approving the calendar.', 'error');
+      console.error('Error approving calendar:', error);
+    });
+  }), _defineProperty(_methods, "confirmApprove", function confirmApprove(id) {
+    var _this5 = this;
+
+    // Show confirmation dialog before deletion
+    Swal.fire({
+      title: 'Confirm Approve',
+      text: 'Are you sure you want to Approve this calendar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      // Red color for confirmation button
+      cancelButtonColor: '#6c757d',
+      // Grey color for cancel button
+      confirmButtonText: 'Confirm Approve'
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        // User confirmed deletion, proceed with deleteCalender()
+        _this5.ApproveCalender(id);
+      } else {
+        // User canceled deletion
+        Swal.fire('Cancelled', 'Approve has been cancelled.', 'info');
+      }
+    });
+  }), _defineProperty(_methods, "ApproveCalender", function ApproveCalender(id) {
+    var _this6 = this;
+
+    this.approvedata['dc_name'] = this.Users.name;
+    this.approvedata['dc_signature'] = this.Users.signature; // Perform deletion request
+
+    axios.post("/api/tender-calenders/approve/".concat(id), this.approvedata).then(function (response) {
+      // Deletion successful, show success message
+      Swal.fire('Deleted!', 'The calendar has been deleted.', 'success'); // Optionally, perform any post-deletion actions (e.g., refresh data)
+
+      _this6.fetchCalenders();
+    })["catch"](function (error) {
+      // Deletion failed, show error message
+      Swal.fire('Error', 'There was an error deleting the calendar.', 'error');
+      console.error('Error deleting calendar:', error);
+    });
+  }), _methods)
 });
 
 /***/ }),
@@ -12016,6 +12107,108 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=template&id=3f97f9c2&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=template&id=3f97f9c2& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", [_vm.loading ? _c("loader", {
+    attrs: {
+      object: "#ff9633",
+      color1: "#ffffff",
+      color2: "#17fd3d",
+      size: "5",
+      speed: "2",
+      bg: "#343a40",
+      objectbg: "#999793",
+      opacity: "80",
+      name: "circular"
+    }
+  }) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "breadcrumbs-area"
+  }, [_c("h3", [_vm._v("Hat Bazar Select")]), _vm._v(" "), _c("ul", [_c("li", [_c("router-link", {
+    attrs: {
+      to: {
+        name: "Dashboard"
+      }
+    }
+  }, [_vm._v("Home")])], 1), _vm._v(" "), _c("li", [_vm._v("Hat Bazar Select")])])]), _vm._v(" "), _vm.scheduleTime ? _c("div", [_c("p", [_c("strong", [_vm._v("দরপত্র আহবানের পর্যায়:")]), _vm._v(" " + _vm._s(_vm.scheduleTime.stage_of_tender))]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("দরপত্র সিডিউল বিক্রয়ের শুরুর তারিখ ও সময়:")]), _vm._v(" " + _vm._s(_vm.formatBengaliDateTime(_vm.scheduleTime.form_buy_start)))]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("দরপত্র সিডিউল বিক্রয়ের শেষ তারিখ ও সময়:")]), _vm._v(" " + _vm._s(_vm.formatBengaliDateTime(_vm.scheduleTime.form_buy_end)))]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("দরপত্র গ্রহণের শুরুর তারিখ ও সময়:")]), _vm._v(" " + _vm._s(_vm.formatBengaliDateTime(_vm.scheduleTime.tender_start)))]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("দরপত্র গ্রহণের শেষ তারিখ ও সময়:")]), _vm._v(" " + _vm._s(_vm.formatBengaliDateTime(_vm.scheduleTime.tender_end)))]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("দরপত্র বাক্স খোলার তারিখ ও সময়:")]), _vm._v(" " + _vm._s(_vm.formatBengaliDateTime(_vm.scheduleTime.tender_open)))])]) : _vm._e(), _vm._v(" "), _c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.submitForm.apply(null, arguments);
+      }
+    }
+  }, [_c("table", {
+    staticClass: "table"
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.calendarItems, function (item, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.selectedItems,
+        expression: "selectedItems"
+      }],
+      attrs: {
+        type: "checkbox"
+      },
+      domProps: {
+        value: item.id,
+        checked: Array.isArray(_vm.selectedItems) ? _vm._i(_vm.selectedItems, item.id) > -1 : _vm.selectedItems
+      },
+      on: {
+        change: function change($event) {
+          var $$a = _vm.selectedItems,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = item.id,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selectedItems = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.selectedItems = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.selectedItems = $$c;
+          }
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(index + 1)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.union_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.hat_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(item.previous_ijara_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(item.six_percent_bitti)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(item.ijara_price)))])]);
+  }), 0)]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("Submit")])])], 1);
+};
+
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("Select")]), _vm._v(" "), _c("th", [_vm._v("ক্রমিক নং")]), _vm._v(" "), _c("th", [_vm._v("ইউনিয়নের নাম")]), _vm._v(" "), _c("th", [_vm._v("হাট বাজারের নাম")]), _vm._v(" "), _c("th", [_vm._v("বিগত অর্থ বছরের ইজারা মূলের গড়")]), _vm._v(" "), _c("th", [_vm._v("৬% বিত্তি")]), _vm._v(" "), _c("th", [_vm._v("ইজারা মূল্য")])])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/TenderCalenderForm.vue?vue&type=template&id=58957b1c&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/TenderCalenderForm.vue?vue&type=template&id=58957b1c& ***!
@@ -12151,6 +12344,34 @@ var render = function render() {
         _vm.$set(_vm.form, "en_year", $event.target.value);
       }
     }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "date"
+    }
+  }, [_vm._v("তারিখ")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.date,
+      expression: "form.date"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      id: "date"
+    },
+    domProps: {
+      value: _vm.form.date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.form, "date", $event.target.value);
+      }
+    }
   })]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h2", [_vm._v("হাট বাজারের তালিকা")]), _vm._v(" "), _c("table", {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm._l(_vm.form.items, function (item, index) {
@@ -12264,6 +12485,28 @@ var render = function render() {
           _vm.$set(item, "ijara_price", $event.target.value);
         }
       }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.form_price,
+        expression: "item.form_price"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "number",
+        step: "0.01"
+      },
+      domProps: {
+        value: item.form_price
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(item, "form_price", $event.target.value);
+        }
+      }
     })]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-danger btn-sm",
       attrs: {
@@ -12275,7 +12518,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("Remove")])])]);
-  }), _vm._v(" "), _c("tr", [_c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", [_c("button", {
+  }), _vm._v(" "), _c("tr", [_c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", [_c("button", {
     staticClass: "btn btn-success btn-sm",
     attrs: {
       type: "button"
@@ -12283,7 +12526,7 @@ var render = function render() {
     on: {
       click: _vm.addNewItem
     }
-  }, [_vm._v("Add new item")])])])], 2)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h2", [_vm._v("Tender Schedule Times")]), _vm._v(" "), _c("table", {
+  }, [_vm._v("Add new item")])])])], 2)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h2", [_vm._v("দরপত্র ক্রয় ও দাখিলের সময়সূচি")]), _vm._v(" "), _c("table", {
     staticClass: "table table-striped"
   }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm._l(_vm.form.scheduleTimes, function (time, index) {
     return _c("tr", {
@@ -12487,12 +12730,12 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("ক্রমিক নং")]), _vm._v(" "), _c("th", [_vm._v("ইউনিয়নের নাম")]), _vm._v(" "), _c("th", [_vm._v("হাট বাজারের নাম")]), _vm._v(" "), _c("th", [_vm._v("বিগত অর্থ বছরের ইজারা মূলের গড়")]), _vm._v(" "), _c("th", [_vm._v("৬% বিত্তি ")]), _vm._v(" "), _c("th", [_vm._v("ইজারা মূল্য")]), _vm._v(" "), _c("th", [_vm._v("Actions")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("ক্রমিক নং")]), _vm._v(" "), _c("th", [_vm._v("ইউনিয়নের নাম")]), _vm._v(" "), _c("th", [_vm._v("হাট বাজারের নাম")]), _vm._v(" "), _c("th", [_vm._v("বিগত অর্থ বছরের ইজারা মূলের গড়")]), _vm._v(" "), _c("th", [_vm._v("৬% বিত্তি ")]), _vm._v(" "), _c("th", [_vm._v("ইজারা মূল্য")]), _vm._v(" "), _c("th", [_vm._v("সিডিউল মূল্য")]), _vm._v(" "), _c("th", [_vm._v("Actions")])])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Stage of Tender")]), _vm._v(" "), _c("th", [_vm._v("Form Buy Start")]), _vm._v(" "), _c("th", [_vm._v("Form Buy End")]), _vm._v(" "), _c("th", [_vm._v("Tender Start")]), _vm._v(" "), _c("th", [_vm._v("Tender End")]), _vm._v(" "), _c("th", [_vm._v("Tender Open")]), _vm._v(" "), _c("th", [_vm._v("Actions")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("দরপত্র আহবানের পর্যায়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র সিডিউল বিক্রয়ের শুরুর তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র সিডিউল বিক্রয়ের শেষ তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র গ্রহণের শুরুর তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র গ্রহণের শেষ তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র বাক্স খোলার তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("Actions")])])]);
 }];
 render._withStripped = true;
 
@@ -12555,7 +12798,7 @@ var render = function render() {
   }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.calenders, function (calender) {
     return _c("tr", {
       key: calender.id
-    }, [_c("td", [_vm._v(_vm._s(calender.sorok_no))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.bn_year))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.en_year))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.calender_id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.union))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.dc_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.status))]), _vm._v(" "), _c("td", [_vm.$route.params.status == "new" ? _c("button", {
+    }, [_c("td", [_vm._v(_vm._s(calender.sorok_no))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.bn_year))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.en_year))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(calender.calender_id))]), _vm._v(" "), _c("td", [_vm.$route.params.status == "new" ? _c("button", {
       staticClass: "btn btn-info btn-sm",
       on: {
         click: function click($event) {
@@ -12579,7 +12822,7 @@ var render = function render() {
       staticClass: "btn btn-success btn-sm",
       on: {
         click: function click($event) {
-          return _vm.showScheduleTimes(calender.schedule_times);
+          return _vm.showScheduleTimes(calender.schedule_times, calender.id);
         }
       }
     }, [_vm._v("সময়সুচি")]), _vm._v(" "), _c("button", {
@@ -12682,7 +12925,7 @@ var render = function render() {
         return [_c("button", {
           staticClass: "btn btn-primary",
           on: {
-            click: _vm.handleClose
+            click: _vm.handleCloseModal
           }
         }, [_vm._v("Close")])];
       },
@@ -12785,7 +13028,7 @@ var render = function render() {
   }, [_vm._v("Submit")])]), _vm._v(" "), _c("b-modal", {
     attrs: {
       size: "lg",
-      title: "Tender Schedule Times"
+      title: "দরপত্র ক্রয় ও দাখিলের সময়সূচি"
     },
     scopedSlots: _vm._u([{
       key: "modal-footer",
@@ -12808,10 +13051,17 @@ var render = function render() {
     }
   }, [_c("div", [_c("table", {
     staticClass: "table"
-  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Stage of Tender")]), _vm._v(" "), _c("th", [_vm._v("Form Buy Start")]), _vm._v(" "), _c("th", [_vm._v("Form Buy End")]), _vm._v(" "), _c("th", [_vm._v("Tender Start")]), _vm._v(" "), _c("th", [_vm._v("Tender End")]), _vm._v(" "), _c("th", [_vm._v("Tender Open")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.selectedScheduleTimes, function (time, index) {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("দরপত্র আহবানের পর্যায়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র সিডিউল বিক্রয়ের শুরুর তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র সিডিউল বিক্রয়ের শেষ তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র গ্রহণের শুরুর তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র গ্রহণের শেষ তারিখ ও সময়")]), _vm._v(" "), _c("th", [_vm._v("দরপত্র বাক্স খোলার তারিখ ও সময়")]), _vm._v(" "), _vm.$route.params.status == "approved" ? _c("th", [_vm._v("Action")]) : _vm._e()])]), _vm._v(" "), _c("tbody", _vm._l(_vm.selectedScheduleTimes, function (time, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(time.stage_of_tender))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.form_buy_start)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.form_buy_end)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_start)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_end)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_open)))])]);
+    }, [_c("td", [_vm._v(_vm._s(time.stage_of_tender))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.form_buy_start)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.form_buy_end)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_start)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_end)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_open)))]), _vm._v(" "), _vm.$route.params.status == "approved" ? _c("td", [_c("button", {
+      staticClass: "btn btn-info",
+      on: {
+        click: function click($event) {
+          return _vm.goToAddHatBazar(time.id, _vm.calanderid);
+        }
+      }
+    }, [_vm._v(_vm._s(time.stage_of_tender) + " হাটবাজার যোগ করুন")])]) : _vm._e()]);
   }), 0)])])])], 1);
 };
 
@@ -12819,7 +13069,7 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Sorok No")]), _vm._v(" "), _c("th", [_vm._v("BN Year")]), _vm._v(" "), _c("th", [_vm._v("EN Year")]), _vm._v(" "), _c("th", [_vm._v("Calender ID")]), _vm._v(" "), _c("th", [_vm._v("Union")]), _vm._v(" "), _c("th", [_vm._v("DC Name")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Actions")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("Sorok No")]), _vm._v(" "), _c("th", [_vm._v("BN Year")]), _vm._v(" "), _c("th", [_vm._v("EN Year")]), _vm._v(" "), _c("th", [_vm._v("Calender ID")]), _vm._v(" "), _c("th", [_vm._v("Actions")])])]);
 }];
 render._withStripped = true;
 
@@ -16450,6 +16700,8 @@ var sonodview = (__webpack_require__(/*! ./components/sonod/view.vue */ "./resou
 
 var qr = (__webpack_require__(/*! ./components/sonod/qr2.vue */ "./resources/js/backend/components/sonod/qr2.vue")["default"]);
 
+var AddHatBazar = (__webpack_require__(/*! ./components/tenders/AddHatBazar.vue */ "./resources/js/backend/components/tenders/AddHatBazar.vue")["default"]);
+
 var TenderCalenderForm = (__webpack_require__(/*! ./components/tenders/TenderCalenderForm.vue */ "./resources/js/backend/components/tenders/TenderCalenderForm.vue")["default"]);
 
 var tendercalender = (__webpack_require__(/*! ./components/tenders/TenderCalenderList.vue */ "./resources/js/backend/components/tenders/TenderCalenderList.vue")["default"]);
@@ -16502,6 +16754,13 @@ var routes = [//Auth Routes
   path: "".concat(prefix, "/report"),
   component: report,
   name: 'report',
+  meta: {
+    layout: adminlayout
+  }
+}, {
+  path: "".concat(prefix, "/add-hat-bazar/:scheduleTimeId/:calenderId"),
+  component: AddHatBazar,
+  name: 'AddHatBazar',
   meta: {
     layout: adminlayout
   }
@@ -71776,6 +72035,45 @@ component.options.__file = "resources/js/backend/components/sonod/word.vue"
 
 /***/ }),
 
+/***/ "./resources/js/backend/components/tenders/AddHatBazar.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/backend/components/tenders/AddHatBazar.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AddHatBazar_vue_vue_type_template_id_3f97f9c2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddHatBazar.vue?vue&type=template&id=3f97f9c2& */ "./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=template&id=3f97f9c2&");
+/* harmony import */ var _AddHatBazar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddHatBazar.vue?vue&type=script&lang=js& */ "./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddHatBazar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddHatBazar_vue_vue_type_template_id_3f97f9c2___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AddHatBazar_vue_vue_type_template_id_3f97f9c2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/backend/components/tenders/AddHatBazar.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/backend/components/tenders/TenderCalenderForm.vue":
 /*!************************************************************************!*\
   !*** ./resources/js/backend/components/tenders/TenderCalenderForm.vue ***!
@@ -72556,6 +72854,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddHatBazar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddHatBazar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddHatBazar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/backend/components/tenders/TenderCalenderForm.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************!*\
   !*** ./resources/js/backend/components/tenders/TenderCalenderForm.vue?vue&type=script&lang=js& ***!
@@ -73065,6 +73379,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_word_vue_vue_type_template_id_6aa6d1fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_word_vue_vue_type_template_id_6aa6d1fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./word.vue?vue&type=template&id=6aa6d1fc&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/sonod/word.vue?vue&type=template&id=6aa6d1fc&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=template&id=3f97f9c2&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=template&id=3f97f9c2& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AddHatBazar_vue_vue_type_template_id_3f97f9c2___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AddHatBazar_vue_vue_type_template_id_3f97f9c2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AddHatBazar_vue_vue_type_template_id_3f97f9c2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddHatBazar.vue?vue&type=template&id=3f97f9c2& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/backend/components/tenders/AddHatBazar.vue?vue&type=template&id=3f97f9c2&");
 
 
 /***/ }),

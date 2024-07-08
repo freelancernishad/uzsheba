@@ -40,6 +40,11 @@
             <input type="text" class="form-control" id="en_year" v-model="form.en_year">
           </div>
 
+          <div class="form-group">
+            <label for="date">তারিখ</label>
+            <input type="date" class="form-control" id="date" v-model="form.date">
+        </div>
+
           <!-- Tender Calendar Items Table -->
           <hr>
           <h2>হাট বাজারের তালিকা</h2>
@@ -52,6 +57,7 @@
                 <th>বিগত অর্থ বছরের ইজারা মূলের গড়</th>
                 <th>৬% বিত্তি </th>
                 <th>ইজারা মূল্য</th>
+                <th>সিডিউল মূল্য</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -76,12 +82,18 @@
                   <input type="number" step="0.01" class="form-control" v-model="item.ijara_price">
                 </td>
                 <td>
+                  <input type="number" step="0.01" class="form-control" v-model="item.form_price">
+                </td>
+                <td>
                   <button type="button" class="btn btn-danger btn-sm" @click="removeItem(index)">Remove</button>
                 </td>
               </tr>
 
               <tr>
                 <td></td>
+                <td>
+
+                </td>
                 <td>
 
                 </td>
@@ -108,16 +120,16 @@
 
           <!-- Tender Schedule Times Table -->
             <hr>
-            <h2>Tender Schedule Times</h2>
+            <h2>দরপত্র ক্রয় ও দাখিলের সময়সূচি</h2>
             <table class="table table-striped">
             <thead>
                 <tr>
-                <th>Stage of Tender</th>
-                <th>Form Buy Start</th>
-                <th>Form Buy End</th>
-                <th>Tender Start</th>
-                <th>Tender End</th>
-                <th>Tender Open</th>
+                    <th>দরপত্র আহবানের পর্যায়</th>
+                    <th>দরপত্র সিডিউল বিক্রয়ের শুরুর তারিখ ও সময়</th>
+                    <th>দরপত্র সিডিউল বিক্রয়ের শেষ তারিখ ও সময়</th>
+                    <th>দরপত্র গ্রহণের শুরুর তারিখ ও সময়</th>
+                    <th>দরপত্র গ্রহণের শেষ তারিখ ও সময়</th>
+                    <th>দরপত্র বাক্স খোলার তারিখ ও সময়</th>
                 <th>Actions</th>
                 </tr>
             </thead>
@@ -197,6 +209,7 @@
         form: {
 
           sorok_no: '',
+          date: '',
           bn_year: '',
           en_year: '',
           calender_id: '', // Update with actual value if applicable
@@ -214,7 +227,8 @@
                 hat_name: '',
                 ijara_price: 0,
                 previous_ijara_price: 0,
-                six_percent_bitti: 0
+                six_percent_bitti: 0,
+                form_price: 0,
             }
           ],
         scheduleTimes: [
@@ -296,7 +310,8 @@
             hat_name: item.hat_name,
             ijara_price: item.ijara_price,
             previous_ijara_price: item.previous_ijara_price,
-            six_percent_bitti: item.six_percent_bitti
+            six_percent_bitti: item.six_percent_bitti,
+            form_price: item.form_price
           }))
         };
       } catch (error) {
@@ -313,7 +328,8 @@
           hat_name: '',
           ijara_price: 0,
           previous_ijara_price: 0,
-          six_percent_bitti: 0
+          six_percent_bitti: 0,
+          form_price:0,
         });
 
 
@@ -340,7 +356,7 @@
     // Remove time from form's scheduleTimes array
     this.form.scheduleTimes.splice(index, 1);
   }
-  
+
 
     }
   };

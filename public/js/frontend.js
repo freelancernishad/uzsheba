@@ -13445,7 +13445,7 @@ var render = function render() {
   }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.tenders, function (tender, indexs) {
     return _c("tr", {
       key: "tenders" + indexs
-    }, [_c("td", [_vm._v(_vm._s(_vm.dateformatGlobal(tender.noticeDate)[6]))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(tender.description))]), _vm._v(" "), _c("td", [_c("router-link", {
+    }, [_c("td", [_vm._v(_vm._s(_vm.dateformatGlobal(tender.noticeDate)[6]))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(tender.tender_name))]), _vm._v(" "), _c("td", [_c("router-link", {
       staticClass: "btn btn-info",
       attrs: {
         to: {

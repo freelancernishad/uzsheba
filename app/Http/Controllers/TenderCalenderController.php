@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TenderCalender;
 use App\Models\TenderCalenderItem;
+use App\Models\TenderScheduleTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,6 +26,7 @@ class TenderCalenderController extends Controller
         // Validate the incoming request data
         $validator = Validator::make($request->all(), [
             'sorok_no' => 'required|string',
+            'date' => 'required',
             'bn_year' => 'required|string',
             'en_year' => 'required|string',
             'union' => 'required|string',
@@ -36,6 +38,7 @@ class TenderCalenderController extends Controller
             'items.*.ijara_price' => 'required|numeric',
             'items.*.previous_ijara_price' => 'required|numeric',
             'items.*.six_percent_bitti' => 'required|numeric',
+            'items.*.form_price' => 'required|numeric',
             'scheduleTimes' => 'required|array|min:1',
             'scheduleTimes.*.stage_of_tender' => 'required|string',
             'scheduleTimes.*.form_buy_start' => 'required|date',
@@ -59,6 +62,7 @@ class TenderCalenderController extends Controller
         // Create the Tender Calendar record
         $tenderCalendar = TenderCalender::create([
             'sorok_no' => $request->input('sorok_no'),
+            'date' => $request->input('date'),
             'bn_year' => $request->input('bn_year'),
             'en_year' => $request->input('en_year'),
             'calender_id' => $calenderId,
@@ -81,6 +85,7 @@ class TenderCalenderController extends Controller
                 'ijara_price' => $itemData['ijara_price'],
                 'previous_ijara_price' => $itemData['previous_ijara_price'],
                 'six_percent_bitti' => $itemData['six_percent_bitti'],
+                'form_price' => $itemData['form_price'],
             ]);
         }
 
@@ -104,7 +109,7 @@ class TenderCalenderController extends Controller
 
     public function show($id)
     {
-        $tenderCalender = TenderCalender::with('items')->findOrFail($id);
+        $tenderCalender = TenderCalender::with(['items','teams','scheduleTimes'])->findOrFail($id);
         return response()->json($tenderCalender);
     }
 
@@ -116,11 +121,21 @@ class TenderCalenderController extends Controller
             'bn_year' => 'required|string',
             'en_year' => 'required|string',
             'items' => 'required|array',
+            'items.*.id' => 'required|integer', // Ensure each item has an ID for update
             'items.*.union_name' => 'required|string',
             'items.*.hat_name' => 'required|string',
             'items.*.ijara_price' => 'required|numeric',
             'items.*.previous_ijara_price' => 'required|numeric',
             'items.*.six_percent_bitti' => 'required|numeric',
+            'items.*.form_price' => 'required|numeric',
+            'scheduleTimes' => 'required|array|min:1',
+            'scheduleTimes.*.id' => 'required|integer', // Ensure each schedule time has an ID for update
+            'scheduleTimes.*.stage_of_tender' => 'required|string',
+            'scheduleTimes.*.form_buy_start' => 'required|date',
+            'scheduleTimes.*.form_buy_end' => 'required|date',
+            'scheduleTimes.*.tender_start' => 'required|date',
+            'scheduleTimes.*.tender_end' => 'required|date',
+            'scheduleTimes.*.tender_open' => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -129,10 +144,10 @@ class TenderCalenderController extends Controller
 
         try {
             // Find the Tender Calendar by ID
-            $tenderCalender = TenderCalender::findOrFail($id);
+            $tenderCalendar = TenderCalender::findOrFail($id);
 
             // Update the Tender Calendar with validated data
-            $tenderCalender->update([
+            $tenderCalendar->update([
                 'sorok_no' => $request->input('sorok_no'),
                 'bn_year' => $request->input('bn_year'),
                 'en_year' => $request->input('en_year'),
@@ -148,18 +163,35 @@ class TenderCalenderController extends Controller
                     'ijara_price' => $itemData['ijara_price'],
                     'previous_ijara_price' => $itemData['previous_ijara_price'],
                     'six_percent_bitti' => $itemData['six_percent_bitti'],
+                    'form_price' => $itemData['form_price'],
                 ];
 
-                $tenderCalender->items()->updateOrCreate(['id' => $id], $item);
+                $tenderCalendar->items()->updateOrCreate(['id' => $id], $item);
+            }
+
+            // Update or create schedule times related to the Tender Calendar
+            foreach ($request->input('scheduleTimes') as $timeData) {
+                $timeId = $timeData['id'];
+                $scheduleTime = [
+                    'stage_of_tender' => $timeData['stage_of_tender'],
+                    'form_buy_start' => $timeData['form_buy_start'],
+                    'form_buy_end' => $timeData['form_buy_end'],
+                    'tender_start' => $timeData['tender_start'],
+                    'tender_end' => $timeData['tender_end'],
+                    'tender_open' => $timeData['tender_open'],
+                ];
+
+                $tenderCalendar->scheduleTimes()->updateOrCreate(['id' => $timeId], $scheduleTime);
             }
 
             // Optionally, you can return the updated Tender Calendar
-            return response()->json($tenderCalender);
+            return response()->json(['message' => 'Tender Calendar updated successfully', 'data' => $tenderCalendar]);
         } catch (\Exception $e) {
             // Handle any exceptions or errors
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
 
     public function destroy($id)
     {
@@ -207,11 +239,15 @@ class TenderCalenderController extends Controller
             $random = Str::random(20);
             TenderList::create(array_merge([
                 'tender_sl' => tenderSl(), // Adjust this as needed
+                'tender_calender_id' => $tenderCalendar->id,
+                'tender_calender_item_id' => $item->id,
                 'memorial_no' => $tenderCalendar->sorok_no,
+                'noticeDate' => $tenderCalendar->date,
                 'union_name' => $tenderCalendar->union,
                 'tender_roles' => $tenderCalendar->rules,
                 'other_content' => $tenderCalendar->onulipi,
                 'tender_name' => $item->hat_name,
+                'form_price' => $item->form_price,
                 'govt_price' => $item->ijara_price,
                 'tender_id' => time().$random,
                 'status' => 'approved', // Adjust this as needed
@@ -378,5 +414,60 @@ return $html;
 
 
     }
+
+
+
+    public function updateTenderListsFromScheduleTime(Request $request)
+    {
+        // Validate request data
+        $request->validate([
+            'scheduleTimeId' => 'required|numeric',
+            'calenderId' => 'required|numeric',
+            'selectedItems' => 'required|array',
+        ]);
+
+        $scheduleTimeId = $request->input('scheduleTimeId');
+        $calenderId = $request->input('calenderId');
+        $selectedItems = $request->input('selectedItems');
+
+        try {
+            // Find the corresponding TenderScheduleTime
+            $scheduleTime = TenderScheduleTime::findOrFail($scheduleTimeId);
+
+                 // Update Tender Calender Items
+            TenderCalenderItem::where('tender_calender_id', $calenderId)
+            ->whereIn('id', $selectedItems)
+            ->update([
+                'stage_of_tender' => $scheduleTime->stage_of_tender,
+                'tender_schedule_time_id' => $scheduleTime->id,
+            ]);
+
+
+            // Fetch all TenderLists related to the given calenderId and selectedItems
+            $tenderLists = TenderList::where('tender_calender_id', $calenderId)
+                                     ->whereIn('tender_calender_item_id', $selectedItems)
+                                     ->get();
+
+            // Update each TenderList based on the TenderScheduleTime
+            foreach ($tenderLists as $tenderList) {
+
+
+
+                $tenderList->update([
+                    'tender_schedule_times_id' => $scheduleTime->id,
+                    'form_buy_last_date' => $scheduleTime->form_buy_end,
+                    'tender_start' => $scheduleTime->tender_start,
+                    'tender_end' => $scheduleTime->tender_end,
+                    'tender_open' => $scheduleTime->tender_open,
+                    // Add other fields to update as needed
+                ]);
+            }
+
+            return response()->json(['message' => 'TenderLists updated successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to update TenderLists.', 'error' => $e->getMessage()], 500);
+        }
+    }
+
 
 }

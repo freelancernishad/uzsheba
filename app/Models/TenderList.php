@@ -11,6 +11,9 @@ class TenderList extends Model
 
 
     protected $fillable=[
+       'tender_calender_id',
+       'tender_calender_item_id',
+       'tender_schedule_times_id',
        'tender_sl',
        'union_name',
        'tender_id',

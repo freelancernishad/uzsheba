@@ -29,9 +29,6 @@
               <th>BN Year</th>
               <th>EN Year</th>
               <th>Calender ID</th>
-              <th>Union</th>
-              <th>DC Name</th>
-              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -41,9 +38,6 @@
               <td>{{ calender.bn_year }}</td>
               <td>{{ calender.en_year }}</td>
               <td>{{ calender.calender_id }}</td>
-              <td>{{ calender.union }}</td>
-              <td>{{ calender.dc_name }}</td>
-              <td>{{ calender.status }}</td>
               <td>
 
                 <button class="btn btn-info btn-sm" @click="showCommitteeForm(calender.id)" v-if="$route.params.status=='new'">মূল্যায়ন কমিটি তৈরি করুন</button>
@@ -52,7 +46,7 @@
                 <a :href="`/calander/download/${calender.id}`" target="_blank" class="btn btn-success btn-sm" >ক্যালেন্ডার ডাউনলোড</a>
 
 
-                <button class="btn btn-success btn-sm" @click="showScheduleTimes(calender.schedule_times)">সময়সুচি</button>
+                <button class="btn btn-success btn-sm" @click="showScheduleTimes(calender.schedule_times,calender.id)">সময়সুচি</button>
                 <button class="btn btn-success btn-sm" @click="showModal(calender.items)">হাট বাজারের তালিকা</button>
 
 
@@ -173,7 +167,7 @@
 
                 <!-- Modal Footer Slot -->
       <template #modal-footer>
-        <button class="btn btn-primary" @click="handleClose">Close</button>
+        <button class="btn btn-primary" @click="handleCloseModal">Close</button>
       </template>
   </b-modal>
 
@@ -182,17 +176,18 @@
 
 
     <!-- Modal for Tender Schedule Times -->
-    <b-modal size="lg" v-model="scheduleTimesModalVisible" title="Tender Schedule Times">
+    <b-modal size="lg" v-model="scheduleTimesModalVisible" title="দরপত্র ক্রয় ও দাখিলের সময়সূচি">
       <div>
         <table class="table">
           <thead>
             <tr>
-              <th>Stage of Tender</th>
-              <th>Form Buy Start</th>
-              <th>Form Buy End</th>
-              <th>Tender Start</th>
-              <th>Tender End</th>
-              <th>Tender Open</th>
+              <th>দরপত্র আহবানের পর্যায়</th>
+              <th>দরপত্র সিডিউল বিক্রয়ের শুরুর তারিখ ও সময়</th>
+              <th>দরপত্র সিডিউল বিক্রয়ের শেষ তারিখ ও সময়</th>
+              <th>দরপত্র গ্রহণের শুরুর তারিখ ও সময়</th>
+              <th>দরপত্র গ্রহণের শেষ তারিখ ও সময়</th>
+              <th>দরপত্র বাক্স খোলার তারিখ ও সময়</th>
+              <th  v-if="$route.params.status=='approved'">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -203,6 +198,9 @@
               <td>{{ formatBengaliDateTime(time.tender_start) }}</td>
               <td>{{ formatBengaliDateTime(time.tender_end) }}</td>
               <td>{{ formatBengaliDateTime(time.tender_open) }}</td>
+              <td v-if="$route.params.status=='approved'">
+                    <button class="btn btn-info" @click="goToAddHatBazar(time.id, calanderid)">{{ time.stage_of_tender }} হাটবাজার যোগ করুন</button>
+                </td>
             </tr>
           </tbody>
         </table>
@@ -212,6 +210,19 @@
         <button class="btn btn-primary" @click="handleCloseModal">Close</button>
       </template>
     </b-modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </div>
@@ -243,13 +254,16 @@
       committes: {},
       committesModalVisible: false,
 
+      calanderid:'',
 
         modalVisible: false,
         selectedTenderCalendar: {}, // Placeholder for selected tender calendar data
 
 
         selectedScheduleTimes: [], // Add this to store selected schedule times
-        scheduleTimesModalVisible: false // Add this to control the new modal visibility
+        scheduleTimesModalVisible: false, // Add this to control the new modal visibility
+        updateItemsModalVisible: false,
+        selectedItems: [] // Add this to store selected items
 
       };
     },
@@ -267,18 +281,24 @@
         }
     },
     methods: {
+
+        goToAddHatBazar(scheduleTimeId, calenderId) {
+            this.$router.push({ name: 'AddHatBazar', params: { scheduleTimeId, calenderId } });
+        },
         showCommitteeForm(id) {
             this.tender_calender_id = id
             this.committeeFormVisible = true;
         },
 
 
-        handleClose() {
-            this.tender_calender_id = ''
-            this.committeeFormVisible = false;
+        handleCloseModal() {
+        this.modalVisible = false;
+        this.committesModalVisible = false;
+        this.updateItemsModalVisible = false;
         },
 
-        showScheduleTimes(scheduleTimes) {
+        showScheduleTimes(scheduleTimes,id) {
+            this.calanderid = id;
             this.selectedScheduleTimes = scheduleTimes;
             this.scheduleTimesModalVisible = true;
         },
@@ -345,20 +365,20 @@
         confirmDelete(id) {
       // Show confirmation dialog before deletion
       Swal.fire({
-        title: 'Confirm Deletion',
-        text: 'Are you sure you want to delete this calendar?',
+        title: 'Confirm Approve',
+        text: 'Are you sure you want to Approve this calendar?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#dc3545', // Red color for confirmation button
         cancelButtonColor: '#6c757d', // Grey color for cancel button
-        confirmButtonText: 'Confirm Delete'
+        confirmButtonText: 'Confirm Approve'
       }).then((result) => {
         if (result.isConfirmed) {
           // User confirmed deletion, proceed with deleteCalender()
           this.deleteCalender(id);
         } else {
           // User canceled deletion
-          Swal.fire('Cancelled', 'Deletion has been cancelled.', 'info');
+          Swal.fire('Cancelled', 'Approve has been cancelled.', 'info');
         }
       });
     },
@@ -367,14 +387,14 @@
       axios.delete(`/api/tender-calenders/${id}`)
         .then(response => {
           // Deletion successful, show success message
-          Swal.fire('Deleted!', 'The calendar has been deleted.', 'success');
+          Swal.fire('Approved!', 'The calendar has been approved.', 'success');
           // Optionally, perform any post-deletion actions (e.g., refresh data)
           this.fetchCalenders();
         })
         .catch(error => {
           // Deletion failed, show error message
-          Swal.fire('Error', 'There was an error deleting the calendar.', 'error');
-          console.error('Error deleting calendar:', error);
+          Swal.fire('Error', 'There was an error approving the calendar.', 'error');
+          console.error('Error approving calendar:', error);
         });
     },
 
