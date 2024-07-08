@@ -106,6 +106,61 @@
 
 
 
+          <!-- Tender Schedule Times Table -->
+            <hr>
+            <h2>Tender Schedule Times</h2>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th>Stage of Tender</th>
+                <th>Form Buy Start</th>
+                <th>Form Buy End</th>
+                <th>Tender Start</th>
+                <th>Tender End</th>
+                <th>Tender Open</th>
+                <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(time, index) in form.scheduleTimes" :key="index">
+                <td>
+                    <input type="text" class="form-control" v-model="time.stage_of_tender">
+                </td>
+                <td>
+                    <input type="datetime-local" class="form-control" v-model="time.form_buy_start">
+                </td>
+                <td>
+                    <input type="datetime-local" class="form-control" v-model="time.form_buy_end">
+                </td>
+                <td>
+                    <input type="datetime-local" class="form-control" v-model="time.tender_start">
+                </td>
+                <td>
+                    <input type="datetime-local" class="form-control" v-model="time.tender_end">
+                </td>
+                <td>
+                    <input type="datetime-local" class="form-control" v-model="time.tender_open">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" @click="removeTime(index)">Remove</button>
+                </td>
+                </tr>
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <button type="button" class="btn btn-success btn-sm" @click="addNewTime">Add new time</button>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+
+
+
           <div class="form-group col-md-12">
           <label for="">শর্তাবলী</label>
           <vue-editor v-model="form.rules" api-key="nhnny39zzu3w0euy077ojdf9gk1n3mjpkobk25i228rt3qkz" style="height:250px;" :init="tinyInt"></vue-editor>
@@ -161,7 +216,18 @@
                 previous_ijara_price: 0,
                 six_percent_bitti: 0
             }
-          ]
+          ],
+        scheduleTimes: [
+                {
+                    id: '',
+                    stage_of_tender: '',
+                    form_buy_start: '',
+                    form_buy_end: '',
+                    tender_start: '',
+                    tender_end: '',
+                    tender_open: ''
+                }
+            ]
         },
         tinyInt:
                 {
@@ -255,7 +321,27 @@
       removeItem(index) {
         // Remove item from form's items array
         this.form.items.splice(index, 1);
-      }
+      },
+
+
+      addNewTime() {
+    // Add new time to the form's scheduleTimes array
+    this.form.scheduleTimes.push({
+      id: '',
+      stage_of_tender: '',
+      form_buy_start: '',
+      form_buy_end: '',
+      tender_start: '',
+      tender_end: '',
+      tender_open: ''
+    });
+  },
+  removeTime(index) {
+    // Remove time from form's scheduleTimes array
+    this.form.scheduleTimes.splice(index, 1);
+  }
+  
+
     }
   };
   </script>

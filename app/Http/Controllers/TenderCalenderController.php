@@ -16,7 +16,7 @@ class TenderCalenderController extends Controller
     {
         $status = $request->status;
 
-        $tenderCalenders = TenderCalender::with(['items','teams'])->where('status',$status)->orderBy('id','desc')->get();
+        $tenderCalenders = TenderCalender::with(['items','teams','scheduleTimes'])->where('status',$status)->orderBy('id','desc')->get();
         return response()->json($tenderCalenders);
     }
 
@@ -36,6 +36,13 @@ class TenderCalenderController extends Controller
             'items.*.ijara_price' => 'required|numeric',
             'items.*.previous_ijara_price' => 'required|numeric',
             'items.*.six_percent_bitti' => 'required|numeric',
+            'scheduleTimes' => 'required|array|min:1',
+            'scheduleTimes.*.stage_of_tender' => 'required|string',
+            'scheduleTimes.*.form_buy_start' => 'required|date',
+            'scheduleTimes.*.form_buy_end' => 'required|date',
+            'scheduleTimes.*.tender_start' => 'required|date',
+            'scheduleTimes.*.tender_end' => 'required|date',
+            'scheduleTimes.*.tender_open' => 'required|date',
         ]);
 
         // Check if validation fails
@@ -74,6 +81,19 @@ class TenderCalenderController extends Controller
                 'ijara_price' => $itemData['ijara_price'],
                 'previous_ijara_price' => $itemData['previous_ijara_price'],
                 'six_percent_bitti' => $itemData['six_percent_bitti'],
+            ]);
+        }
+
+
+           // Create Tender Schedule Times
+        foreach ($request->input('scheduleTimes') as $timeData) {
+            $tenderCalendar->scheduleTimes()->create([
+                'stage_of_tender' => $timeData['stage_of_tender'],
+                'form_buy_start' => $timeData['form_buy_start'],
+                'form_buy_end' => $timeData['form_buy_end'],
+                'tender_start' => $timeData['tender_start'],
+                'tender_end' => $timeData['tender_end'],
+                'tender_open' => $timeData['tender_open'],
             ]);
         }
 
@@ -300,9 +320,9 @@ class TenderCalenderController extends Controller
                 <td>".int_en_to_bn($key+1)."</td>
                 <td>$value->union_name</td>
                 <td>$value->hat_name</td>
-                <td>$value->previous_ijara_price</td>
-                <td>$value->six_percent_bitti</td>
-                <td>$value->ijara_price</td>
+                <td>".int_en_to_bn($value->previous_ijara_price)."</td>
+                <td>".int_en_to_bn($value->six_percent_bitti)."</td>
+                <td>".int_en_to_bn($value->ijara_price)."</td>
             </tr>";
         }
 

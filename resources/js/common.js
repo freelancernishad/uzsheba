@@ -27,6 +27,38 @@ export default {
         }
     },
     methods: {
+
+
+         formatBengaliDateTime(dateTime) {
+            const dateParts = dateTime.split(' ')[0].split('-');
+            const timeParts = dateTime.split(' ')[1].split(':');
+
+            const year = dateParts[0];
+            const month = dateParts[1];
+            const day = dateParts[2];
+
+            const hour = parseInt(timeParts[0], 10);
+            const minute = parseInt(timeParts[1], 10);
+
+            const bengaliMonths = [
+                "জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল",
+                "মে", "জুন", "জুলাই", "আগস্ট",
+                "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"
+            ];
+
+            const period = hour >= 5 && hour < 12 ? 'সকাল' :
+                           hour >= 12 && hour < 17 ? 'দুপুর' :
+                           hour >= 17 && hour < 20 ? 'বিকাল' : 'রাত';
+
+            const bengaliHour = hour % 12 === 0 ? 12 : hour % 12;
+            const bengaliMinute = minute;
+
+            const formattedTime = `${period} ${this.int_en_to_bn(bengaliHour)}টা ${this.int_en_to_bn(bengaliMinute)} মিনিট`;
+            const formattedDate = `${this.int_en_to_bn(day)}/${this.int_en_to_bn(month)}/${this.int_en_to_bn(year)}`;
+
+            return `${formattedDate} ${formattedTime}`;
+        },
+
         async callApi(method, url, dataObj ){
             try {
               return await axios({
@@ -80,30 +112,20 @@ export default {
         // },
 
 
-        int_en_to_bn(text=0) {
-            var result;
-            if (text == '0') {
-                result = '০';
-            } else if (text == '1') {
-                result = '১';
-            } else if (text == '2') {
-                result = '২';
-            } else if (text == '3') {
-                result = '৩';
-            } else if (text == '4') {
-                result = '৪';
-            } else if (text == '5') {
-                result = '৫';
-            } else if (text == '6') {
-                result = '৬';
-            } else if (text == '7') {
-                result = '৭';
-            } else if (text == '8') {
-                result = '৮';
-            } else if (text == '9') {
-                result = '৯';
-            }
-            return result;
+         int_en_to_bn(text) {
+            const enToBn = {
+                '0': '০',
+                '1': '১',
+                '2': '২',
+                '3': '৩',
+                '4': '৪',
+                '5': '৫',
+                '6': '৬',
+                '7': '৭',
+                '8': '৮',
+                '9': '৯'
+            };
+            return text.toString().split('').map(char => enToBn[char] || char).join('');
         },
 
 

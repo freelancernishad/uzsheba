@@ -4917,6 +4917,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           ijara_price: 0,
           previous_ijara_price: 0,
           six_percent_bitti: 0
+        }],
+        scheduleTimes: [{
+          id: '',
+          stage_of_tender: '',
+          form_buy_start: '',
+          form_buy_end: '',
+          tender_start: '',
+          tender_end: '',
+          tender_open: ''
         }]
       },
       tinyInt: {
@@ -5072,6 +5081,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     removeItem: function removeItem(index) {
       // Remove item from form's items array
       this.form.items.splice(index, 1);
+    },
+    addNewTime: function addNewTime() {
+      // Add new time to the form's scheduleTimes array
+      this.form.scheduleTimes.push({
+        id: '',
+        stage_of_tender: '',
+        form_buy_start: '',
+        form_buy_end: '',
+        tender_start: '',
+        tender_end: '',
+        tender_open: ''
+      });
+    },
+    removeTime: function removeTime(index) {
+      // Remove time from form's scheduleTimes array
+      this.form.scheduleTimes.splice(index, 1);
     }
   }
 });
@@ -5136,7 +5161,11 @@ __webpack_require__.r(__webpack_exports__);
       committes: {},
       committesModalVisible: false,
       modalVisible: false,
-      selectedTenderCalendar: {} // Placeholder for selected tender calendar data
+      selectedTenderCalendar: {},
+      // Placeholder for selected tender calendar data
+      selectedScheduleTimes: [],
+      // Add this to store selected schedule times
+      scheduleTimesModalVisible: false // Add this to control the new modal visibility
 
     };
   },
@@ -5159,6 +5188,10 @@ __webpack_require__.r(__webpack_exports__);
     handleClose: function handleClose() {
       this.tender_calender_id = '';
       this.committeeFormVisible = false;
+    },
+    showScheduleTimes: function showScheduleTimes(scheduleTimes) {
+      this.selectedScheduleTimes = scheduleTimes;
+      this.scheduleTimesModalVisible = true;
     },
     handleCommitteeFormSubmit: function handleCommitteeFormSubmit() {
       var _this = this;
@@ -12250,7 +12283,157 @@ var render = function render() {
     on: {
       click: _vm.addNewItem
     }
-  }, [_vm._v("Add new item")])])])], 2)]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Add new item")])])])], 2)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h2", [_vm._v("Tender Schedule Times")]), _vm._v(" "), _c("table", {
+    staticClass: "table table-striped"
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm._l(_vm.form.scheduleTimes, function (time, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: time.stage_of_tender,
+        expression: "time.stage_of_tender"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text"
+      },
+      domProps: {
+        value: time.stage_of_tender
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(time, "stage_of_tender", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: time.form_buy_start,
+        expression: "time.form_buy_start"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "datetime-local"
+      },
+      domProps: {
+        value: time.form_buy_start
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(time, "form_buy_start", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: time.form_buy_end,
+        expression: "time.form_buy_end"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "datetime-local"
+      },
+      domProps: {
+        value: time.form_buy_end
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(time, "form_buy_end", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: time.tender_start,
+        expression: "time.tender_start"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "datetime-local"
+      },
+      domProps: {
+        value: time.tender_start
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(time, "tender_start", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: time.tender_end,
+        expression: "time.tender_end"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "datetime-local"
+      },
+      domProps: {
+        value: time.tender_end
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(time, "tender_end", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: time.tender_open,
+        expression: "time.tender_open"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "datetime-local"
+      },
+      domProps: {
+        value: time.tender_open
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(time, "tender_open", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("button", {
+      staticClass: "btn btn-danger btn-sm",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeTime(index);
+        }
+      }
+    }, [_vm._v("Remove")])])]);
+  }), _vm._v(" "), _c("tr", [_c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", [_c("button", {
+    staticClass: "btn btn-success btn-sm",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.addNewTime
+    }
+  }, [_vm._v("Add new time")])])])], 2)]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-12"
   }, [_c("label", {
     attrs: {
@@ -12305,6 +12488,11 @@ var staticRenderFns = [function () {
       _c = _vm._self._c;
 
   return _c("thead", [_c("tr", [_c("th", [_vm._v("ক্রমিক নং")]), _vm._v(" "), _c("th", [_vm._v("ইউনিয়নের নাম")]), _vm._v(" "), _c("th", [_vm._v("হাট বাজারের নাম")]), _vm._v(" "), _c("th", [_vm._v("বিগত অর্থ বছরের ইজারা মূলের গড়")]), _vm._v(" "), _c("th", [_vm._v("৬% বিত্তি ")]), _vm._v(" "), _c("th", [_vm._v("ইজারা মূল্য")]), _vm._v(" "), _c("th", [_vm._v("Actions")])])]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("Stage of Tender")]), _vm._v(" "), _c("th", [_vm._v("Form Buy Start")]), _vm._v(" "), _c("th", [_vm._v("Form Buy End")]), _vm._v(" "), _c("th", [_vm._v("Tender Start")]), _vm._v(" "), _c("th", [_vm._v("Tender End")]), _vm._v(" "), _c("th", [_vm._v("Tender Open")]), _vm._v(" "), _c("th", [_vm._v("Actions")])])]);
 }];
 render._withStripped = true;
 
@@ -12391,6 +12579,13 @@ var render = function render() {
       staticClass: "btn btn-success btn-sm",
       on: {
         click: function click($event) {
+          return _vm.showScheduleTimes(calender.schedule_times);
+        }
+      }
+    }, [_vm._v("সময়সুচি")]), _vm._v(" "), _c("button", {
+      staticClass: "btn btn-success btn-sm",
+      on: {
+        click: function click($event) {
           return _vm.showModal(calender.items);
         }
       }
@@ -12445,7 +12640,7 @@ var render = function render() {
   }, [_c("thead", [_c("tr", [_c("th", [_vm._v("ক্রমিক নং")]), _vm._v(" "), _c("th", [_vm._v("ইউনিয়নের নাম")]), _vm._v(" "), _c("th", [_vm._v("হাট বাজারের নাম")]), _vm._v(" "), _c("th", [_vm._v("বিগত অর্থ বছরের ইজারা মূলের গড়")]), _vm._v(" "), _c("th", [_vm._v("৬% বিত্তি ")]), _vm._v(" "), _c("th", [_vm._v("ইজারা মূল্য")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.selectedTenderCalendar, function (item, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.union_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.hat_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.previous_ijara_price))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.six_percent_bitti))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.ijara_price))])]);
+    }, [_c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(index + 1)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.union_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.hat_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(item.previous_ijara_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(item.six_percent_bitti)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(item.ijara_price)))])]);
   }), 0)])])]), _vm._v(" "), _c("b-modal", {
     attrs: {
       size: "lg",
@@ -12475,7 +12670,7 @@ var render = function render() {
   }, [_c("thead", [_c("tr", [_c("th", [_vm._v("নাম")]), _vm._v(" "), _c("th", [_vm._v("পদবি")]), _vm._v(" "), _c("th", [_vm._v("মোবাইল")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.committes, function (committee, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(committee.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(committee.position))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(committee.phone))])]);
+    }, [_c("td", [_vm._v(_vm._s(committee.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(committee.position))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.int_en_to_bn(committee.phone)))])]);
   }), 0)])])]), _vm._v(" "), _c("b-modal", {
     attrs: {
       size: "lg",
@@ -12587,7 +12782,37 @@ var render = function render() {
     on: {
       click: _vm.handleCommitteeFormSubmit
     }
-  }, [_vm._v("Submit")])])], 1);
+  }, [_vm._v("Submit")])]), _vm._v(" "), _c("b-modal", {
+    attrs: {
+      size: "lg",
+      title: "Tender Schedule Times"
+    },
+    scopedSlots: _vm._u([{
+      key: "modal-footer",
+      fn: function fn() {
+        return [_c("button", {
+          staticClass: "btn btn-primary",
+          on: {
+            click: _vm.handleCloseModal
+          }
+        }, [_vm._v("Close")])];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.scheduleTimesModalVisible,
+      callback: function callback($$v) {
+        _vm.scheduleTimesModalVisible = $$v;
+      },
+      expression: "scheduleTimesModalVisible"
+    }
+  }, [_c("div", [_c("table", {
+    staticClass: "table"
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Stage of Tender")]), _vm._v(" "), _c("th", [_vm._v("Form Buy Start")]), _vm._v(" "), _c("th", [_vm._v("Form Buy End")]), _vm._v(" "), _c("th", [_vm._v("Tender Start")]), _vm._v(" "), _c("th", [_vm._v("Tender End")]), _vm._v(" "), _c("th", [_vm._v("Tender Open")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.selectedScheduleTimes, function (time, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_vm._v(_vm._s(time.stage_of_tender))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.form_buy_start)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.form_buy_end)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_start)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_end)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.formatBengaliDateTime(time.tender_open)))])]);
+  }), 0)])])])], 1);
 };
 
 var staticRenderFns = [function () {
@@ -16559,6 +16784,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    formatBengaliDateTime: function formatBengaliDateTime(dateTime) {
+      var dateParts = dateTime.split(' ')[0].split('-');
+      var timeParts = dateTime.split(' ')[1].split(':');
+      var year = dateParts[0];
+      var month = dateParts[1];
+      var day = dateParts[2];
+      var hour = parseInt(timeParts[0], 10);
+      var minute = parseInt(timeParts[1], 10);
+      var bengaliMonths = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+      var period = hour >= 5 && hour < 12 ? 'সকাল' : hour >= 12 && hour < 17 ? 'দুপুর' : hour >= 17 && hour < 20 ? 'বিকাল' : 'রাত';
+      var bengaliHour = hour % 12 === 0 ? 12 : hour % 12;
+      var bengaliMinute = minute;
+      var formattedTime = "".concat(period, " ").concat(this.int_en_to_bn(bengaliHour), "\u099F\u09BE ").concat(this.int_en_to_bn(bengaliMinute), " \u09AE\u09BF\u09A8\u09BF\u099F");
+      var formattedDate = "".concat(this.int_en_to_bn(day), "/").concat(this.int_en_to_bn(month), "/").concat(this.int_en_to_bn(year));
+      return "".concat(formattedDate, " ").concat(formattedTime);
+    },
     callApi: function callApi(method, url, dataObj) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -16618,33 +16859,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     }
     //     return output.join('');
     // },
-    int_en_to_bn: function int_en_to_bn() {
-      var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var result;
-
-      if (text == '0') {
-        result = '০';
-      } else if (text == '1') {
-        result = '১';
-      } else if (text == '2') {
-        result = '২';
-      } else if (text == '3') {
-        result = '৩';
-      } else if (text == '4') {
-        result = '৪';
-      } else if (text == '5') {
-        result = '৫';
-      } else if (text == '6') {
-        result = '৬';
-      } else if (text == '7') {
-        result = '৭';
-      } else if (text == '8') {
-        result = '৮';
-      } else if (text == '9') {
-        result = '৯';
-      }
-
-      return result;
+    int_en_to_bn: function int_en_to_bn(text) {
+      var enToBn = {
+        '0': '০',
+        '1': '১',
+        '2': '২',
+        '3': '৩',
+        '4': '৪',
+        '5': '৫',
+        '6': '৬',
+        '7': '৭',
+        '8': '৮',
+        '9': '৯'
+      };
+      return text.toString().split('').map(function (_char) {
+        return enToBn[_char] || _char;
+      }).join('');
     },
     checkUserPermission: function checkUserPermission(key) {
       if (!this.userPermission) return true;

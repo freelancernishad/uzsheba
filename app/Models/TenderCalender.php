@@ -39,6 +39,12 @@ class TenderCalender extends Model
         return $this->hasMany(TenderList::class, 'tender_calender_id');
     }
 
+
+    public function scheduleTimes()
+    {
+        return $this->hasMany(TenderScheduleTime::class, 'tender_calender_id');
+    }
+
 }
 
 

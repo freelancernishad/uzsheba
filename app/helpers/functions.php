@@ -10,6 +10,41 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
+
+function formatBengaliDateTime($dateTime) {
+    $date = new DateTime($dateTime);
+    $year = $date->format('Y');
+    $month = $date->format('m');
+    $day = $date->format('d');
+    $hour = (int)$date->format('H');
+    $minute = $date->format('i');
+
+    $bengaliMonths = [
+        "01" => "জানুয়ারি", "02" => "ফেব্রুয়ারি", "03" => "মার্চ", "04" => "এপ্রিল",
+        "05" => "মে", "06" => "জুন", "07" => "জুলাই", "08" => "আগস্ট",
+        "09" => "সেপ্টেম্বর", "10" => "অক্টোবর", "11" => "নভেম্বর", "12" => "ডিসেম্বর"
+    ];
+
+    if ($hour >= 5 && $hour < 12) {
+        $period = 'সকাল';
+    } elseif ($hour >= 12 && $hour < 17) {
+        $period = 'দুপুর';
+    } elseif ($hour >= 17 && $hour < 20) {
+        $period = 'বিকাল';
+    } else {
+        $period = 'রাত';
+    }
+
+    $bengaliHour = $hour % 12 === 0 ? 12 : $hour % 12;
+    $bengaliMinute = $minute;
+
+    $formattedTime = $period . ' ' . int_en_to_bn($bengaliHour) . 'টা ' . int_en_to_bn($bengaliMinute) . ' মিনিট';
+    $formattedDate = int_en_to_bn($day) . '/' . int_en_to_bn($month) . '/' . int_en_to_bn($year);
+
+    return $formattedDate . ' ' . $formattedTime;
+}
+
+
 function tenderSl(){
     $latestData = TenderList::latest()->first();
     if($latestData){

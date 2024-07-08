@@ -52,6 +52,7 @@
                 <a :href="`/calander/download/${calender.id}`" target="_blank" class="btn btn-success btn-sm" >ক্যালেন্ডার ডাউনলোড</a>
 
 
+                <button class="btn btn-success btn-sm" @click="showScheduleTimes(calender.schedule_times)">সময়সুচি</button>
                 <button class="btn btn-success btn-sm" @click="showModal(calender.items)">হাট বাজারের তালিকা</button>
 
 
@@ -91,12 +92,12 @@
       </thead>
       <tbody>
         <tr v-for="(item, index) in selectedTenderCalendar" :key="index">
-          <td>{{ index+1 }}</td>
+          <td>{{ int_en_to_bn(index+1) }}</td>
           <td>{{ item.union_name }}</td>
           <td>{{ item.hat_name }}</td>
-          <td>{{ item.previous_ijara_price }}</td>
-          <td>{{ item.six_percent_bitti }}</td>
-          <td>{{ item.ijara_price }}</td>
+          <td>{{ int_en_to_bn(item.previous_ijara_price) }}</td>
+          <td>{{ int_en_to_bn(item.six_percent_bitti) }}</td>
+          <td>{{ int_en_to_bn(item.ijara_price) }}</td>
         </tr>
       </tbody>
     </table>
@@ -124,7 +125,7 @@
         <tr v-for="(committee, index) in committes" :key="index">
           <td>{{ committee.name }}</td>
             <td>{{ committee.position }}</td>
-            <td>{{ committee.phone }}</td>
+            <td>{{ int_en_to_bn(committee.phone) }}</td>
         </tr>
       </tbody>
     </table>
@@ -178,6 +179,41 @@
 
 
 
+
+
+    <!-- Modal for Tender Schedule Times -->
+    <b-modal size="lg" v-model="scheduleTimesModalVisible" title="Tender Schedule Times">
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Stage of Tender</th>
+              <th>Form Buy Start</th>
+              <th>Form Buy End</th>
+              <th>Tender Start</th>
+              <th>Tender End</th>
+              <th>Tender Open</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(time, index) in selectedScheduleTimes" :key="index">
+              <td>{{ time.stage_of_tender }}</td>
+              <td>{{ formatBengaliDateTime(time.form_buy_start) }}</td>
+              <td>{{ formatBengaliDateTime(time.form_buy_end) }}</td>
+              <td>{{ formatBengaliDateTime(time.tender_start) }}</td>
+              <td>{{ formatBengaliDateTime(time.tender_end) }}</td>
+              <td>{{ formatBengaliDateTime(time.tender_open) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Modal Footer Slot -->
+      <template #modal-footer>
+        <button class="btn btn-primary" @click="handleCloseModal">Close</button>
+      </template>
+    </b-modal>
+
+
 </div>
 
   </template>
@@ -209,7 +245,12 @@
 
 
         modalVisible: false,
-        selectedTenderCalendar: {} // Placeholder for selected tender calendar data
+        selectedTenderCalendar: {}, // Placeholder for selected tender calendar data
+
+
+        selectedScheduleTimes: [], // Add this to store selected schedule times
+        scheduleTimesModalVisible: false // Add this to control the new modal visibility
+
       };
     },
     created() {
@@ -237,6 +278,10 @@
             this.committeeFormVisible = false;
         },
 
+        showScheduleTimes(scheduleTimes) {
+            this.selectedScheduleTimes = scheduleTimes;
+            this.scheduleTimesModalVisible = true;
+        },
 
 
         handleCommitteeFormSubmit() {

@@ -2181,6 +2181,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    formatBengaliDateTime: function formatBengaliDateTime(dateTime) {
+      var dateParts = dateTime.split(' ')[0].split('-');
+      var timeParts = dateTime.split(' ')[1].split(':');
+      var year = dateParts[0];
+      var month = dateParts[1];
+      var day = dateParts[2];
+      var hour = parseInt(timeParts[0], 10);
+      var minute = parseInt(timeParts[1], 10);
+      var bengaliMonths = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+      var period = hour >= 5 && hour < 12 ? 'সকাল' : hour >= 12 && hour < 17 ? 'দুপুর' : hour >= 17 && hour < 20 ? 'বিকাল' : 'রাত';
+      var bengaliHour = hour % 12 === 0 ? 12 : hour % 12;
+      var bengaliMinute = minute;
+      var formattedTime = "".concat(period, " ").concat(this.int_en_to_bn(bengaliHour), "\u099F\u09BE ").concat(this.int_en_to_bn(bengaliMinute), " \u09AE\u09BF\u09A8\u09BF\u099F");
+      var formattedDate = "".concat(this.int_en_to_bn(day), "/").concat(this.int_en_to_bn(month), "/").concat(this.int_en_to_bn(year));
+      return "".concat(formattedDate, " ").concat(formattedTime);
+    },
     callApi: function callApi(method, url, dataObj) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -2240,33 +2256,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     }
     //     return output.join('');
     // },
-    int_en_to_bn: function int_en_to_bn() {
-      var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var result;
-
-      if (text == '0') {
-        result = '০';
-      } else if (text == '1') {
-        result = '১';
-      } else if (text == '2') {
-        result = '২';
-      } else if (text == '3') {
-        result = '৩';
-      } else if (text == '4') {
-        result = '৪';
-      } else if (text == '5') {
-        result = '৫';
-      } else if (text == '6') {
-        result = '৬';
-      } else if (text == '7') {
-        result = '৭';
-      } else if (text == '8') {
-        result = '৮';
-      } else if (text == '9') {
-        result = '৯';
-      }
-
-      return result;
+    int_en_to_bn: function int_en_to_bn(text) {
+      var enToBn = {
+        '0': '০',
+        '1': '১',
+        '2': '২',
+        '3': '৩',
+        '4': '৪',
+        '5': '৫',
+        '6': '৬',
+        '7': '৭',
+        '8': '৮',
+        '9': '৯'
+      };
+      return text.toString().split('').map(function (_char) {
+        return enToBn[_char] || _char;
+      }).join('');
     },
     checkUserPermission: function checkUserPermission(key) {
       if (!this.userPermission) return true;
