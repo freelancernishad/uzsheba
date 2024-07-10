@@ -40,6 +40,10 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
+            "app/helpers/teams.php",
+            "app/helpers/items.php",
+            "app/helpers/scheduleTimes.php",
+            "app/helpers/calander_download.php",
             "app/helpers/functions.php"
         ]
     },

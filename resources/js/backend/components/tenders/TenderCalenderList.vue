@@ -41,13 +41,13 @@
               <td>
 
                 <button class="btn btn-info btn-sm" @click="showCommitteeForm(calender.id)" v-if="$route.params.status=='new'">মূল্যায়ন কমিটি তৈরি করুন</button>
-                <button class="btn btn-info btn-sm" @click="showCommittee(calender.teams)" v-else>মূল্যায়ন কমিটি দেখুন</button>
+                <button class="btn btn-info btn-sm" @click="showCommittee(calender.teams,calender.id)" v-else>মূল্যায়ন কমিটি দেখুন</button>
 
-                <a :href="`/calander/download/${calender.id}`" target="_blank" class="btn btn-success btn-sm" >ক্যালেন্ডার ডাউনলোড</a>
+                <a :href="`/calander/download/calander/${calender.id}`" target="_blank" class="btn btn-success btn-sm" >ক্যালেন্ডার ডাউনলোড</a>
 
 
                 <button class="btn btn-success btn-sm" @click="showScheduleTimes(calender.schedule_times,calender.id)">সময়সুচি</button>
-                <button class="btn btn-success btn-sm" @click="showModal(calender.items)">হাট বাজারের তালিকা</button>
+                <button class="btn btn-success btn-sm" @click="showModal(calender.items,calender.id)">হাট বাজারের তালিকা</button>
 
 
                 <button class="btn btn-info btn-sm" v-if="$route.params.status=='pending'" @click="confirmApprove(calender.id)">Approve</button>
@@ -95,6 +95,12 @@
         </tr>
       </tbody>
     </table>
+
+
+    <div style="text-align: center;">
+        <a style="font-size: 20px;padding: 4px 17px;" :href="`/calander/download/items/${calanderid}`" target="_blank" class="btn btn-success btn-sm" >ডাউনলোড</a>
+    </div>
+
   </div>
       <!-- Modal Footer Slot -->
       <template #modal-footer>
@@ -123,6 +129,14 @@
         </tr>
       </tbody>
     </table>
+
+
+
+
+    <div style="text-align: center;">
+        <a style="font-size: 20px;padding: 4px 17px;" :href="`/calander/download/teams/${calanderid}`" target="_blank" class="btn btn-success btn-sm" >ডাউনলোড</a>
+    </div>
+
   </div>
       <!-- Modal Footer Slot -->
       <template #modal-footer>
@@ -161,6 +175,8 @@
               </tr>
             </tbody>
           </table>
+
+
 
           <button type="button" class="btn btn-primary" v-if="loading">Please Wait....</button>
           <button type="button" class="btn btn-primary" v-else @click="handleCommitteeFormSubmit">Submit</button>
@@ -204,6 +220,16 @@
             </tr>
           </tbody>
         </table>
+
+
+
+        <div style="text-align: center;">
+            <a style="font-size: 20px;padding: 4px 17px;" :href="`/calander/download/schedule_times/${calanderid}`" target="_blank" class="btn btn-success btn-sm" >ডাউনলোড</a>
+        </div>
+
+
+
+
       </div>
       <!-- Modal Footer Slot -->
       <template #modal-footer>
@@ -324,13 +350,15 @@
         });
     },
 
-        showModal(items) {
+        showModal(items,id) {
+            this.calanderid = id;
             // Example: Fetch or set selected tender calendar data before showing modal
             this.selectedTenderCalendar = items;
             this.modalVisible = true; // Show the modal
         },
 
-        showCommittee(items) {
+        showCommittee(items,id) {
+            this.calanderid = id;
             // Example: Fetch or set selected tender calendar data before showing modal
             this.committes = items;
             this.committesModalVisible = true; // Show the modal

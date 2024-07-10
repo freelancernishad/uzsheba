@@ -125,7 +125,7 @@ Route::post('/tenders/{tender_id}', [TenderListController::class,'TenderForm']);
 
 Route::get('/pdf/tenders/{tender_id}', [TenderListController::class,'viewpdf']);
 
-Route::get('/calander/download/{id}', [TenderCalenderController::class,'calander_download']);
+Route::get('/calander/download/{type}/{id}', [TenderCalenderController::class,'calander_download']);
 
 
 
