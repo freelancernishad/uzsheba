@@ -137,12 +137,20 @@ class TenderListController extends Controller
 
 
 
+
+
+
         ini_set('max_execution_time', '60000');
         ini_set("pcre.backtrack_limit", "50000000000000000");
         ini_set('memory_limit', '12008M');
 
         // $pdf = LaravelMpdf::loadView('tender.notice');
         // return $pdf->stream("fghfg.pdf");
+
+
+
+
+
 
 
         $tender_list_count = TenderList::where('tender_id',$tender_id)->count();
@@ -152,9 +160,16 @@ class TenderListController extends Controller
 
         $row = TenderList::where('tender_id',$tender_id)->first();
 
-
-
         $uniouninfo = Uniouninfo::where('short_name_e', $row->union_name)->first();
+
+        $html = $this->pdfHTMLut($row,$uniouninfo);
+        if (!is_null($row->tender_calender_id) && $row->tender_calender_id !== '') {
+            $html = hat_bazzar_notice($row->id);
+        }
+
+
+
+
 
         $filename = time().".pdf";
         // return $this->pdfHTMLut($row,$uniouninfo);
@@ -164,7 +179,7 @@ class TenderListController extends Controller
                 'mode' => 'utf-8',
                 'format' => 'A4',
                 'setAutoTopMargin' => 'stretch',
-                'autoMarginPadding' => -18,
+                'autoMarginPadding' => 0,
                 'setAutoBottomMargin' => 'stretch'
             ]);
             $mpdf->SetDisplayMode('fullpage');
@@ -181,7 +196,7 @@ class TenderListController extends Controller
             // $mpdf->WriteHTML('<watermarkimage src="'.$watermark.'" alpha="0.1" size="80,80" />');
             $mpdf->SetDisplayMode('fullpage');
 
-            $mpdf->WriteHTML($this->pdfHTMLut($row,$uniouninfo));
+            $mpdf->WriteHTML($html);
             $mpdf->useSubstitutions = false;
             $mpdf->simpleTables = true;
             $mpdf->Output($filename, 'I');
@@ -383,10 +398,10 @@ class TenderListController extends Controller
 
 
     <div style='text-align:center'>
-        <p class='m-0'>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
-        <p class='m-0'>উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
-        <p class='m-0'>তেঁতুলিয়া, পঞ্চগড়।</p>
-        <p class='m-0'>www.tetulia.panchagarh.gov.bd</p>
+        <p style='margin:0' >গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
+        <p style='margin:0' >উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
+        <p style='margin:0' >তেঁতুলিয়া, পঞ্চগড়।</p>
+        <p style='margin:0' >www.tetulia.panchagarh.gov.bd</p>
 
     </div>
 

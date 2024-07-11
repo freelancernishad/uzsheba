@@ -44,6 +44,7 @@
             "app/helpers/items.php",
             "app/helpers/scheduleTimes.php",
             "app/helpers/calander_download.php",
+            "app/helpers/hat_bazzar_notice.php",
             "app/helpers/functions.php"
         ]
     },
