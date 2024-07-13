@@ -68,7 +68,13 @@ function upzilaConvert($name = '') {
         'বোদা' => 'boda',
         'তেঁতুলিয়া' => 'tetulia',
         'আটোয়ারী' => 'atwari',
-        'দেবীগঞ্জ' => 'debiganj'
+        'দেবীগঞ্জ' => 'debiganj',
+        'panchagarh' => 'পঞ্চগড় সদর',
+        'panchagarh' => 'পঞ্চগড়',
+        'boda' => 'বোদা',
+        'tetulia' => 'তেঁতুলিয়া',
+        'atwari' => 'আটোয়ারী',
+        'debiganj' => 'দেবীগঞ্জ'
     ];
     return $mapping[$name] ?? '';
 }
@@ -76,7 +82,7 @@ function upzilaConvert($name = '') {
 
 function getAddres($name = '') {
     $mapping = [
-         'panchagarh' =>'পঞ্চগড়',
+         'panchagarh' =>'পঞ্চগড় সদর,পঞ্চগড়',
          'boda' =>'বোদা,পঞ্চগড়',
          'tetulia' =>'তেঁতুলিয়া,পঞ্চগড়',
          'atwari' =>'আটোয়ারী,পঞ্চগড়',

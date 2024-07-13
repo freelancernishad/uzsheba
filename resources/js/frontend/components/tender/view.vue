@@ -28,7 +28,7 @@
         <h3 class="text-center">নিলাম দরপত্র বিজ্ঞপ্তি</h3>
 
 
-       <p>{{ tender.description }}</p>
+       <p>{{ tender.tender_name }}</p>
 
        <!-- <h4 class="text-center">বিবরণ</h4>
         <hr> -->
@@ -77,7 +77,7 @@
 
 
 
-       <p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>নিলামকৃত গাছের বিবরণ</u></p>
+       <!-- <p class='mb-0' style='text-align:center;text-weight:900;font-size:20px'><u>নিলামকৃত গাছের বিবরণ</u></p> -->
 
        <div style="word-wrap: break-word;" v-html="tender.tender_product_Number_Quantity"></div>
 
@@ -95,16 +95,14 @@
                                   <td style="text-align: center; width: 200px;" width="30%"></td>
                                   <td style="text-align: center;" width="40%">
                                       <div class="signature text-center position-relative">
-
-                                    সোহাগ চন্দ্র সাহা <br>
+                                    <img width="130px" :src="tender.uno_signature" alt="BD Logo"><br>
+                                    {{ tender.tenderCalendar.uno_name }} <br>
                                     উপজেলা নির্বাহী অফিসার <br>
-                                    তেঁতুলিয়া, পঞ্চগড়। <br>
-                                    ফোন: ০২৫৮৯৯৪২৬০১ <br>
-                                    e-mail: unotetulia@mopa.gov.bd
+                                    {{ tender.unoadress }} <br>
                                       </div>
                                   </td>
                               </tr>
-                          </table>';
+                          </table>
 
 
 

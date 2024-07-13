@@ -161,17 +161,20 @@ class TenderListController extends Controller
         $row = TenderList::where('tender_id',$tender_id)->first();
 
         $uniouninfo = Uniouninfo::where('short_name_e', $row->union_name)->first();
+        $filename = time().".pdf";
 
         $html = $this->pdfHTMLut($row,$uniouninfo);
+        $footer = $this->pdfFooter($row,$uniouninfo, $filename);
         if (!is_null($row->tender_calender_id) && $row->tender_calender_id !== '') {
             $html = hat_bazzar_notice($row->id);
+            $footer = hat_bazzar_notice_Footer($row->id);
         }
 
 
 
 
 
-        $filename = time().".pdf";
+
         // return $this->pdfHTMLut($row,$uniouninfo);
             $mpdf = new \Mpdf\Mpdf([
                 'default_font_size' => 11,
@@ -179,12 +182,12 @@ class TenderListController extends Controller
                 'mode' => 'utf-8',
                 'format' => 'A4',
                 'setAutoTopMargin' => 'stretch',
-                'autoMarginPadding' => 0,
+                'autoMarginPadding' => 8,
                 'setAutoBottomMargin' => 'stretch'
             ]);
             $mpdf->SetDisplayMode('fullpage');
             $mpdf->SetHTMLHeader($this->pdfHeader($row,$uniouninfo, $filename));
-            // $mpdf->SetHTMLFooter($this->pdfFooter($row,$uniouninfo, $filename));
+            $mpdf->SetHTMLFooter($footer);
             // $mpdf->SetHTMLHeader('Document Title|Center Text|{PAGENO}');
             $mpdf->defaultheaderfontsize = 10;
             $mpdf->defaultheaderfontstyle = 'B';
@@ -400,8 +403,8 @@ class TenderListController extends Controller
     <div style='text-align:center'>
         <p style='margin:0' >গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</p>
         <p style='margin:0' >উপজেলা নির্বাহী অফিসারের কার্যালয়</p>
-        <p style='margin:0' >তেঁতুলিয়া, পঞ্চগড়।</p>
-        <p style='margin:0' >www.tetulia.panchagarh.gov.bd</p>
+        <p style='margin:0' >".getAddres($uniouninfo->short_name_e)."</p>
+        <p style='margin:0' >www.$uniouninfo->short_name_e.panchagarh.gov.bd</p>
 
     </div>
 

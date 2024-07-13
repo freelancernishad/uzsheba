@@ -3,6 +3,7 @@
 use App\Models\Tender;
 use App\Models\TenderList;
 use Illuminate\Http\Request;
+use App\Models\TenderCalender;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\blogController;
 use App\Http\Controllers\RoleController;
@@ -211,7 +212,36 @@ if($union_name){
 
 Route::get('get/single/tender/{id}', function (Request $request,$id) {
 
-    return TenderList::find($id);
+
+
+
+       // Fetch the tender list by ID
+       $tenderList = TenderList::find($id);
+       if (!$tenderList) {
+           return "Tender List not found.";
+       }
+
+       // Get the tender calendar ID from the tender list
+       $tender_calender_id = $tenderList->tender_calender_id;
+
+       // Fetch the tender calendar with related teams, items, and schedule times
+       $tenderCalendar = TenderCalender::with(['teams', 'items', 'scheduleTimes'])->find($tender_calender_id);
+       if (!$tenderCalendar) {
+           return $tenderList;
+       }
+
+       $tenderList['tenderCalendar'] = $tenderCalendar;
+       $tenderList['unoadress'] = getAddres($tenderCalendar->union);
+       $tenderList['uno_signature'] = base64($tenderCalendar->uno_signature);
+
+
+       return $tenderList;
+
+
+
+
+
+
 
 });
 
