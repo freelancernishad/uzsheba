@@ -1657,7 +1657,7 @@ function SmsNocSmsSend($deccription = '', $applicant_mobile = '01909756552')
 {
 // return $applicant_mobile;
 
-    $smsnocapikey = '108|DuxHEDfb1kQKISfSZCJ980XfCKQ2mpwvCCLThVqf';
+    $smsnocapikey = '257|Jge1CWU3dsBioTX8j6sypVEhMS03PKaL4dNrbuE8872be133 ';
     $smsnocsenderid = '8809617611301';
 
 
