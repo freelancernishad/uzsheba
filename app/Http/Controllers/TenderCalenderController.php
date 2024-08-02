@@ -69,9 +69,11 @@ class TenderCalenderController extends Controller
             'union' => $request->union, // Use the 'union' field directly from request
             'dc_name' => $request->input('dc_name'),
             'dc_signature' => $request->input('dc_signature'),
+            'uno_name' => $request->input('uno_name'),
+            'uno_signature' => $request->input('uno_signature'),
             'rules' => $request->input('rules'),
             'onulipi' => $request->input('onulipi'),
-            'status' => 'new', // Set status to "pending"
+            'status' => 'pending', // Set status to "pending"
         ]);
 
         // Create Tender Calendar items with serial index_no

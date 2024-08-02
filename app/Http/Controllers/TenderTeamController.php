@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TenderCalender;
+use App\Models\TenderList;
 use App\Models\TenderTeam;
 use Illuminate\Http\Request;
+use App\Models\TenderCalender;
 use Illuminate\Support\Facades\Validator;
 
 class TenderTeamController extends Controller
@@ -52,6 +53,7 @@ class TenderTeamController extends Controller
             SmsNocSmsSend("ইযারা মূল্যায়নের পাসওয়ার্ড ".$pass,$item['phone'], $tenderCalendar->union);
             // Save the TenderTeam instance
             $team->save();
+
             // Push the created team to the array
             $createdTeams[] = $team;
         }
@@ -59,6 +61,40 @@ class TenderTeamController extends Controller
         $uno_name = $request->uno_name;
         $uno_signature = $request->uno_signature;
         $tenderCalendar->update(['status'=>'pending','uno_name'=>$uno_name,'uno_signature'=>$uno_signature]);
+
+
+        // Prepare the committee data
+        $committeeData = [];
+        foreach ($createdTeams as $index => $team) {
+            $committeeData['committe'.($index+1).'name'] = $team->name;
+            $committeeData['committe'.($index+1).'position'] = $team->position;
+            $committeeData['commette'.($index+1).'phone'] = $team->phone;
+            $committeeData['commette'.($index+1).'pass'] = $team->pass;
+        }
+
+        // Find all TenderList instances with the specified tender_calender_id
+        $tenderLists = TenderList::where('tender_calender_id', $request->tender_calender_id)->get();
+
+        // Check if any TenderList instances exist
+        if ($tenderLists->isEmpty()) {
+            // Handle the case where no TenderList instances were found
+            // For example, throw an exception or return an error response
+            throw new Exception('No TenderList records found.');
+        } else {
+            // Iterate over each TenderList instance and update it
+            foreach ($tenderLists as $tenderList) {
+                // Merge the committee data with the existing attributes
+                $tenderList->fill($committeeData);
+
+                // Save the updated TenderList
+                $tenderList->save();
+            }
+        }
+
+
+
+
+
 
         return response()->json($createdTeams, 201);
     }

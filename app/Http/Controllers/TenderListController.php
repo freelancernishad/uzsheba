@@ -28,7 +28,13 @@ class TenderListController extends Controller
         if($union_name && $status){
             if($status=='all'){
 
-                return TenderList::with(['tenderWorkOrders','resolutions'])->where(['union_name'=>$union_name])->orderBy('id','desc')->get();
+                return TenderList::with(['tenderWorkOrders', 'resolutions'])
+                ->where('union_name', $union_name)
+                ->where('status', '<>', 'approved') // Exclude status 'approved'
+                ->orderBy('id', 'desc')
+                ->get();
+
+
             }
 
             return TenderList::with(['tenderWorkOrders','resolutions'])->where(['union_name'=>$union_name,'status'=>$status])->orderBy('id','desc')->get();

@@ -216,6 +216,8 @@
           union: '', // Update with actual value if applicable
           dc_name: '',
           dc_signature: '',
+          uno_name: '',
+          uno_signature: '',
           rules: '',
           onulipi: '',
           status: 'Active',
@@ -272,6 +274,11 @@
           if (this.isNew) {
             // Add new Tender Calendar
             this.form.union = this.Users.unioun; // Replace with actual union value
+
+            this.form.uno_name = this.Users.name;
+            this.form.uno_signature = this.Users.signature;
+
+
             const res = await axios.post('/api/tender-calenders', this.form);
             console.log('Created:', res.data);
           } else {

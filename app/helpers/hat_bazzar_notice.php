@@ -27,8 +27,8 @@ function hat_bazzar_notice($id) {
         $tableRows .= '<td>' . int_en_to_bn($index + 1) . '</td>';
         $tableRows .= '<td>' . $item->union_name . '</td>';
         $tableRows .= '<td>' . $item->hat_name . '</td>';
-        $tableRows .= '<td>' . int_en_to_bn(number_format($item->gov_price, 2)) . '</td>';
-        $tableRows .= '<td>' . int_en_to_bn(number_format($item->fixed_price, 2)) . '</td>';
+        $tableRows .= '<td>' . int_en_to_bn(number_format($item->ijara_price, 2)) . '</td>';
+        $tableRows .= '<td>' . int_en_to_bn(number_format($item->form_price, 2)) . '</td>';
         $tableRows .= '</tr>';
     }
 
@@ -94,7 +94,7 @@ function hat_bazzar_notice($id) {
                 <th>ক্র.নং</th>
                 <th>ইউনিয়নের নাম</th>
                 <th>হাট-বাজারের নাম</th>
-                <th>সরকারি মূল্য (বিগত তিন বছরের গড় ইজারা মূল্যের ৬% বৃদ্ধিতে )</th>
+                <th>সরকারি মূল্য</th>
                 <th>সিডিউল মূল্য </th>
             </tr>
             $tableRows

@@ -40,8 +40,11 @@
               <td>{{ calender.calender_id }}</td>
               <td>
 
-                <button class="btn btn-info btn-sm" @click="showCommitteeForm(calender.id)" v-if="$route.params.status=='new'">মূল্যায়ন কমিটি তৈরি করুন</button>
-                <button class="btn btn-info btn-sm" @click="showCommittee(calender.teams,calender.id)" v-else>মূল্যায়ন কমিটি দেখুন</button>
+
+                <button class="btn btn-info btn-sm" @click="showCommitteeForm(calender.id)" v-if="$route.params.status=='approved'">মূল্যায়ন কমিটি তৈরি করুন</button>
+
+                <!-- <button class="btn btn-info btn-sm" @click="showCommittee(calender.teams,calender.id)" v-if="$route.params.status=='approved'">মূল্যায়ন কমিটি দেখুন</button> -->
+
 
                 <a :href="`/calander/download/calander/${calender.id}`" target="_blank" class="btn btn-success btn-sm" >ক্যালেন্ডার ডাউনলোড</a>
 

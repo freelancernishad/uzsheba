@@ -203,9 +203,9 @@ Route::get('get/all/tender/list', function (Request $request) {
 $union_name = $request->union_name;
 
 if($union_name){
-    return TenderList::where('union_name',$union_name)->orderBy('id','desc')->get();
+    return TenderList::where('union_name',$union_name)->where('status', '<>', 'approved')->orderBy('id','desc')->get();
 }else{
-    return TenderList::orderBy('id','desc')->get();
+    return TenderList::where('status', '<>', 'approved')->orderBy('id','desc')->get();
 
 }
 });
