@@ -218,7 +218,7 @@ export default {
                 autoplay: true,
             },
             vfImages: [
-                this.$asseturl + "assets/img/padmabanner.jpeg",
+                this.$asseturl + "assets/img/bd-logo.png",
                 // this.$asseturl + "assets/img/slider2.jpg",
                 // this.$asseturl + "assets/img/61ed07bbaac6b597183901.jpg",
                 // this.$asseturl + "assets/img/slide1.jpeg",
