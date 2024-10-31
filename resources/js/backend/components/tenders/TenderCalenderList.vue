@@ -56,7 +56,8 @@
                 <button class="btn btn-info btn-sm" v-if="$route.params.status=='pending'" @click="confirmApprove(calender.id)">Approve</button>
 
 
-                <button class="btn btn-info btn-sm" v-if="$route.params.status=='new'" @click="editCalender(calender.id)">Edit</button>
+                <!-- <button class="btn btn-info btn-sm" v-if="$route.params.status=='new'" @click="editCalender(calender.id)">Edit</button> -->
+                <button class="btn btn-info btn-sm" @click="editCalender(calender.id)">Edit</button>
 
                 <button class="btn btn-danger btn-sm" v-if="$route.params.status=='new'" @click="confirmDelete(calender.id)">Delete</button>
               </td>
