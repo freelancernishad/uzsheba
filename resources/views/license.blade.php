@@ -26,6 +26,7 @@
 
             </th>
              <th  style="text-align:right">
+                <img width="50px" src="{!! $badc_logos !!}" alt="">
                 {{-- <img width="50px" src="{!! $mojib_logos !!}" alt=""> --}}
 
             </th>
