@@ -269,6 +269,7 @@ export default {
 
 
 
+        console.log(subdomain)
 
 
 
@@ -302,6 +303,9 @@ export default {
                 subdomainget = subdomain[0];
 
             }
+            console.log(subdomainget)
+            console.log(sub)
+            console.log(subdomainCount)
 
 
             localStorage.setItem('unioun',subdomainget)
