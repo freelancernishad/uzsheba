@@ -3145,6 +3145,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       preLooding: false,
       submitLoad: false,
+      attactType: 'nid',
+      sToken: '',
       form: {
         unioun_name: '',
         sonod_name: 'ভবনের নকশা',
@@ -3265,7 +3267,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    checkNID: function checkNID() {
+    // async checkNID(){
+    //     this.preLooding = true
+    //     this.nidform['nidNumber'] = this.form.nid_no;
+    //     this.nidform['dateOfBirth'] = this.form.dateOfBirth;
+    //     var res = await this.callApi('post',`/api/citizen/information/nid`,this.nidform);
+    //     console.log(res)
+    //     if(res.data.status=='invaild dateOfBirth'){
+    //         this.form.appicant_name = ''
+    //         this.form.applicant_father_name = ''
+    //     }else if(res.data.status=='found'){
+    //         this.form.appicant_name = res.data.informations.fullNameBN
+    //         this.form.applicant_father_name = res.data.informations.fathersNameBN
+    //         this.form.district = res.data.informations.presentDistrict
+    //         this.form.upozila = res.data.informations.presentThana
+    //         this.form.union = res.data.informations.presentUnion
+    //         this.form.post = res.data.informations.presentPost
+    //         this.form.village = res.data.informations.presentVillage
+    //         this.form.passport_size_mage = res.data.informations.photoUrl
+    //     }else if(res.data.status=='not-found'){
+    //         this.form.appicant_name = ''
+    //     this.form.applicant_father_name = ''
+    //     }else{
+    //         this.form.appicant_name = ''
+    //         this.form.applicant_father_name = ''
+    //     }
+    //     this.preLooding = false
+    // },
+    getToken: function getToken() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -3274,39 +3303,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.preLooding = true;
-                _this.nidform['nidNumber'] = _this.form.nid_no;
-                _this.nidform['dateOfBirth'] = _this.form.dateOfBirth;
-                _context.next = 5;
-                return _this.callApi('post', "/api/citizen/information/nid", _this.nidform);
+                _context.next = 2;
+                return _this.callApi('get', "https://uniontax.xyz/api/token/genarate", []);
+
+              case 2:
+                res = _context.sent;
+                _this.sToken = res.data.apitoken;
+                _this.nidSearch = false;
 
               case 5:
-                res = _context.sent;
-                console.log(res);
-
-                if (res.data.status == 'invaild dateOfBirth') {
-                  _this.form.appicant_name = '';
-                  _this.form.applicant_father_name = '';
-                } else if (res.data.status == 'found') {
-                  _this.form.appicant_name = res.data.informations.fullNameBN;
-                  _this.form.applicant_father_name = res.data.informations.fathersNameBN;
-                  _this.form.district = res.data.informations.presentDistrict;
-                  _this.form.upozila = res.data.informations.presentThana;
-                  _this.form.union = res.data.informations.presentUnion;
-                  _this.form.post = res.data.informations.presentPost;
-                  _this.form.village = res.data.informations.presentVillage;
-                  _this.form.passport_size_mage = res.data.informations.photoUrl;
-                } else if (res.data.status == 'not-found') {
-                  _this.form.appicant_name = '';
-                  _this.form.applicant_father_name = '';
-                } else {
-                  _this.form.appicant_name = '';
-                  _this.form.applicant_father_name = '';
-                }
-
-                _this.preLooding = false;
-
-              case 9:
               case "end":
                 return _context.stop();
             }
@@ -3314,25 +3319,214 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    FileSelected: function FileSelected($event, parent_index) {
+    checkNID: function checkNID() {
       var _this2 = this;
 
-      var file = $event.target.files[0];
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var nidData, res, nidD;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this2.nidSearch = true; // if(this.nid_balance==0){
+                //     Swal.fire({
+                //                 title: 'দুঃখিত',
+                //                 text: `জাতীয় পরিচয়পত্র খোঁজার জন্য ব্যালেন্স নেই!`,
+                //                 icon: 'error',
+                //             })
+                //             this.nidSearch = false;
+                // }else{
 
-      if (file.size > 5048576) {
-        Notification.image_validation();
-      } else {
-        var reader = new FileReader();
+                if (!(_this2.attactType == 'nid')) {
+                  _context4.next = 20;
+                  break;
+                }
 
-        reader.onload = function (event) {
-          _this2.form[parent_index] = event.target.result; // console.log(event.target.result);
-        };
+                if (!(_this2.form.nid_no == '' && _this2.form.dateOfBirth == '')) {
+                  _context4.next = 7;
+                  break;
+                }
 
-        reader.readAsDataURL(file);
-      } //   console.log($event.target.result);
+                Swal.fire({
+                  title: 'দুঃখিত',
+                  text: "\u099C\u09BE\u09A4\u09C0\u09DF \u09AA\u09B0\u09BF\u099A\u09DF\u09AA\u09A4\u09CD\u09B0 \u09A8\u0982 \u098F\u09AC\u0982 \u099C\u09A8\u09CD\u09AE \u09A4\u09BE\u09B0\u09BF\u0996 \u09AA\u09C2\u09B0\u09A3 \u0995\u09B0\u09A4\u09C7 \u09B9\u09AC\u09C7",
+                  icon: 'error'
+                });
+                _this2.nidSearch = false;
+                _context4.next = 18;
+                break;
 
+              case 7:
+                if (!(_this2.form.nid_no.length == 10 || _this2.form.nid_no.length == 13 || _this2.form.nid_no.length == 17)) {
+                  _context4.next = 16;
+                  break;
+                }
+
+                nidData = {
+                  'nidNumber': _this2.form.nid_no,
+                  'dateOfBirth': _this2.form.dateOfBirth
+                };
+                _context4.next = 11;
+                return _this2.callApi('post', "https://uniontax.xyz/api/citizen/information/nid?sToken=".concat(_this2.sToken), nidData);
+
+              case 11:
+                res = _context4.sent;
+
+                if (res.data.status != 200) {
+                  Swal.fire({
+                    title: 'দুঃখিত',
+                    text: "\u0995\u09BF\u099B\u09C1 \u098F\u0995\u099F\u09BE \u09B8\u09AE\u09B8\u09CD\u09AF\u09BE \u09B9\u09DF\u09C7\u099B\u09C7 ",
+                    icon: 'error',
+                    confirmButtonColor: 'red',
+                    confirmButtonText: "\u0986\u09AC\u09BE\u09B0 \u099A\u09C7\u09B7\u09CD\u099F\u09BE \u0995\u09B0\u09C1\u09A8",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  }).then( /*#__PURE__*/function () {
+                    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(result) {
+                      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                        while (1) {
+                          switch (_context2.prev = _context2.next) {
+                            case 0:
+                              if (result.isConfirmed) {
+                                _this2.getToken();
+                              }
+
+                            case 1:
+                            case "end":
+                              return _context2.stop();
+                          }
+                        }
+                      }, _callee2);
+                    }));
+
+                    return function (_x) {
+                      return _ref.apply(this, arguments);
+                    };
+                  }());
+                } else {
+                  nidD = res.data.informations;
+                  _this2.form.appicant_name = res.data.informations.fullNameBN;
+                  _this2.form.applicant_father_name = res.data.informations.fathersNameBN;
+                  _this2.form.district = res.data.informations.presentDistrict;
+                  _this2.form.upozila = res.data.informations.presentThana;
+                  _this2.form.union = res.data.informations.presentUnion;
+                  _this2.form.post = res.data.informations.presentPost;
+                  _this2.form.village = res.data.informations.presentVillage;
+                  _this2.form.passport_size_mage = res.data.informations.photoUrl;
+                }
+
+                _this2.nidSearch = false;
+                _context4.next = 18;
+                break;
+
+              case 16:
+                Swal.fire({
+                  title: 'দুঃখিত',
+                  text: "\u099C\u09BE\u09A4\u09C0\u09DF \u09AA\u09B0\u09BF\u099A\u09DF\u09AA\u09A4\u09CD\u09B0 \u09A8\u0982 \u0985\u09AC\u09B6\u09CD\u09AF\u0987 \u09E7\u09E6 \u0985\u09A5\u09AC\u09BE \u09E7\u09E9 \u0985\u09A5\u09AC\u09BE \u09E7\u09ED \u09A1\u09BF\u099C\u09BF\u099F\u09C7\u09B0 \u09B9\u09A4\u09C7 \u09B9\u09AC\u09C7",
+                  icon: 'error'
+                });
+                _this2.nidSearch = false;
+
+              case 18:
+                _context4.next = 36;
+                break;
+
+              case 20:
+                if (!(_this2.form.applicant_birth_certificate_number == '' && _this2.form.dateOfBirth == '')) {
+                  _context4.next = 25;
+                  break;
+                }
+
+                Swal.fire({
+                  title: 'দুঃখিত',
+                  text: "\u099C\u09A8\u09CD\u09AE \u09A8\u09BF\u09AC\u09A8\u09CD\u09A7\u09A8 \u09A8\u0982 \u098F\u09AC\u0982 \u099C\u09A8\u09CD\u09AE \u09A4\u09BE\u09B0\u09BF\u0996 \u09AA\u09C2\u09B0\u09A3 \u0995\u09B0\u09A4\u09C7 \u09B9\u09AC\u09C7",
+                  icon: 'error'
+                });
+                _this2.nidSearch = false;
+                _context4.next = 36;
+                break;
+
+              case 25:
+                if (!(_this2.form.applicant_birth_certificate_number.length == 17)) {
+                  _context4.next = 34;
+                  break;
+                }
+
+                nidData = {
+                  'nidNumber': _this2.form.applicant_birth_certificate_number,
+                  'dateOfBirth': _this2.form.dateOfBirth
+                };
+                _context4.next = 29;
+                return _this2.callApi('post', "https://uniontax.xyz/api/citizen/information/brn?sToken=".concat(_this2.sToken), nidData);
+
+              case 29:
+                res = _context4.sent;
+
+                if (res.data.status != 200) {
+                  Swal.fire({
+                    title: 'দুঃখিত',
+                    text: "\u0995\u09BF\u099B\u09C1 \u098F\u0995\u099F\u09BE \u09B8\u09AE\u09B8\u09CD\u09AF\u09BE \u09B9\u09DF\u09C7\u099B\u09C7 ",
+                    icon: 'error',
+                    confirmButtonColor: 'red',
+                    confirmButtonText: "\u0986\u09AC\u09BE\u09B0 \u099A\u09C7\u09B7\u09CD\u099F\u09BE \u0995\u09B0\u09C1\u09A8",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  }).then( /*#__PURE__*/function () {
+                    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(result) {
+                      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+                        while (1) {
+                          switch (_context3.prev = _context3.next) {
+                            case 0:
+                              if (result.isConfirmed) {
+                                _this2.getToken();
+                              }
+
+                            case 1:
+                            case "end":
+                              return _context3.stop();
+                          }
+                        }
+                      }, _callee3);
+                    }));
+
+                    return function (_x2) {
+                      return _ref2.apply(this, arguments);
+                    };
+                  }());
+                } else {
+                  nidD = res.data.informations; // this.form.image = nidD.photoUrl
+
+                  _this2.form.appicant_name = res.data.informations.fullNameBN;
+                  _this2.form.applicant_father_name = res.data.informations.fathersNameBN;
+                  _this2.form.district = res.data.informations.presentDistrict;
+                  _this2.form.upozila = res.data.informations.presentThana;
+                  _this2.form.union = res.data.informations.presentUnion;
+                  _this2.form.post = res.data.informations.presentPost;
+                  _this2.form.village = res.data.informations.presentVillage;
+                  _this2.form.passport_size_mage = res.data.informations.photoUrl;
+                }
+
+                _this2.nidSearch = false;
+                _context4.next = 36;
+                break;
+
+              case 34:
+                Swal.fire({
+                  title: 'দুঃখিত',
+                  text: "\u099C\u09A8\u09CD\u09AE \u09A8\u09BF\u09AC\u09A8\u09CD\u09A7\u09A8 \u09A8\u0982 \u09E7\u09ED \u09A1\u09BF\u099C\u09BF\u099F\u09C7\u09B0 \u09B9\u09A4\u09C7 \u09B9\u09AC\u09C7",
+                  icon: 'error'
+                });
+                _this2.nidSearch = false;
+
+              case 36:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     },
-    FileSelectedLoop: function FileSelectedLoop($event, parent_index) {
+    FileSelected: function FileSelected($event, parent_index) {
       var _this3 = this;
 
       var file = $event.target.files[0];
@@ -3343,7 +3537,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var reader = new FileReader();
 
         reader.onload = function (event) {
-          _this3.form['land_copy'][parent_index] = event.target.result; // console.log(event.target.result);
+          _this3.form[parent_index] = event.target.result; // console.log(event.target.result);
+        };
+
+        reader.readAsDataURL(file);
+      } //   console.log($event.target.result);
+
+    },
+    FileSelectedLoop: function FileSelectedLoop($event, parent_index) {
+      var _this4 = this;
+
+      var file = $event.target.files[0];
+
+      if (file.size > 5048576) {
+        Notification.image_validation();
+      } else {
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+          _this4.form['land_copy'][parent_index] = event.target.result; // console.log(event.target.result);
         };
 
         reader.readAsDataURL(file);
@@ -3357,108 +3569,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.land_copy.splice(index, 1);
     },
     getdivisionFun: function getdivisionFun() {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var res;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return _this4.callApi('get', "/api/getdivisions", []);
-
-              case 2:
-                res = _context2.sent;
-                _this4.getdivisions = res.data;
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    getdistrictFun: function getdistrictFun() {
       var _this5 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var res;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return _this5.callApi('get', "/api/getdistrict?id=".concat(_this5.Pdivision), []);
-
-              case 2:
-                res = _context3.sent;
-                _this5.getdistricts = res.data;
-
-              case 4:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    getthanaFun: function getthanaFun() {
-      var _this6 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var res, resOwn;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.next = 2;
-                return _this6.callApi('get', "/api/getthana?id=".concat(_this6.applicant_present_district), []);
-
-              case 2:
-                res = _context4.sent;
-                _this6.getthanas = res.data;
-                _context4.next = 6;
-                return _this6.callApi('get', "/api/getdistrict?ownid=".concat(_this6.applicant_present_district), []);
-
-              case 6:
-                resOwn = _context4.sent;
-                _this6.form.district = resOwn.data.bn_name;
-
-              case 8:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }))();
-    },
-    getuniounFun: function getuniounFun() {
-      var _this7 = this;
-
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var ress, res;
+        var res;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _this7.callApi('get', "/api/getthana?ownid=".concat(_this7.thana), []);
+                return _this5.callApi('get', "/api/getdivisions", []);
 
               case 2:
-                ress = _context5.sent;
-                // console.log(ress.data.bn_name);
-                _this7.form.upozila = ress.data.bn_name; // this.getuniouns = ress.data;
-
-                _context5.next = 6;
-                return _this7.callApi('get', "/api/getunioun?id=".concat(_this7.thana), []);
-
-              case 6:
                 res = _context5.sent;
-                _this7.getuniouns = res.data;
+                _this5.getdivisions = res.data;
 
-              case 8:
+              case 4:
               case "end":
                 return _context5.stop();
             }
@@ -3466,17 +3592,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    onSubmit: function onSubmit() {
-      var _this8 = this;
+    getdistrictFun: function getdistrictFun() {
+      var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var res;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _this8.$root.$emit("bv::show::modal", _this8.infoModal.id);
+                _context6.next = 2;
+                return _this6.callApi('get', "/api/getdistrict?id=".concat(_this6.Pdivision), []);
 
-              case 1:
+              case 2:
+                res = _context6.sent;
+                _this6.getdistricts = res.data;
+
+              case 4:
               case "end":
                 return _context6.stop();
             }
@@ -3484,21 +3616,101 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee6);
       }))();
     },
-    finalSubmit: function finalSubmit() {
-      var _this9 = this;
+    getthanaFun: function getthanaFun() {
+      var _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var res, datas;
+        var res, resOwn;
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _this9.submitLoad = true;
-                _context7.next = 3;
-                return _this9.callApi("post", "/api/sonod/submit", _this9.form);
+                _context7.next = 2;
+                return _this7.callApi('get', "/api/getthana?id=".concat(_this7.applicant_present_district), []);
+
+              case 2:
+                res = _context7.sent;
+                _this7.getthanas = res.data;
+                _context7.next = 6;
+                return _this7.callApi('get', "/api/getdistrict?ownid=".concat(_this7.applicant_present_district), []);
+
+              case 6:
+                resOwn = _context7.sent;
+                _this7.form.district = resOwn.data.bn_name;
+
+              case 8:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
+    },
+    getuniounFun: function getuniounFun() {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var ress, res;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return _this8.callApi('get', "/api/getthana?ownid=".concat(_this8.thana), []);
+
+              case 2:
+                ress = _context8.sent;
+                // console.log(ress.data.bn_name);
+                _this8.form.upozila = ress.data.bn_name; // this.getuniouns = ress.data;
+
+                _context8.next = 6;
+                return _this8.callApi('get', "/api/getunioun?id=".concat(_this8.thana), []);
+
+              case 6:
+                res = _context8.sent;
+                _this8.getuniouns = res.data;
+
+              case 8:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }))();
+    },
+    onSubmit: function onSubmit() {
+      var _this9 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                _this9.$root.$emit("bv::show::modal", _this9.infoModal.id);
+
+              case 1:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9);
+      }))();
+    },
+    finalSubmit: function finalSubmit() {
+      var _this10 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+        var res, datas;
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                _this10.submitLoad = true;
+                _context10.next = 3;
+                return _this10.callApi("post", "/api/sonod/submit", _this10.form);
 
               case 3:
-                res = _context7.sent;
+                res = _context10.sent;
                 datas = res.data;
 
                 if (res.status == 201) {
@@ -3507,14 +3719,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
               case "end":
-                return _context7.stop();
+                return _context10.stop();
             }
           }
-        }, _callee7);
+        }, _callee10);
       }))();
     }
   },
   mounted: function mounted() {
+    this.getToken();
     this.form.unioun_name = localStorage.getItem('unioun');
     this.getdivisionFun();
     this.form.deposite_date = this.dateformatGlobal()[0];

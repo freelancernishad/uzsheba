@@ -807,6 +807,8 @@ export default {
       },
       preLooding: false,
       submitLoad: false,
+      attactType: 'nid',
+      sToken: '',
       form: {
         unioun_name:'',
         sonod_name:'ভবনের নকশা',
@@ -935,37 +937,175 @@ export default {
 
   methods: {
 
-    async checkNID(){
-        this.preLooding = true
-        this.nidform['nidNumber'] = this.form.nid_no;
-        this.nidform['dateOfBirth'] = this.form.dateOfBirth;
+    // async checkNID(){
+    //     this.preLooding = true
+    //     this.nidform['nidNumber'] = this.form.nid_no;
+    //     this.nidform['dateOfBirth'] = this.form.dateOfBirth;
 
-        var res = await this.callApi('post',`/api/citizen/information/nid`,this.nidform);
-        console.log(res)
+    //     var res = await this.callApi('post',`/api/citizen/information/nid`,this.nidform);
+    //     console.log(res)
 
-        if(res.data.status=='invaild dateOfBirth'){
-            this.form.appicant_name = ''
-            this.form.applicant_father_name = ''
-        }else if(res.data.status=='found'){
-            this.form.appicant_name = res.data.informations.fullNameBN
-            this.form.applicant_father_name = res.data.informations.fathersNameBN
-            this.form.district = res.data.informations.presentDistrict
-            this.form.upozila = res.data.informations.presentThana
-            this.form.union = res.data.informations.presentUnion
-            this.form.post = res.data.informations.presentPost
-            this.form.village = res.data.informations.presentVillage
-            this.form.passport_size_mage = res.data.informations.photoUrl
-        }else if(res.data.status=='not-found'){
-            this.form.appicant_name = ''
-        this.form.applicant_father_name = ''
-        }else{
-            this.form.appicant_name = ''
-            this.form.applicant_father_name = ''
-        }
-        this.preLooding = false
+    //     if(res.data.status=='invaild dateOfBirth'){
+    //         this.form.appicant_name = ''
+    //         this.form.applicant_father_name = ''
+    //     }else if(res.data.status=='found'){
+    //         this.form.appicant_name = res.data.informations.fullNameBN
+    //         this.form.applicant_father_name = res.data.informations.fathersNameBN
+    //         this.form.district = res.data.informations.presentDistrict
+    //         this.form.upozila = res.data.informations.presentThana
+    //         this.form.union = res.data.informations.presentUnion
+    //         this.form.post = res.data.informations.presentPost
+    //         this.form.village = res.data.informations.presentVillage
+    //         this.form.passport_size_mage = res.data.informations.photoUrl
+    //     }else if(res.data.status=='not-found'){
+    //         this.form.appicant_name = ''
+    //     this.form.applicant_father_name = ''
+    //     }else{
+    //         this.form.appicant_name = ''
+    //         this.form.applicant_father_name = ''
+    //     }
+    //     this.preLooding = false
 
-    },
+    // },
 
+    async getToken(){
+            var res = await this.callApi('get',`https://uniontax.xyz/api/token/genarate`,[]);
+            this.sToken = res.data.apitoken;
+            this.nidSearch = false;
+        },
+
+
+
+        async checkNID(){
+            this.nidSearch = true;
+
+
+            // if(this.nid_balance==0){
+            //     Swal.fire({
+            //                 title: 'দুঃখিত',
+            //                 text: `জাতীয় পরিচয়পত্র খোঁজার জন্য ব্যালেন্স নেই!`,
+            //                 icon: 'error',
+            //             })
+            //             this.nidSearch = false;
+            // }else{
+
+                if(this.attactType=='nid'){
+                    if(this.form.nid_no=='' && this.form.dateOfBirth==''){
+                        Swal.fire({
+                            title: 'দুঃখিত',
+                            text: `জাতীয় পরিচয়পত্র নং এবং জন্ম তারিখ পূরণ করতে হবে`,
+                            icon: 'error',
+                        })
+                        this.nidSearch = false;
+                    }else{
+                        if(this.form.nid_no.length==10 || this.form.nid_no.length==13 || this.form.nid_no.length==17){
+                        var nidData = {
+                            'nidNumber':this.form.nid_no,
+                            'dateOfBirth':this.form.dateOfBirth
+                        }
+                        var res = await this.callApi('post',`https://uniontax.xyz/api/citizen/information/nid?sToken=${this.sToken}`,nidData);
+                        if(res.data.status!=200){
+                        Swal.fire({
+                            title: 'দুঃখিত',
+                            text: `কিছু একটা সমস্যা হয়েছে `,
+                            icon: 'error',
+                            confirmButtonColor: 'red',
+                            confirmButtonText: `আবার চেষ্টা করুন`,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then(async (result) => {
+                            if (result.isConfirmed) {
+                                this.getToken();
+                            }
+                        })
+                        }else{
+
+                            var nidD = res.data.informations;
+                            this.form.appicant_name = res.data.informations.fullNameBN
+                            this.form.applicant_father_name = res.data.informations.fathersNameBN
+                            this.form.district = res.data.informations.presentDistrict
+                            this.form.upozila = res.data.informations.presentThana
+                            this.form.union = res.data.informations.presentUnion
+                            this.form.post = res.data.informations.presentPost
+                            this.form.village = res.data.informations.presentVillage
+                            this.form.passport_size_mage = res.data.informations.photoUrl
+
+                        }
+
+                        this.nidSearch = false;
+                    }else{
+                        Swal.fire({
+                            title: 'দুঃখিত',
+                            text: `জাতীয় পরিচয়পত্র নং অবশ্যই ১০ অথবা ১৩ অথবা ১৭ ডিজিটের হতে হবে`,
+                            icon: 'error',
+                        })
+                        this.nidSearch = false;
+                    }
+
+                }
+            }else{
+
+                if(this.form.applicant_birth_certificate_number=='' && this.form.dateOfBirth==''){
+                        Swal.fire({
+                            title: 'দুঃখিত',
+                            text: `জন্ম নিবন্ধন নং এবং জন্ম তারিখ পূরণ করতে হবে`,
+                            icon: 'error',
+                        })
+                        this.nidSearch = false;
+                    }else{
+                        if(this.form.applicant_birth_certificate_number.length==17){
+                        var nidData = {
+                            'nidNumber':this.form.applicant_birth_certificate_number,
+                            'dateOfBirth':this.form.dateOfBirth
+                        }
+                        var res = await this.callApi('post',`https://uniontax.xyz/api/citizen/information/brn?sToken=${this.sToken}`,nidData);
+                        if(res.data.status!=200){
+                        Swal.fire({
+                            title: 'দুঃখিত',
+                            text: `কিছু একটা সমস্যা হয়েছে `,
+                            icon: 'error',
+                            confirmButtonColor: 'red',
+                            confirmButtonText: `আবার চেষ্টা করুন`,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then(async (result) => {
+                            if (result.isConfirmed) {
+                                this.getToken();
+                            }
+                        })
+                        }else{
+
+                         
+
+                            var nidD = res.data.informations;
+                          // this.form.image = nidD.photoUrl
+                            this.form.appicant_name = res.data.informations.fullNameBN
+                            this.form.applicant_father_name = res.data.informations.fathersNameBN
+                            this.form.district = res.data.informations.presentDistrict
+                            this.form.upozila = res.data.informations.presentThana
+                            this.form.union = res.data.informations.presentUnion
+                            this.form.post = res.data.informations.presentPost
+                            this.form.village = res.data.informations.presentVillage
+                            this.form.passport_size_mage = res.data.informations.photoUrl
+
+                        }
+
+                        this.nidSearch = false;
+                    }else{
+                        Swal.fire({
+                            title: 'দুঃখিত',
+                            text: `জন্ম নিবন্ধন নং ১৭ ডিজিটের হতে হবে`,
+                            icon: 'error',
+                        })
+                        this.nidSearch = false;
+                    }
+
+                }
+            }
+        // }
+
+
+        },
 
 
 
@@ -1053,7 +1193,7 @@ export default {
     },
   },
   mounted() {
-
+    this.getToken();
     this.form.unioun_name = localStorage.getItem('unioun');
 
 
