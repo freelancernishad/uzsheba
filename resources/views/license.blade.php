@@ -82,7 +82,7 @@
     $originalDate =$row->approved_date;
     $newDate = date("d/m/Y", strtotime($originalDate));
 
-    $tomorrow = date("d/m/Y", strtotime("+1095 day"));
+    $tomorrow = date("d/m/Y", strtotime($originalDate . " +1095 days"));
 
     ?>
 
